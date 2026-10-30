@@ -52,7 +52,7 @@ public final class CreateSpellbookPonderPlugin implements PonderPlugin {
     public void registerTags(PonderTagRegistrationHelper<ResourceLocation> helper) {
         ResourceLocation tag = id(ARCANE_TAG);
         helper.registerTag(tag)
-                .title("奥术工程")
+                .title("奥术动力学")
                 .description("把法术接入 Create 的动力、物流与流体网络。")
                 .addToIndex()
                 .item(dev.createspellbook.reactor.ReactorContent.CASING.get().asItem())

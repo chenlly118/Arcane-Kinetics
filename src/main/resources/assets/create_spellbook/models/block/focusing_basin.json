@@ -1,5 +1,5 @@
 {
-  "credit": "Arcane Engineering: independently hand-drawn pixels and authored cuboids",
+  "credit": "Arcane Kinetics: independently hand-drawn pixels and authored cuboids",
   "parent": "minecraft:block/block",
   "ambientocclusion": true,
   "textures": {

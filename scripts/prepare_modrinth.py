@@ -10,16 +10,16 @@ from urllib.parse import quote
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def request(path, patch=None):
+def request(path, patch=None, *, raw=None):
     token = os.environ.get('MODRINTH_TOKEN')
     if not token:
         raise SystemExit('Missing MODRINTH_TOKEN Actions Secret.')
-    headers = {'User-Agent': 'ArcaneEngineering-release/0.3.0', 'Authorization': token}
-    data = None if patch is None else json.dumps(patch).encode('utf-8')
+    headers = {'User-Agent': 'ArcaneKinetics-release/0.3.0', 'Authorization': token}
+    data = raw if raw is not None else (None if patch is None else json.dumps(patch).encode('utf-8'))
     if data is not None:
-        headers['Content-Type'] = 'application/json'
+        headers['Content-Type'] = 'image/png' if raw is not None else 'application/json'
     req = urllib.request.Request('https://api.modrinth.com/v2/' + path, data=data,
-                                 headers=headers, method='GET' if patch is None else 'PATCH')
+                                 headers=headers, method='GET' if data is None else 'PATCH')
     try:
         with urllib.request.urlopen(req, timeout=60) as response:
             body = response.read()
@@ -39,8 +39,10 @@ def main():
     args = parser.parse_args()
     config = json.loads((ROOT / 'release/project.json').read_text(encoding='utf-8'))
     approvals = json.loads((ROOT / 'release/approvals.json').read_text(encoding='utf-8'))
-    assert approvals['version'] == config['version'] and all(approvals.get(k) is True for k in
-        ('license_approved', 'third_party_cleared', 'public_release_approved')), 'Publication is not approved'
+    required = ('license_approved', 'third_party_cleared')
+    if args.submit:
+        required += ('public_release_approved',)
+    assert approvals['version'] == config['version'] and all(approvals.get(k) is True for k in required), 'Project metadata or publication is not approved'
     project = request('project/' + quote(args.project, safe=''))
     assert project['slug'] == config['modrinth_slug'], 'Unexpected Modrinth project Slug'
     assert not config.get('modrinth_project_id') or project['id'] == config['modrinth_project_id'], 'Unexpected Modrinth project ID'
@@ -60,8 +62,16 @@ def main():
         patch = {k: v for k, v in desired.items() if current.get(k) != v}
         if patch:
             request(path, patch)
+        if config.get('icon'):
+            icon_path = (ROOT / config['icon']).resolve()
+            assert icon_path.is_relative_to(ROOT.resolve()), 'Icon must be inside the project'
+            icon = icon_path.read_bytes()
+            assert icon.startswith(b'\x89PNG\r\n\x1a\n') and len(icon) <= 256 * 1024, 'Expected a PNG icon of at most 256 KiB'
+            request(path + '/icon?ext=png', raw=icon)
         project = request(path)
         assert project['license']['id'] == 'MIT', 'Modrinth MIT license was not saved'
+        assert project['title'] == config['name'], 'Modrinth project name was not saved'
+        assert not config.get('icon') or project.get('icon_url'), 'Modrinth project icon was not saved'
     if args.submit and project['status'] == 'draft':
         assert project['versions'], 'Cannot submit a project without a version'
         request(path, {'status': 'processing', 'requested_status': 'approved'})
@@ -72,7 +82,8 @@ def main():
         with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
             output.write('modrinth_id=' + project['id'] + '\n')
     print(json.dumps({'id': project['id'], 'slug': project['slug'], 'status': project['status'],
-                      'license': project['license']['id']}))
+                      'title': project['title'], 'license': project['license']['id'],
+                      'icon_url': project.get('icon_url'), 'versions': project['versions']}))
 
 
 if __name__ == '__main__':

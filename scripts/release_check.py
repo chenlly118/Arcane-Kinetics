@@ -50,6 +50,14 @@ def check(jar=None, publish=False):
             require(not pattern.search(contents), f'{rule} detected in {name} (value omitted)')
         require(not re.search(r'[A-Za-z]:[\\/]+(?:Users|Desktop)[\\/]', contents), f'Personal absolute path in {name}')
     resources = ROOT / 'src/main/resources'
+    metadata = (resources / 'META-INF/neoforge.mods.toml').read_text(encoding='utf-8')
+    require('displayName="' + project['name'] + '"' in metadata, 'Mod display name differs from project metadata')
+    if project.get('icon'):
+        icon = ROOT / project['icon']
+        require(icon.is_file(), 'Project icon is missing')
+        require('logoFile="' + icon.name + '"' in metadata, 'Mod metadata does not reference the project icon')
+        if icon.is_file():
+            require(icon.read_bytes().startswith(b'\x89PNG\r\n\x1a\n') and icon.stat().st_size <= 256 * 1024, 'Project icon must be PNG, at most 256 KiB')
     for path in sorted(resources.rglob('*')):
         if path.is_file() and path.suffix in {'.json', '.mcmeta'}:
             try:
@@ -68,7 +76,7 @@ def check(jar=None, publish=False):
             require(len(entries) == len(set(entries)), 'Duplicate JAR entries')
             require(archive.testzip() is None, 'JAR CRC failure')
             require(not any('/gametest/' in n or n.endswith(('.jar', '.args', '.log')) for n in entries), 'Test or dependency payload in production JAR')
-            require(all(n.endswith('/') or n == 'META-INF/MANIFEST.MF' or n.startswith(('dev/createspellbook/', 'assets/', 'data/')) or n in {'pack.mcmeta', 'create_spellbook.mixins.json', 'META-INF/neoforge.mods.toml', 'META-INF/LICENSE', 'META-INF/THIRD_PARTY_NOTICES.md'} for n in entries), 'Unexpected production namespace')
+            require(all(n.endswith('/') or n == 'META-INF/MANIFEST.MF' or n.startswith(('dev/createspellbook/', 'assets/', 'data/')) or n in {'logo.png', 'pack.mcmeta', 'create_spellbook.mixins.json', 'META-INF/neoforge.mods.toml', 'META-INF/LICENSE', 'META-INF/THIRD_PARTY_NOTICES.md'} for n in entries), 'Unexpected production namespace')
             for name in entries:
                 if name.endswith('.class'):
                     require(int.from_bytes(archive.read(name)[6:8], 'big') == 65, f'Not Java 21 bytecode: {name}')

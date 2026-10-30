@@ -1,5 +1,5 @@
 {
-  "itemGroup.create_spellbook": "Arcane Engineering",
+  "itemGroup.create_spellbook": "Arcane Kinetics",
   "school.create_spellbook.mechanical": "Mechanical",
   "item.create_spellbook.enchanted_wrench": "Enchanted Wrench",
   "block.create_spellbook.arcane_crank": "Arcane Crank",
@@ -257,7 +257,7 @@
   "create_spellbook.ponder.arcane_casting_arm_modes.header": "Arcane Casting Arm: Three Modes",
   "create_spellbook.ponder.focusing_basin.header": "Focusing Basin: Collecting Mana",
   "create_spellbook.ponder.arcane_depot.header": "Arcane Depot: Spell Processing",
-  "create_spellbook.ponder.tag.arcane_engineering": "Arcane Engineering",
+  "create_spellbook.ponder.tag.arcane_engineering": "Arcane Kinetics",
   "create_spellbook.ponder.tag.arcane_engineering.description": "Spells wired into Create kinetics, logistics and fluid networks.",
   "create_spellbook.ponder.shared.reactor_assembly_intro": "A Black Hole Reactor is a cube of Arcane Casing, 5 to 19 blocks on each side.",
   "create_spellbook.ponder.shared.reactor_assembly_floor": "Start with the floor. All twelve edges must be Arcane Casing.",

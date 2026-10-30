@@ -1,5 +1,5 @@
 {
-  "itemGroup.create_spellbook": "奥术工程",
+  "itemGroup.create_spellbook": "奥术动力学",
   "school.create_spellbook.mechanical": "机械",
   "item.create_spellbook.enchanted_wrench": "魔化扳手",
   "block.create_spellbook.arcane_crank": "奥术曲柄",
@@ -257,7 +257,7 @@
   "create_spellbook.ponder.arcane_casting_arm_modes.header": "奥术施法装置：三种模式",
   "create_spellbook.ponder.focusing_basin.header": "聚魔盆：收集液态法力",
   "create_spellbook.ponder.arcane_depot.header": "魔化置物台：法术加工",
-  "create_spellbook.ponder.tag.arcane_engineering": "奥术工程",
+  "create_spellbook.ponder.tag.arcane_engineering": "奥术动力学",
   "create_spellbook.ponder.tag.arcane_engineering.description": "把法术接入 Create 的动力、物流与流体网络。",
   "create_spellbook.ponder.shared.reactor_assembly_intro": "黑洞反应器由奥术机壳围成立方体，边长可以是 5 到 19 格。",
   "create_spellbook.ponder.shared.reactor_assembly_floor": "先铺底层。十二条棱边必须全部使用奥术机壳。",

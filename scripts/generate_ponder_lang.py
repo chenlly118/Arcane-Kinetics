@@ -21,7 +21,7 @@ ZH = {
     'create_spellbook.ponder.arcane_depot.header': '魔化置物台：法术加工',
     'create_spellbook.ponder.scroll_printer.header': '卷轴印刷机：纸张变卷轴',
     'create_spellbook.ponder.arcane_reactor.header': '奥术反应装置：自动施法',
-    'create_spellbook.ponder.tag.arcane_engineering': '奥术工程',
+    'create_spellbook.ponder.tag.arcane_engineering': '奥术动力学',
     'create_spellbook.ponder.tag.arcane_engineering.description': '把法术接入 Create 的动力、物流与流体网络。',
 
     # Shared text
@@ -132,7 +132,7 @@ EN = {
     'create_spellbook.ponder.arcane_depot.header': 'Arcane Depot: Spell Processing',
     'create_spellbook.ponder.scroll_printer.header': 'Scroll Printer: Paper into Scrolls',
     'create_spellbook.ponder.arcane_reactor.header': 'Arcane Auto Caster: Automatic Casting',
-    'create_spellbook.ponder.tag.arcane_engineering': 'Arcane Engineering',
+    'create_spellbook.ponder.tag.arcane_engineering': 'Arcane Kinetics',
     'create_spellbook.ponder.tag.arcane_engineering.description': 'Spells wired into Create kinetics, logistics and fluid networks.',
 
     'create_spellbook.ponder.shared.reactor_assembly_intro': 'A Black Hole Reactor is a cube of Arcane Casing, 5 to 19 blocks on each side.',

@@ -1,5 +1,13 @@
 # Changelog / 更新日志
 
+## Unreleased / 未发布
+
+- 项目更名为 **Arcane Kinetics／奥术动力学**；同步模组展示名、创造物品栏和思索标签。
+- 使用作者提供的聚魔盆原生物品截图作为项目图标，并配置模组列表图标。
+- 本次仅更新项目页面与源码；已发布的 0.3.0 文件保留原样。
+
+Renamed the project to **Arcane Kinetics**, updated display names and added the supplied Focusing Basin icon. These source changes will reach the game in a future release; the published 0.3.0 files are retained.
+
 ## 0.3.0 — First public beta / 首个公开测试版（2026-10-30）
 
 This is the first public release. Earlier 0.1.x–0.2.x versions were internal development builds; the public version remains **0.3.0**.

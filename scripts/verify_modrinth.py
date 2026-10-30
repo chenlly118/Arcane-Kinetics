@@ -15,7 +15,7 @@ def main():
     parser.add_argument('--file', type=Path, required=True)
     parser.add_argument('--pin-dependencies', action='store_true', help='Pin reviewed dependency files after MC-Publish creates project-level dependencies')
     args = parser.parse_args()
-    headers = {'User-Agent': 'ArcaneEngineering-release-verification/0.3.0'}
+    headers = {'User-Agent': 'ArcaneKinetics-release-verification/0.3.0'}
     if os.environ.get('MODRINTH_TOKEN'):
         headers['Authorization'] = os.environ['MODRINTH_TOKEN']
     url = 'https://api.modrinth.com/v2/project/' + quote(args.project, safe='') + '/version/' + quote(args.version, safe='')

@@ -4,7 +4,9 @@ license="MIT"
 [[mods]]
 modId="create_spellbook"
 version="${version}"
-displayName="Arcane Engineering"
+displayName="Arcane Kinetics"
+logoFile="logo.png"
+logoBlur=false
 authors="Sakura"
 description='''Mechanical spells, spell-powered automation and black-hole reactors for Create and Iron's Spells 'n Spellbooks.'''
 [[mixins]]

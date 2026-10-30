@@ -158,7 +158,7 @@ def main():
     cube('rear latch', [7, 4, 14.75], [9, 7, 15.5], 'brass')
     cube('left clip', [.5, 4, 7], [1.25, 7, 9], 'clasp')
     cube('right clip', [14.75, 4, 7], [15.5, 7, 9], 'clasp')
-    model = {'credit': 'Arcane Engineering: independently hand-drawn pixels and authored cuboids',
+    model = {'credit': 'Arcane Kinetics: independently hand-drawn pixels and authored cuboids',
              'parent': 'minecraft:block/block', 'ambientocclusion': True,
              'textures': {'basin': 'create_spellbook:block/focusing_basin', 'particle': 'create_spellbook:block/focusing_basin_particle'},
              'elements': elements}

@@ -23,7 +23,7 @@
 `reactor_mana_interface`、`reactor_port`、`reactor_output`、`black_hole_reaction_core`、
 `black_hole_energy_core`、`black_hole_reaction_shaft`，它们打开完全相同的四幕。
 
-Ponder 索引中新增标签 `create_spellbook:arcane_engineering`（奥术工程）。
+Ponder 索引中新增标签 `create_spellbook:arcane_engineering`（奥术动力学）。
 
 ## 结构快照
 

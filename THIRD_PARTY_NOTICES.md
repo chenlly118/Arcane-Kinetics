@@ -1,4 +1,4 @@
-# Third-party notices — Arcane Engineering 0.3.0
+# Third-party notices — Arcane Kinetics 0.3.0
 
 The author confirmed asset redistribution rights and approved the MIT public
 release on 2026-10-30. The MIT file covers material the author is entitled to
@@ -50,6 +50,10 @@ https://github.com/iron431/irons-spells-n-spellbooks/blob/1.21/LICENSE.md
 These dependency JARs are not distributed inside the addon.
 
 ## Supplied and project-authored assets
+
+The project icon (`src/main/resources/logo.png`) is the author's supplied
+in-game Focusing Basin image, copied without redrawing or changing its pixels.
+It depicts the independently authored basin described above.
 
 The user supplied the spell emitter and auto-caster geometry/atlases and the
 Engineer's Handbook model/material archive. Liquid Divine Soul textures and

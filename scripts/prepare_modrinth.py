@@ -44,7 +44,11 @@ def main():
     project = request('project/' + quote(args.project, safe=''))
     assert project['slug'] == config['modrinth_slug'], 'Unexpected Modrinth project Slug'
     assert not config.get('modrinth_project_id') or project['id'] == config['modrinth_project_id'], 'Unexpected Modrinth project ID'
-    assert project['project_type'] == 'mod', 'Expected a Mod project'
+    # Modrinth derives the type from uploaded versions; a new empty draft is
+    # reported as 'project' until its first NeoForge version is uploaded.
+    empty_draft = (project['project_type'] == 'project' and project['status'] == 'draft'
+                   and not project['versions'])
+    assert project['project_type'] == 'mod' or empty_draft, 'Expected a Mod or empty draft project: ' + project['project_type']
     path = 'project/' + project['id']
     if args.sync:
         repository = 'https://github.com/' + config['github_repository']

@@ -5,7 +5,7 @@
 ## 项目与许可
 
 - GitHub：[`chenlly118/create-Spellbook`](https://github.com/chenlly118/create-Spellbook)，用户已创建，最后核实为 private；目标 public。GitHub 连接可写源码，不提供可见性管理接口。
-- Modrinth：用户已创建 [`create-spellbook`](https://modrinth.com/project/create-spellbook/settings)；展示名为 `create：Spellbook`，使用已确认 Slug `create-spellbook`；MC-Publish v3.3 支持 Slug，认证后自动解析真实 ID，公开 API 当前返回 404。
+- Modrinth：用户已创建 [`create-spellbook`](https://modrinth.com/project/create-spellbook/settings)，已通过 Secret 认证核实正式 ID 为 `HTyTLSgC`。使用 Slug 发布；空草稿在首次上传版本前被 API 标记为通用 `project` 类型。
 - 版本保留 **0.3.0**，标签 **v0.3.0**；GitHub prerelease、Modrinth beta。Mod ID 保持 `create_spellbook`，展示名为奥术工程 / Arcane Engineering。
 - 原创代码 MIT，署名 Sakura。作者确认提供素材原创或有分发权，并确认不存在 Create 美术资源二次分发；`release/approvals.json` 三项为 true。依据与上游例外见 [许可记录](LICENSING_REVIEW.md)及 [第三方声明](../THIRD_PARTY_NOTICES.md)。
 - 聚魔盆已独立手绘替换旧 Create 换色资源；机械投影通过运行时模型及着色器实现蓝色透明效果。

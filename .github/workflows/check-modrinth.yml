@@ -1,0 +1,25 @@
+name: Check Modrinth project
+on:
+  push:
+    branches: [codex/check-modrinth]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read project identity without exposing credentials
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+          headers = {'User-Agent': 'ArcaneEngineering-release/0.3.0', 'Authorization': os.environ['MODRINTH_TOKEN']}
+          req = urllib.request.Request('https://api.modrinth.com/v2/project/create-spellbook', headers=headers)
+          with urllib.request.urlopen(req, timeout=45) as r:
+              project = json.load(r)
+          keys = ['id', 'slug', 'title', 'project_type', 'status', 'requested_status', 'license', 'loaders', 'game_versions', 'versions', 'source_url', 'client_side', 'server_side']
+          print(json.dumps({k: project.get(k) for k in keys}))
+          PY

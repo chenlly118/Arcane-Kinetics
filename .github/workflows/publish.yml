@@ -132,6 +132,16 @@ jobs:
       - name: Publish the same JAR to GitHub and Modrinth
         uses: Kira-NT/mc-publish@c23376546a97f5ba7984e94445da359459b14419 # v3.3
         with:
+          curseforge-id: '1773802'
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-dependencies: |
+            328085(required)
+            855414(required)
+            309927(required)
+            388172(required)
+            1492763(required)
+            658587(required)
+            238222(optional)
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-tag: ${{ env.RELEASE_TAG }}
           github-commitish: ${{ steps.request.outputs.source_sha }}

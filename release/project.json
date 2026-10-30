@@ -17,16 +17,63 @@
   "license": "MIT",
   "client_side": "required",
   "server_side": "required",
-  "categories": ["technology", "magic"],
+  "categories": [
+    "technology",
+    "magic"
+  ],
   "description": "Mechanical spells, spell-powered automation and black-hole reactors for Create and Iron's Spells 'n Spellbooks.",
   "description_zh": "联动机械动力与铁魔法，加入机械法术、自动施法与卷轴印刷，以及黑洞应力反应器。",
   "dependencies": [
-    {"project": "create", "project_id": "LNytGWDc", "version_id": "n7NADxiG", "type": "required"},
-    {"project": "irons-spells-n-spellbooks", "project_id": "s4OWxYQQ", "version_id": "slKLosTb", "type": "required"},
-    {"project": "curios", "project_id": "vvuO3ImH", "version_id": "yohfFbgD", "type": "required"},
-    {"project": "geckolib", "project_id": "8BmcQJ2H", "version_id": "Grwn5rUB", "type": "required"},
-    {"project": "irons-lib", "project_id": "9nfaJPtX", "version_id": "lUwUKYPl", "type": "required"},
-    {"project": "playeranimator", "project_id": "gedNE4y2", "version_id": "HJZB6bmA", "type": "required"},
-    {"project": "jei", "project_id": "u6dRKJwZ", "version_id": "iv3KiVkE", "type": "optional"}
-  ]
+    {
+      "project": "create",
+      "project_id": "LNytGWDc",
+      "version_id": "n7NADxiG",
+      "type": "required",
+      "curseforge_project_id": 328085
+    },
+    {
+      "project": "irons-spells-n-spellbooks",
+      "project_id": "s4OWxYQQ",
+      "version_id": "slKLosTb",
+      "type": "required",
+      "curseforge_project_id": 855414
+    },
+    {
+      "project": "curios",
+      "project_id": "vvuO3ImH",
+      "version_id": "yohfFbgD",
+      "type": "required",
+      "curseforge_project_id": 309927
+    },
+    {
+      "project": "geckolib",
+      "project_id": "8BmcQJ2H",
+      "version_id": "Grwn5rUB",
+      "type": "required",
+      "curseforge_project_id": 388172
+    },
+    {
+      "project": "irons-lib",
+      "project_id": "9nfaJPtX",
+      "version_id": "lUwUKYPl",
+      "type": "required",
+      "curseforge_project_id": 1492763
+    },
+    {
+      "project": "playeranimator",
+      "project_id": "gedNE4y2",
+      "version_id": "HJZB6bmA",
+      "type": "required",
+      "curseforge_project_id": 658587
+    },
+    {
+      "project": "jei",
+      "project_id": "u6dRKJwZ",
+      "version_id": "iv3KiVkE",
+      "type": "optional",
+      "curseforge_project_id": 238222
+    }
+  ],
+  "curseforge_project_id": 1773802,
+  "curseforge_slug": "arcane-kinetics"
 }

@@ -1,0 +1,11 @@
+{
+  "project_id": 1773802,
+  "project_slug": "arcane-kinetics",
+  "version": "0.3.0",
+  "source_tag": "v0.3.0",
+  "source_commit": "fa5d3a3361865b04165bbaec617aa0d1fcc40ea4",
+  "jar": "create-spellbook-1.21.1-neoforge-0.3.0.jar",
+  "sha256": "0cabf25e53847b4e62a915ccb679a055ce3239152476e4df97fbf6a85b9fdb8b",
+  "publish_existing_release_approved": true,
+  "scope": "Publish the previously approved 0.3.0 JAR to CurseForge; do not rebuild or publish the unreleased branding changes."
+}

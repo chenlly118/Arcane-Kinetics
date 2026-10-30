@@ -1,0 +1,78 @@
+name: Publish existing 0.3.0 to CurseForge
+on:
+  create:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: Type publish-curseforge-v0.3.0
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: curseforge-v0.3.0
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.confirmation == 'publish-curseforge-v0.3.0') ||
+      (github.event_name == 'create' && github.event.ref_type == 'branch' && github.event.ref == 'codex/curseforge/v0.3.0')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the upload credential without exposing it
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+        run: test -n "$CURSEFORGE_TOKEN" || { echo 'Missing CURSEFORGE_TOKEN Actions Secret'; exit 1; }
+      - name: Download the existing release and verify its approved hash
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/curseforge-upload
+          gh release download v0.3.0 --pattern create-spellbook-1.21.1-neoforge-0.3.0.jar --dir build/curseforge-upload
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          approval = json.loads(Path('release/curseforge-0.3.0.json').read_text())
+          assert approval['publish_existing_release_approved'] is True
+          assert approval['project_id'] == 1773802 and approval['version'] == '0.3.0'
+          jar = Path('build/curseforge-upload') / approval['jar']
+          assert hashlib.sha256(jar.read_bytes()).hexdigest() == approval['sha256'], 'Wrong release file'
+          print('Verified the original 0.3.0 JAR:', approval['sha256'])
+          PY
+      - name: Upload only to CurseForge with reviewed metadata
+        id: publish
+        uses: Kira-NT/mc-publish@c23376546a97f5ba7984e94445da359459b14419 # v3.3.2
+        with:
+          curseforge-id: '1773802'
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          files: build/curseforge-upload/create-spellbook-1.21.1-neoforge-0.3.0.jar
+          name: Arcane Kinetics 0.3.0 Beta
+          version: '0.3.0'
+          version-type: beta
+          changelog-file: release/curseforge-0.3.0.md
+          loaders: neoforge
+          game-versions: 1.21.1
+          game-version-filter: releases
+          java: '21'
+          environment: client | server
+          curseforge-dependencies: |
+            328085(required)
+            855414(required)
+            309927(required)
+            388172(required)
+            1492763(required)
+            658587(required)
+            238222(optional)
+          retry-attempts: '1'
+          fail-mode: fail
+      - name: Record the resulting file ID
+        env:
+          FILE_ID: ${{ steps.publish.outputs.curseforge-version }}
+        run: |
+          [[ "$FILE_ID" =~ ^[0-9]+$ ]]
+          echo "Uploaded file ID: $FILE_ID"
+          echo "https://www.curseforge.com/minecraft/mc-mods/arcane-kinetics/files/$FILE_ID" >> "$GITHUB_STEP_SUMMARY"

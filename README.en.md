@@ -1,10 +1,10 @@
-# Arcane Engineering · 奥术工程
+# Arcane Engineering
 
 [简体中文](README.md) · [Changelog](CHANGELOG.md) · [Modpack permission](MODPACK_PERMISSIONS.md)
 
 A **Minecraft 1.21.1 / NeoForge** addon connecting Create with Iron's Spells 'n Spellbooks. Cast mechanical spells, automate spell processing and scroll printing, and power Create networks with a black-hole reactor.
 
-The first public **0.3.0 Beta** is available on [GitHub Releases](https://github.com/chenlly118/create-Spellbook/releases/tag/v0.3.0). Files are uploaded to [Modrinth](https://modrinth.com/project/create-spellbook); the new project is awaiting moderation. See the [release review](docs/PRE_RELEASE_REVIEW.md) for verification.
+The first public **0.3.0 Beta** is available on [GitHub Releases](https://github.com/chenlly118/Arcane-Engineering/releases/tag/v0.3.0). Files are uploaded to [Modrinth](https://modrinth.com/project/create-spellbook); the new project is awaiting moderation. See the [release review](docs/PRE_RELEASE_REVIEW.md) for verification.
 
 ## Features
 

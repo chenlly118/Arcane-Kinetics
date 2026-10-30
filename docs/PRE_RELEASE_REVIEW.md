@@ -4,7 +4,7 @@
 
 ## 项目与许可
 
-- GitHub：[`chenlly118/create-Spellbook`](https://github.com/chenlly118/create-Spellbook)，已由用户切换为 public，源码和工作流均已提交。
+- GitHub：[`chenlly118/Arcane-Engineering`](https://github.com/chenlly118/Arcane-Engineering)，已由用户切换为 public，源码和工作流均已提交。
 - Modrinth：用户已创建 [`create-spellbook`](https://modrinth.com/project/create-spellbook/settings)，已通过 Secret 认证核实正式 ID 为 `HTyTLSgC`。使用 Slug 发布；空草稿在首次上传版本前被 API 标记为通用 `project` 类型。
 - 版本保留 **0.3.0**，标签 **v0.3.0**；GitHub prerelease、Modrinth beta。Mod ID 保持 `create_spellbook`，展示名为奥术工程 / Arcane Engineering。
 - 原创代码 MIT，署名 Sakura。作者确认提供素材原创或有分发权，并确认不存在 Create 美术资源二次分发；`release/approvals.json` 三项为 true。依据与上游例外见 [许可记录](LICENSING_REVIEW.md)及 [第三方声明](../THIRD_PARTY_NOTICES.md)。
@@ -40,9 +40,9 @@ Java 21、Minecraft 1.21.1、NeoForge 21.1.251+。首发核对 Create 6.0.9、Ir
 ## 远程结果
 
 - 发布源码 commit：`fa5d3a3361865b04165bbaec617aa0d1fcc40ea4`，版本标签 `v0.3.0`。
-- [正式构建](https://github.com/chenlly118/create-Spellbook/actions/runs/41017841524)：成功；412 个源码文件及 235 个资源通过校验。
-- [发布工作流](https://github.com/chenlly118/create-Spellbook/actions/runs/41017949710)：全部步骤成功，上传后回读 GitHub JAR 并逐字节比较，Modrinth SHA-512 / SHA-1 与版本依赖检查通过。
-- [GitHub Release](https://github.com/chenlly118/create-Spellbook/releases/tag/v0.3.0)：public、非草稿、prerelease；主 JAR 与 `SHA256SUMS.txt` 已附加。
+- [正式构建](https://github.com/chenlly118/Arcane-Engineering/actions/runs/41017841524)：成功；412 个源码文件及 235 个资源通过校验。
+- [发布工作流](https://github.com/chenlly118/Arcane-Engineering/actions/runs/41017949710)：全部步骤成功，上传后回读 GitHub JAR 并逐字节比较，Modrinth SHA-512 / SHA-1 与版本依赖检查通过。
+- [GitHub Release](https://github.com/chenlly118/Arcane-Engineering/releases/tag/v0.3.0)：public、非草稿、prerelease；主 JAR 与 `SHA256SUMS.txt` 已附加。
 - [Modrinth 项目](https://modrinth.com/project/create-spellbook)：正式 ID `HTyTLSgC`，MIT、双语介绍、technology / magic 分类与源码链接已同步；0.3.0 Beta 已上传，1.21.1 / NeoForge、两端安装与精确依赖已核对。
 - Modrinth 当前状态为 **processing**，已提交公开审核；审核通过时间由平台决定，不把上传成功表述为平台已批准。
 - 已将同一份远程正式 JAR 安装到 mod test，旧包已备份，实例仅有一个本 Mod 版本。

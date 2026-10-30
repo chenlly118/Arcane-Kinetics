@@ -13,7 +13,7 @@ Mechanical magic meets Create automation on **Minecraft 1.21.1 / NeoForge**.
 
 **0.3.0 is a beta.** Large factory endurance, remote multiplayer acceptance and every third-party spell have not all been tested. Reactor accidents can damage worlds; keep backups and learn the Ponder instructions in a test world. Some Liquid Divine Soul and Arcane Mechanism production recipes remain specific to the original modpack.
 
-Modpack inclusion of official releases is allowed. Original code is MIT; source and third-party notices are in the [official repository](https://github.com/chenlly118/create-Spellbook).
+Modpack inclusion of official releases is allowed. Original code is MIT; source and third-party notices are in the [official repository](https://github.com/chenlly118/Arcane-Engineering).
 
 ---
 

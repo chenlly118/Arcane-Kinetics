@@ -1,0 +1,5 @@
+{
+  "parent": "neoforge:item/bucket",
+  "loader": "neoforge:fluid_container",
+  "fluid": "irons_spellbooks:blood"
+}

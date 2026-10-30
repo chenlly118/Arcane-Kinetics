@@ -1,0 +1,388 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "side": "create:block/railway_casing_side_spellbook_reactor",
+    "end": "create:block/railway_casing_spellbook_reactor",
+    "particle": "create:block/railway_casing_side_spellbook_reactor",
+    "bearing": "create:block/brass_gearbox_spellbook_reactor",
+    "recess": "create:block/industrial_iron_block"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#end",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#end",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        5,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side",
+          "uv": [
+            0,
+            11,
+            16,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        11,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            5
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        5,
+        0
+      ],
+      "to": [
+        5,
+        11,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side",
+          "uv": [
+            11,
+            5,
+            16,
+            11
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        5,
+        0
+      ],
+      "to": [
+        16,
+        11,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side",
+          "uv": [
+            0,
+            5,
+            5,
+            11
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        3,
+        -0.02
+      ],
+      "to": [
+        13,
+        5,
+        -0.02
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bearing",
+          "uv": [
+            0.0,
+            12.8,
+            16.0,
+            16.0
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        11,
+        -0.02
+      ],
+      "to": [
+        13,
+        13,
+        -0.02
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bearing",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            3.2
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        5,
+        -0.02
+      ],
+      "to": [
+        5,
+        11,
+        -0.02
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bearing",
+          "uv": [
+            12.8,
+            3.2,
+            16.0,
+            12.8
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        5,
+        -0.02
+      ],
+      "to": [
+        13,
+        11,
+        -0.02
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bearing",
+          "uv": [
+            0.0,
+            3.2,
+            3.2,
+            12.8
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        5,
+        4
+      ],
+      "to": [
+        11,
+        11,
+        4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#recess",
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        5,
+        0
+      ],
+      "to": [
+        5,
+        11,
+        4
+      ],
+      "faces": {
+        "east": {
+          "texture": "#recess",
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        5,
+        0
+      ],
+      "to": [
+        11,
+        11,
+        4
+      ],
+      "faces": {
+        "west": {
+          "texture": "#recess",
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        5,
+        0
+      ],
+      "to": [
+        11,
+        5,
+        4
+      ],
+      "faces": {
+        "up": {
+          "texture": "#recess",
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        11,
+        0
+      ],
+      "to": [
+        11,
+        11,
+        4
+      ],
+      "faces": {
+        "down": {
+          "texture": "#recess",
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "cullface": "north"
+        }
+      }
+    }
+  ]
+}

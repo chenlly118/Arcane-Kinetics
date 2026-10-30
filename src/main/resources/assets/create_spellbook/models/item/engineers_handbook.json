@@ -1,0 +1,15 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "create_spellbook:item/engineers_handbook_model"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "irons_spellbooks:item/iron_spell_book_spellbook_handbook"
+      }
+    }
+  }
+}

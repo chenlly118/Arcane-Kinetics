@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "APA",
+    "MBM",
+    "AGA"
+  ],
+  "key": {
+    "A": {
+      "item": "irons_spellbooks:arcane_ingot"
+    },
+    "P": {
+      "item": "create:iron_sheet"
+    },
+    "M": {
+      "item": "create:precision_mechanism"
+    },
+    "B": {
+      "item": "minecraft:book"
+    },
+    "G": {
+      "item": "create:cogwheel"
+    }
+  },
+  "result": {
+    "id": "create_spellbook:engineers_handbook",
+    "count": 1
+  }
+}

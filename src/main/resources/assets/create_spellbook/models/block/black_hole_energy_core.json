@@ -1,0 +1,1755 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": true,
+  "textures": {
+    "front": "create_spellbook:block/reactor_core/black_hole_energy_core_front",
+    "side": "create_spellbook:block/reactor_core/black_hole_energy_core_side",
+    "top": "create_spellbook:block/reactor_core/black_hole_energy_core_top",
+    "bottom": "create_spellbook:block/reactor_core/black_hole_energy_core_bottom",
+    "particle": "create_spellbook:block/reactor_core/black_hole_energy_core_front",
+    "crystal_edge": "create_spellbook:block/reactor_core/energy_crystal_edge"
+  },
+  "elements": [
+    {
+      "name": "recessed_energy_chamber",
+      "from": [
+        2,
+        2,
+        2
+      ],
+      "to": [
+        14,
+        14,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "name": "steel_rail_1",
+      "from": [
+        3,
+        0,
+        0
+      ],
+      "to": [
+        13,
+        2,
+        2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            14,
+            14,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            14,
+            2,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "name": "steel_rail_2",
+      "from": [
+        3,
+        0,
+        14
+      ],
+      "to": [
+        13,
+        2,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            14,
+            2,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            14,
+            14,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "name": "steel_rail_3",
+      "from": [
+        3,
+        14,
+        0
+      ],
+      "to": [
+        13,
+        16,
+        2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            14,
+            0,
+            16,
+            2
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "steel_rail_4",
+      "from": [
+        3,
+        14,
+        14
+      ],
+      "to": [
+        13,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            14,
+            0,
+            16,
+            2
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "name": "steel_rail_5",
+      "from": [
+        0,
+        3,
+        0
+      ],
+      "to": [
+        2,
+        13,
+        2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            0,
+            14,
+            2,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "steel_rail_6",
+      "from": [
+        0,
+        3,
+        14
+      ],
+      "to": [
+        2,
+        13,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            14,
+            2,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "name": "steel_rail_7",
+      "from": [
+        14,
+        3,
+        0
+      ],
+      "to": [
+        16,
+        13,
+        2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            14,
+            0,
+            16,
+            2
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            14,
+            14,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "steel_rail_8",
+      "from": [
+        14,
+        3,
+        14
+      ],
+      "to": [
+        16,
+        13,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            14,
+            14,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            14,
+            0,
+            16,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "name": "steel_rail_9",
+      "from": [
+        0,
+        0,
+        3
+      ],
+      "to": [
+        2,
+        2,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            14,
+            14,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            0,
+            14,
+            2,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "name": "steel_rail_10",
+      "from": [
+        0,
+        14,
+        3
+      ],
+      "to": [
+        2,
+        16,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            14,
+            0,
+            16,
+            2
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            0,
+            3,
+            2,
+            13
+          ]
+        }
+      }
+    },
+    {
+      "name": "steel_rail_11",
+      "from": [
+        14,
+        0,
+        3
+      ],
+      "to": [
+        16,
+        2,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            0,
+            14,
+            2,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            14,
+            14,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "name": "steel_rail_12",
+      "from": [
+        14,
+        14,
+        3
+      ],
+      "to": [
+        16,
+        16,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            14,
+            0,
+            16,
+            2
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            3,
+            0,
+            13,
+            2
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            14,
+            3,
+            16,
+            13
+          ]
+        }
+      }
+    },
+    {
+      "name": "arcane_guard_13",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        3,
+        3,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "name": "arcane_guard_14",
+      "from": [
+        0,
+        0,
+        13
+      ],
+      "to": [
+        3,
+        3,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "name": "arcane_guard_15",
+      "from": [
+        0,
+        13,
+        0
+      ],
+      "to": [
+        3,
+        16,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "arcane_guard_16",
+      "from": [
+        0,
+        13,
+        13
+      ],
+      "to": [
+        3,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "name": "arcane_guard_17",
+      "from": [
+        13,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        3,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "name": "arcane_guard_18",
+      "from": [
+        13,
+        0,
+        13
+      ],
+      "to": [
+        16,
+        3,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            13,
+            3,
+            16
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "name": "arcane_guard_19",
+      "from": [
+        13,
+        13,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "arcane_guard_20",
+      "from": [
+        13,
+        13,
+        13
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ]
+        },
+        "south": {
+          "texture": "#front",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            3,
+            3
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            13,
+            13,
+            16,
+            16
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            13,
+            0,
+            16,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "name": "raised_crystal_north",
+      "from": [
+        5,
+        5,
+        0
+      ],
+      "to": [
+        11,
+        11,
+        2.25
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "cullface": "north"
+        },
+        "east": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "raised_crystal_south",
+      "from": [
+        5,
+        5,
+        13.75
+      ],
+      "to": [
+        11,
+        11,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#front",
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "raised_crystal_west",
+      "from": [
+        0,
+        5,
+        5
+      ],
+      "to": [
+        2.25,
+        11,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "raised_crystal_east",
+      "from": [
+        13.75,
+        5,
+        5
+      ],
+      "to": [
+        16,
+        11,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "cullface": "east"
+        },
+        "up": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#crystal_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

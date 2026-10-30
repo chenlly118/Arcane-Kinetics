@@ -1,0 +1,1122 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "ambientocclusion": true,
+  "textures": {
+    "tank": "create:block/spout_spellbook_printer",
+    "nozzle": "create:block/spout_nozzle_spellbook_printer",
+    "filter": "create:block/smart_pipe_2_spellbook_printer",
+    "head": "create:block/mechanical_press_head_spellbook_printer",
+    "casing": "create:block/brass_casing_spellbook_printer",
+    "pipe": "create:block/encased_pipe_spellbook_printer",
+    "hose": "create:block/hose",
+    "steel": "create:block/industrial_iron_block",
+    "particle": "create:block/spout_spellbook_printer"
+  },
+  "elements": [
+    {
+      "name": "reservoir",
+      "from": [
+        3,
+        4,
+        3
+      ],
+      "to": [
+        13,
+        13,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#tank",
+          "uv": [
+            0.5,
+            1,
+            7.5,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#tank",
+          "uv": [
+            0.5,
+            1,
+            7.5,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#tank",
+          "uv": [
+            0.5,
+            1,
+            7.5,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#tank",
+          "uv": [
+            0.5,
+            1,
+            7.5,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#tank",
+          "uv": [
+            9,
+            9,
+            15,
+            15
+          ]
+        },
+        "down": {
+          "texture": "#tank",
+          "uv": [
+            9,
+            9,
+            15,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "name": "lower_steel_band",
+      "from": [
+        2,
+        3,
+        2
+      ],
+      "to": [
+        14,
+        5,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "south": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "west": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "east": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "up": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "upper_steel_band",
+      "from": [
+        2,
+        12,
+        2
+      ],
+      "to": [
+        14,
+        14,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "south": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "west": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "east": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "up": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "top_pipe_socket",
+      "from": [
+        5,
+        14,
+        5
+      ],
+      "to": [
+        11,
+        16,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#pipe",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "south": {
+          "texture": "#pipe",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "west": {
+          "texture": "#pipe",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "east": {
+          "texture": "#pipe",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "up": {
+          "texture": "#pipe",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#pipe",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "lower_hose_gland",
+      "from": [
+        5,
+        1,
+        5
+      ],
+      "to": [
+        11,
+        3,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#nozzle",
+          "uv": [
+            4,
+            12,
+            12,
+            14
+          ]
+        },
+        "south": {
+          "texture": "#nozzle",
+          "uv": [
+            4,
+            12,
+            12,
+            14
+          ]
+        },
+        "west": {
+          "texture": "#nozzle",
+          "uv": [
+            4,
+            12,
+            12,
+            14
+          ]
+        },
+        "east": {
+          "texture": "#nozzle",
+          "uv": [
+            4,
+            12,
+            12,
+            14
+          ]
+        },
+        "up": {
+          "texture": "#nozzle",
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ]
+        },
+        "down": {
+          "texture": "#nozzle",
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ]
+        }
+      }
+    },
+    {
+      "name": "gland_throat",
+      "from": [
+        6,
+        0,
+        6
+      ],
+      "to": [
+        10,
+        1,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            4
+          ]
+        },
+        "south": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            4
+          ]
+        },
+        "west": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            4
+          ]
+        },
+        "east": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            4
+          ]
+        },
+        "up": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "name": "tie_rod",
+      "from": [
+        2.5,
+        5,
+        2.5
+      ],
+      "to": [
+        4.0,
+        12,
+        4.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "down": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        }
+      }
+    },
+    {
+      "name": "tie_rod",
+      "from": [
+        2.5,
+        5,
+        12
+      ],
+      "to": [
+        4.0,
+        12,
+        13.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "down": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        }
+      }
+    },
+    {
+      "name": "tie_rod",
+      "from": [
+        12,
+        5,
+        2.5
+      ],
+      "to": [
+        13.5,
+        12,
+        4.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "down": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        }
+      }
+    },
+    {
+      "name": "tie_rod",
+      "from": [
+        12,
+        5,
+        12
+      ],
+      "to": [
+        13.5,
+        12,
+        13.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        },
+        "down": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            0,
+            2.5,
+            7
+          ]
+        }
+      }
+    },
+    {
+      "name": "template_back",
+      "from": [
+        13,
+        5,
+        4
+      ],
+      "to": [
+        14.25,
+        12,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "template_lower_lip",
+      "from": [
+        14.25,
+        4.5,
+        3.5
+      ],
+      "to": [
+        16,
+        6,
+        12.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            8,
+            16,
+            9.5
+          ]
+        },
+        "south": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            8,
+            16,
+            9.5
+          ]
+        },
+        "west": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            8,
+            16,
+            9.5
+          ]
+        },
+        "east": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            8,
+            16,
+            9.5
+          ]
+        },
+        "up": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            8,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            8,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "template_upper_lip",
+      "from": [
+        14.25,
+        11,
+        3.5
+      ],
+      "to": [
+        16,
+        12.5,
+        12.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            14.5,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            14.5,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            14.5,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            14.5,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            8,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#filter",
+          "uv": [
+            8,
+            8,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "template_front_lip",
+      "from": [
+        14.25,
+        6,
+        3.5
+      ],
+      "to": [
+        16,
+        11,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        },
+        "south": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        },
+        "west": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        },
+        "east": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        },
+        "up": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        },
+        "down": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        }
+      }
+    },
+    {
+      "name": "template_rear_lip",
+      "from": [
+        14.25,
+        6,
+        11
+      ],
+      "to": [
+        16,
+        11,
+        12.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        },
+        "south": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        },
+        "west": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        },
+        "east": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        },
+        "up": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        },
+        "down": {
+          "texture": "#filter",
+          "uv": [
+            13,
+            0,
+            16,
+            8
+          ]
+        }
+      }
+    },
+    {
+      "name": "template_dark_recess",
+      "from": [
+        14.26,
+        6,
+        5
+      ],
+      "to": [
+        14.3,
+        11,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#steel",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        },
+        "south": {
+          "texture": "#steel",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        },
+        "west": {
+          "texture": "#steel",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        },
+        "east": {
+          "texture": "#steel",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        },
+        "up": {
+          "texture": "#steel",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        },
+        "down": {
+          "texture": "#steel",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        }
+      }
+    }
+  ]
+}

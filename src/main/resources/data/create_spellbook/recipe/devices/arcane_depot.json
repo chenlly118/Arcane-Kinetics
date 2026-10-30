@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "create:andesite_casing"
+    },
+    {
+      "item": "irons_spellbooks:arcane_ingot"
+    }
+  ],
+  "result": {
+    "id": "create_spellbook:arcane_depot",
+    "count": 1
+  }
+}

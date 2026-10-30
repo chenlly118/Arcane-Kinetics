@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "create_spellbook:block/black_hole_reaction_core"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+name: Build candidate
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Scan curated source
+        run: python scripts/release_check.py
+      - name: Build
+        run: ./gradlew --no-daemon --console=plain build
+      - name: Package checked candidate
+        run: |
+          VERSION=$(sed -n 's/^mod_version=//p' gradle.properties | tr -d '\r')
+          python scripts/package_public_release.py --jar "build/libs/create-spellbook-1.21.1-neoforge-$VERSION.jar" --build-method gradle
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-candidate
+          path: build/release-candidate/
+          if-no-files-found: error
+          retention-days: 30

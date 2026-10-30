@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "create_spellbook:arcane_crank",
+    "create_spellbook:focusing_basin",
+    "create_spellbook:arcane_depot",
+    "create_spellbook:spell_sensor",
+    "create_spellbook:arcane_casting_arm",
+    "create_spellbook:arcane_reactor",
+    "create_spellbook:scroll_printer",
+    "create_spellbook:arcane_casing",
+    "create_spellbook:arcane_reinforced_glass",
+    "create_spellbook:reactor_output",
+    "create_spellbook:reactor_mana_interface",
+    "create_spellbook:reactor_controller",
+    "create_spellbook:reactor_port",
+    "create_spellbook:black_hole_reaction_core",
+    "create_spellbook:black_hole_energy_core",
+    "create_spellbook:black_hole_reaction_shaft"
+  ]
+}

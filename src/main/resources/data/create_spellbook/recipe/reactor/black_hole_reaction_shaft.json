@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "create_spellbook:arcane_casing"
+    },
+    {
+      "item": "create:shaft"
+    }
+  ],
+  "result": {
+    "id": "create_spellbook:black_hole_reaction_shaft",
+    "count": 1
+  }
+}

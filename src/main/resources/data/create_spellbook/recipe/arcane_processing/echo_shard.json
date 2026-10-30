@@ -1,0 +1,11 @@
+{
+  "type": "create_spellbook:arcane_processing",
+  "ingredient": {
+    "item": "minecraft:amethyst_shard"
+  },
+  "spell": "irons_spellbooks:eldritch_blast",
+  "result": {
+    "id": "minecraft:echo_shard",
+    "count": 1
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "type": "create:mechanical_crafting",
+  "category": "misc",
+  "pattern": [
+    "CCC",
+    "CSC",
+    "CMC",
+    "CBC",
+    "CRC"
+  ],
+  "key": {
+    "C": {
+      "item": "create_spellbook:arcane_casing"
+    },
+    "S": {
+      "item": "create_spellbook:black_hole_stabilizer"
+    },
+    "M": {
+      "item": "create_spellbook:arcane_mechanism"
+    },
+    "B": {
+      "type": "create_spellbook:spell_scroll",
+      "spell": "irons_spellbooks:black_hole",
+      "minimum_level": 3
+    },
+    "R": {
+      "item": "create_spellbook:arcane_reactor"
+    }
+  },
+  "result": {
+    "id": "create_spellbook:black_hole_reaction_core",
+    "count": 1
+  },
+  "accept_mirrored": false,
+  "show_notification": false
+}

@@ -1,0 +1,71 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.146'
+}
+
+version = mod_version
+group = 'dev.createspellbook'
+base.archivesName = 'create-spellbook-1.21.1-neoforge'
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+repositories {
+    if (providers.gradleProperty('localMaven').isPresent()) {
+        maven { url = uri(providers.gradleProperty('localMaven').get()) }
+    }
+    mavenCentral()
+    exclusiveContent {
+        forRepository { maven { name = 'Modrinth'; url = 'https://api.modrinth.com/maven' } }
+        filter { includeGroup 'maven.modrinth' }
+    }
+    maven { url = 'https://maven.createmod.net' }
+    maven { url = 'https://maven.tterrag.com' }
+}
+configurations { createDistribution }
+dependencies {
+    // Immutable Modrinth version IDs; the full Create JAR carries its runtime libraries.
+    implementation('maven.modrinth:create:n7NADxiG') { transitive = false } // 6.0.9
+    implementation('maven.modrinth:irons-spells-n-spellbooks:slKLosTb') { transitive = false } // 3.16.3
+    implementation('maven.modrinth:curios:yohfFbgD') { transitive = false } // 9.5.1
+    implementation('maven.modrinth:geckolib:Grwn5rUB') { transitive = false } // 4.9.3
+    implementation('maven.modrinth:irons-lib:lUwUKYPl') { transitive = false } // 2.2.0
+    implementation('maven.modrinth:playeranimator:HJZB6bmA') { transitive = false } // 2.0.4
+    createDistribution('maven.modrinth:create:n7NADxiG') { transitive = false }
+    // javac cannot look inside nested JARs. Extract the exact libraries shipped
+    // by this Create release for compilation only; the addon never bundles them.
+    compileOnly files(fileTree(layout.buildDirectory.dir('create-libraries')) { include '*.jar' }).builtBy('extractCreateLibraries')
+    compileOnly('maven.modrinth:jei:iv3KiVkE') { transitive = false } // optional 19.64.0.455
+}
+tasks.register('extractCreateLibraries', Sync) {
+    from({ zipTree(configurations.createDistribution.singleFile) }) { include 'META-INF/jarjar/*.jar'; eachFile { path = name } }
+    into layout.buildDirectory.dir('create-libraries')
+    includeEmptyDirs = false
+}
+sourceSets.main.java.exclude 'dev/createspellbook/gametest/**'
+neoForge {
+    version = neo_version
+    runs {
+        client { client(); gameDirectory = file('run/client') }
+        server { server(); gameDirectory = file('run/server'); programArgument '--nogui' }
+        gameTestServer {
+            type = 'gameTestServer'
+            gameDirectory = file('run/gametest')
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'create_spellbook'
+        }
+    }
+    mods { create_spellbook { sourceSet sourceSets.main } }
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.processResources {
+    inputs.property 'version', project.version
+    filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version }
+}
+tasks.jar {
+    from(files('LICENSE', 'THIRD_PARTY_NOTICES.md')) { into 'META-INF' }
+    exclude 'dev/createspellbook/gametest/**'
+}
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}

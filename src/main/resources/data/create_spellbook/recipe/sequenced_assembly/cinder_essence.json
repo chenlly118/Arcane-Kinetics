@@ -1,0 +1,62 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "minecraft:soul_sand"
+  },
+  "loops": 3,
+  "transitional_item": {
+    "id": "create_spellbook:incomplete_cinder_essence"
+  },
+  "results": [
+    {
+      "id": "irons_spellbooks:cinder_essence",
+      "count": 1
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "create_spellbook:incomplete_cinder_essence"
+        },
+        {
+          "item": "minecraft:blaze_powder"
+        }
+      ],
+      "results": [
+        {
+          "id": "create_spellbook:incomplete_cinder_essence"
+        }
+      ]
+    },
+    {
+      "type": "create_spellbook:spell_application",
+      "ingredients": [
+        {
+          "item": "create_spellbook:incomplete_cinder_essence"
+        }
+      ],
+      "school": "irons_spellbooks:fire",
+      "min_rarity": "epic",
+      "results": [
+        {
+          "id": "create_spellbook:incomplete_cinder_essence"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "create_spellbook:incomplete_cinder_essence"
+        }
+      ],
+      "results": [
+        {
+          "id": "create_spellbook:incomplete_cinder_essence"
+        }
+      ]
+    }
+  ]
+}

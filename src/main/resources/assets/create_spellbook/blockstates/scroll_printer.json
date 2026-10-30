@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "create_spellbook:block/scroll_printer/block",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "create_spellbook:block/scroll_printer/block",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "create_spellbook:block/scroll_printer/block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "create_spellbook:block/scroll_printer/block",
+      "y": 270
+    }
+  }
+}

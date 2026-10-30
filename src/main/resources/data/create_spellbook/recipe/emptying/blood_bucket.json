@@ -1,0 +1,8 @@
+{
+  "type": "create:emptying",
+  "ingredients": [{"item": "create_spellbook:blood_bucket"}],
+  "results": [
+    {"id": "minecraft:bucket"},
+    {"id": "irons_spellbooks:blood", "amount": 1000}
+  ]
+}

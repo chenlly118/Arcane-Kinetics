@@ -1,0 +1,44 @@
+{
+  "variants": {
+    "facing=north,formed=false": {
+      "model": "create_spellbook:block/reactor_controller",
+      "y": 0,
+      "uvlock": true
+    },
+    "facing=north,formed=true": {
+      "model": "create_spellbook:block/reactor_controller_formed",
+      "y": 0,
+      "uvlock": true
+    },
+    "facing=east,formed=false": {
+      "model": "create_spellbook:block/reactor_controller",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,formed=true": {
+      "model": "create_spellbook:block/reactor_controller_formed",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=south,formed=false": {
+      "model": "create_spellbook:block/reactor_controller",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,formed=true": {
+      "model": "create_spellbook:block/reactor_controller_formed",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=west,formed=false": {
+      "model": "create_spellbook:block/reactor_controller",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,formed=true": {
+      "model": "create_spellbook:block/reactor_controller_formed",
+      "y": 270,
+      "uvlock": true
+    }
+  }
+}

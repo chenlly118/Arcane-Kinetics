@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "create_spellbook:block/reactor_port"
+    }
+  }
+}

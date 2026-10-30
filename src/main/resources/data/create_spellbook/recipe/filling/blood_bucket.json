@@ -1,0 +1,8 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {"item": "minecraft:bucket"},
+    {"type": "neoforge:single", "fluid": "irons_spellbooks:blood", "amount": 1000}
+  ],
+  "results": [{"id": "create_spellbook:blood_bucket"}]
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BSB",
+    "BMB",
+    "BCB"
+  ],
+  "key": {
+    "B": {
+      "item": "create:brass_ingot"
+    },
+    "S": {
+      "item": "irons_spellbooks:artificer_cane"
+    },
+    "M": {
+      "item": "create_spellbook:arcane_mechanism"
+    },
+    "C": {
+      "item": "create:brass_casing"
+    }
+  },
+  "result": {
+    "id": "create_spellbook:arcane_casting_arm",
+    "count": 1
+  }
+}

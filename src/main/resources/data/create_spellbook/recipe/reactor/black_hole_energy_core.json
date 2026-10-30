@@ -1,0 +1,34 @@
+{
+  "type": "create:mechanical_crafting",
+  "category": "misc",
+  "pattern": [
+    "CPC",
+    "CKC",
+    "CMC",
+    "CKC",
+    "CSC"
+  ],
+  "key": {
+    "C": {
+      "item": "create_spellbook:arcane_casing"
+    },
+    "P": {
+      "item": "irons_spellbooks:pyrium_ingot"
+    },
+    "K": {
+      "item": "create_spellbook:arcane_crank"
+    },
+    "M": {
+      "item": "create_spellbook:arcane_mechanism"
+    },
+    "S": {
+      "item": "create:shaft"
+    }
+  },
+  "result": {
+    "id": "create_spellbook:black_hole_energy_core",
+    "count": 1
+  },
+  "accept_mirrored": false,
+  "show_notification": false
+}

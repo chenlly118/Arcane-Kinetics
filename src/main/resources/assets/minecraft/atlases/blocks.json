@@ -1,0 +1,166 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "create:item/wrench",
+        "create:block/axis",
+        "create:block/axis_top",
+        "create:block/andesite_casing_short",
+        "create:block/smooth_dark_log_top"
+      ],
+      "palette_key": "create_spellbook:palettes/mechanical_key",
+      "permutations": {
+        "arcane": "create_spellbook:palettes/mechanical_arcane"
+      }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "irons_spellbooks:item/scroll"
+      ],
+      "palette_key": "irons_spellbooks:palettes/scroll/evocation",
+      "permutations": {
+        "mechanical": "create_spellbook:palettes/scroll_brass"
+      }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "create:item/iron_sheet"
+      ],
+      "palette_key": "create_spellbook:palettes/iron_sheet_key",
+      "permutations": {
+        "arcane": "create_spellbook:palettes/iron_sheet_arcane"
+      }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "create:item/precision_mechanism"
+      ],
+      "palette_key": "create_spellbook:palettes/mechanism_key",
+      "permutations": {
+        "spellbook_arcane": "create_spellbook:palettes/mechanism_arcane"
+      }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "create:block/andesite_casing",
+        "create:block/depot_side",
+        "create:block/depot_top",
+        "create:block/industrial_iron_block",
+        "create:block/smart_observer",
+        "create:block/smart_observer_front",
+        "create:block/smart_observer_powered",
+        "create:block/smart_observer_side",
+        "create:block/smart_observer_side_powered",
+        "create:block/smart_observer_top"
+      ],
+      "palette_key": "create_spellbook:palettes/device_key",
+      "permutations": {
+        "spellbook_arcane": "create_spellbook:palettes/device_arcane"
+      }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "create:block/depot_top"
+      ],
+      "palette_key": "create_spellbook:palettes/reference_depot_key",
+      "permutations": {
+        "spellbook_reference": "create_spellbook:palettes/reference_depot_arcane"
+      }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "create_spellbook:block/auto_caster"
+      ],
+      "palette_key": "create_spellbook:palettes/auto_caster_key",
+      "permutations": {
+        "spellbook_arcane": "create_spellbook:palettes/auto_caster_arcane"
+      }
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "create_spellbook:fluid/liquid_divine_soul_still"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "create_spellbook:fluid/liquid_divine_soul_flow"
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "create:block/railway_casing",
+        "create:block/railway_casing_connected",
+        "create:block/railway_casing_side",
+        "create:block/railway_casing_side_connected",
+        "create:block/brass_gearbox",
+        "create:block/gearbox_top",
+        "create:block/item_drain_top",
+        "create:block/smart_observer_front",
+        "create:block/smart_observer_powered",
+        "create:block/industrial_iron_block",
+        "create:block/rotation_speed_controller_top",
+        "create:block/fluid_tank_top",
+        "create:block/encased_pipe",
+        "create:block/brass_block",
+        "create:block/funnel/brass_funnel",
+        "create:block/funnel/brass_funnel_pull"
+      ],
+      "palette_key": "create_spellbook:palettes/reactor_key",
+      "permutations": {
+        "spellbook_reactor": "create_spellbook:palettes/reactor_arcane"
+      }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "create:block/palettes/framed_glass",
+        "create:block/palettes/framed_glass_connected"
+      ],
+      "palette_key": "create_spellbook:palettes/reactor_glass_key",
+      "permutations": {
+        "spellbook_glass": "create_spellbook:palettes/reactor_glass_arcane"
+      }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "create:block/spout",
+        "create:block/spout_nozzle",
+        "create:block/smart_pipe_2",
+        "create:block/mechanical_press_head",
+        "create:block/brass_casing",
+        "create:block/encased_pipe"
+      ],
+      "palette_key": "create_spellbook:palettes/printer_key",
+      "permutations": {
+        "spellbook_printer": "create_spellbook:palettes/printer_arcane"
+      }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "irons_spellbooks:item/iron_spell_book"
+      ],
+      "palette_key": "create_spellbook:palettes/handbook_key",
+      "permutations": {
+        "spellbook_handbook": "create_spellbook:palettes/handbook_arcane"
+      }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "create_spellbook:item/engineers_handbook_cover_base"
+      ],
+      "palette_key": "create_spellbook:palettes/handbook_cover_key",
+      "permutations": {
+        "spellbook_cover": "create_spellbook:palettes/handbook_cover_arcane"
+      }
+    }
+  ]
+}

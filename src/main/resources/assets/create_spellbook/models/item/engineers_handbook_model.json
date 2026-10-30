@@ -1,0 +1,2096 @@
+{
+  "credit": "Clockwork Spellbook - Create x Iron's Spellbooks",
+  "texture_size": [
+    16,
+    16
+  ],
+  "textures": {
+    "particle": "create_spellbook:item/engineers_handbook_cover_base_spellbook_cover",
+    "cover": "create_spellbook:item/engineers_handbook_cover_base_spellbook_cover",
+    "pages": "create_spellbook:item/engineers_handbook_pages",
+    "brass": "create_spellbook:item/engineers_handbook_brass",
+    "andesite": "create_spellbook:item/engineers_handbook_andesite",
+    "wood": "create_spellbook:item/engineers_handbook_wood",
+    "crystal": "create_spellbook:item/engineers_handbook_crystal",
+    "ribbon": "create_spellbook:item/engineers_handbook_ribbon"
+  },
+  "elements": [
+    {
+      "name": "back_cover",
+      "from": [
+        3,
+        1,
+        5.5
+      ],
+      "to": [
+        13,
+        15,
+        6.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#cover"
+        },
+        "east": {
+          "texture": "#cover"
+        },
+        "south": {
+          "texture": "#cover"
+        },
+        "west": {
+          "texture": "#cover"
+        },
+        "up": {
+          "texture": "#cover"
+        },
+        "down": {
+          "texture": "#cover"
+        }
+      }
+    },
+    {
+      "name": "front_cover",
+      "from": [
+        3,
+        1,
+        9.5
+      ],
+      "to": [
+        13,
+        15,
+        10.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#cover"
+        },
+        "east": {
+          "texture": "#cover"
+        },
+        "south": {
+          "texture": "#cover"
+        },
+        "west": {
+          "texture": "#cover"
+        },
+        "up": {
+          "texture": "#cover"
+        },
+        "down": {
+          "texture": "#cover"
+        }
+      }
+    },
+    {
+      "name": "spine",
+      "from": [
+        2.5,
+        1,
+        5.5
+      ],
+      "to": [
+        4,
+        15,
+        10.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#cover"
+        },
+        "east": {
+          "texture": "#cover"
+        },
+        "south": {
+          "texture": "#cover"
+        },
+        "west": {
+          "texture": "#cover"
+        },
+        "up": {
+          "texture": "#cover"
+        },
+        "down": {
+          "texture": "#cover"
+        }
+      }
+    },
+    {
+      "name": "pages",
+      "from": [
+        4,
+        1.5,
+        6.5
+      ],
+      "to": [
+        12.6,
+        14.5,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#pages"
+        },
+        "east": {
+          "texture": "#pages"
+        },
+        "south": {
+          "texture": "#pages"
+        },
+        "west": {
+          "texture": "#pages"
+        },
+        "up": {
+          "texture": "#pages"
+        },
+        "down": {
+          "texture": "#pages"
+        }
+      }
+    },
+    {
+      "name": "spine_band0",
+      "from": [
+        2.3,
+        4.2,
+        5.3
+      ],
+      "to": [
+        4.1,
+        5.2,
+        10.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#andesite"
+        },
+        "east": {
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
+        },
+        "west": {
+          "texture": "#andesite"
+        },
+        "up": {
+          "texture": "#andesite"
+        },
+        "down": {
+          "texture": "#andesite"
+        }
+      }
+    },
+    {
+      "name": "spine_band1",
+      "from": [
+        2.3,
+        7.5,
+        5.3
+      ],
+      "to": [
+        4.1,
+        8.5,
+        10.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#andesite"
+        },
+        "east": {
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
+        },
+        "west": {
+          "texture": "#andesite"
+        },
+        "up": {
+          "texture": "#andesite"
+        },
+        "down": {
+          "texture": "#andesite"
+        }
+      }
+    },
+    {
+      "name": "spine_band2",
+      "from": [
+        2.3,
+        10.8,
+        5.3
+      ],
+      "to": [
+        4.1,
+        11.8,
+        10.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#andesite"
+        },
+        "east": {
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
+        },
+        "west": {
+          "texture": "#andesite"
+        },
+        "up": {
+          "texture": "#andesite"
+        },
+        "down": {
+          "texture": "#andesite"
+        }
+      }
+    },
+    {
+      "name": "corner0",
+      "from": [
+        3,
+        1,
+        10.5
+      ],
+      "to": [
+        5,
+        3,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#andesite"
+        },
+        "east": {
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
+        },
+        "west": {
+          "texture": "#andesite"
+        },
+        "up": {
+          "texture": "#andesite"
+        },
+        "down": {
+          "texture": "#andesite"
+        }
+      }
+    },
+    {
+      "name": "corner_rivet0",
+      "from": [
+        3.7,
+        1.7,
+        11
+      ],
+      "to": [
+        4.3,
+        2.3,
+        11.3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brass"
+        },
+        "east": {
+          "texture": "#brass"
+        },
+        "south": {
+          "texture": "#brass"
+        },
+        "west": {
+          "texture": "#brass"
+        },
+        "up": {
+          "texture": "#brass"
+        },
+        "down": {
+          "texture": "#brass"
+        }
+      }
+    },
+    {
+      "name": "corner1",
+      "from": [
+        11,
+        1,
+        10.5
+      ],
+      "to": [
+        13,
+        3,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#andesite"
+        },
+        "east": {
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
+        },
+        "west": {
+          "texture": "#andesite"
+        },
+        "up": {
+          "texture": "#andesite"
+        },
+        "down": {
+          "texture": "#andesite"
+        }
+      }
+    },
+    {
+      "name": "corner_rivet1",
+      "from": [
+        11.7,
+        1.7,
+        11
+      ],
+      "to": [
+        12.3,
+        2.3,
+        11.3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brass"
+        },
+        "east": {
+          "texture": "#brass"
+        },
+        "south": {
+          "texture": "#brass"
+        },
+        "west": {
+          "texture": "#brass"
+        },
+        "up": {
+          "texture": "#brass"
+        },
+        "down": {
+          "texture": "#brass"
+        }
+      }
+    },
+    {
+      "name": "corner2",
+      "from": [
+        3,
+        13,
+        10.5
+      ],
+      "to": [
+        5,
+        15,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#andesite"
+        },
+        "east": {
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
+        },
+        "west": {
+          "texture": "#andesite"
+        },
+        "up": {
+          "texture": "#andesite"
+        },
+        "down": {
+          "texture": "#andesite"
+        }
+      }
+    },
+    {
+      "name": "corner_rivet2",
+      "from": [
+        3.7,
+        13.7,
+        11
+      ],
+      "to": [
+        4.3,
+        14.3,
+        11.3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brass"
+        },
+        "east": {
+          "texture": "#brass"
+        },
+        "south": {
+          "texture": "#brass"
+        },
+        "west": {
+          "texture": "#brass"
+        },
+        "up": {
+          "texture": "#brass"
+        },
+        "down": {
+          "texture": "#brass"
+        }
+      }
+    },
+    {
+      "name": "corner3",
+      "from": [
+        11,
+        13,
+        10.5
+      ],
+      "to": [
+        13,
+        15,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#andesite"
+        },
+        "east": {
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
+        },
+        "west": {
+          "texture": "#andesite"
+        },
+        "up": {
+          "texture": "#andesite"
+        },
+        "down": {
+          "texture": "#andesite"
+        }
+      }
+    },
+    {
+      "name": "corner_rivet3",
+      "from": [
+        11.7,
+        13.7,
+        11
+      ],
+      "to": [
+        12.3,
+        14.3,
+        11.3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brass"
+        },
+        "east": {
+          "texture": "#brass"
+        },
+        "south": {
+          "texture": "#brass"
+        },
+        "west": {
+          "texture": "#brass"
+        },
+        "up": {
+          "texture": "#brass"
+        },
+        "down": {
+          "texture": "#brass"
+        }
+      }
+    },
+    {
+      "name": "ribbon",
+      "from": [
+        9.5,
+        0,
+        7.6
+      ],
+      "to": [
+        10.7,
+        1.6,
+        8.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#ribbon"
+        },
+        "east": {
+          "texture": "#ribbon"
+        },
+        "south": {
+          "texture": "#ribbon"
+        },
+        "west": {
+          "texture": "#ribbon"
+        },
+        "up": {
+          "texture": "#ribbon"
+        },
+        "down": {
+          "texture": "#ribbon"
+        }
+      }
+    },
+    {
+      "name": "ribbon_tip",
+      "from": [
+        9.9,
+        -0.8,
+        7.7
+      ],
+      "to": [
+        10.3,
+        0,
+        8.3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#ribbon"
+        },
+        "east": {
+          "texture": "#ribbon"
+        },
+        "south": {
+          "texture": "#ribbon"
+        },
+        "west": {
+          "texture": "#ribbon"
+        },
+        "up": {
+          "texture": "#ribbon"
+        },
+        "down": {
+          "texture": "#ribbon"
+        }
+      }
+    },
+    {
+      "name": "big_gear_disc0",
+      "from": [
+        4.9,
+        6.05,
+        10.5
+      ],
+      "to": [
+        12.1,
+        7.55,
+        11.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "big_gear_tooth0",
+      "from": [
+        4.1,
+        6.4,
+        10.5
+      ],
+      "to": [
+        12.9,
+        7.2,
+        11.15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "big_gear_disc1",
+      "from": [
+        7.75,
+        3.2,
+        10.5
+      ],
+      "to": [
+        9.25,
+        10.4,
+        11.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "big_gear_tooth1",
+      "from": [
+        8.1,
+        2.4,
+        10.5
+      ],
+      "to": [
+        8.9,
+        11.2,
+        11.15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "big_gear_disc2",
+      "from": [
+        4.9,
+        6.05,
+        10.5
+      ],
+      "to": [
+        12.1,
+        7.55,
+        11.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.95
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "name": "big_gear_tooth2",
+      "from": [
+        4.1,
+        6.4,
+        10.5
+      ],
+      "to": [
+        12.9,
+        7.2,
+        11.15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.825
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "name": "big_gear_disc3",
+      "from": [
+        7.75,
+        3.2,
+        10.5
+      ],
+      "to": [
+        9.25,
+        10.4,
+        11.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.95
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "name": "big_gear_tooth3",
+      "from": [
+        8.1,
+        2.4,
+        10.5
+      ],
+      "to": [
+        8.9,
+        11.2,
+        11.15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.825
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "name": "big_gear_disc4",
+      "from": [
+        4.9,
+        6.05,
+        10.5
+      ],
+      "to": [
+        12.1,
+        7.55,
+        11.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.95
+        ],
+        "axis": "z",
+        "angle": 22.5
+      }
+    },
+    {
+      "name": "big_gear_tooth4",
+      "from": [
+        4.1,
+        6.4,
+        10.5
+      ],
+      "to": [
+        12.9,
+        7.2,
+        11.15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.825
+        ],
+        "axis": "z",
+        "angle": 22.5
+      }
+    },
+    {
+      "name": "big_gear_disc5",
+      "from": [
+        4.9,
+        6.05,
+        10.5
+      ],
+      "to": [
+        12.1,
+        7.55,
+        11.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.95
+        ],
+        "axis": "z",
+        "angle": -22.5
+      }
+    },
+    {
+      "name": "big_gear_tooth5",
+      "from": [
+        4.1,
+        6.4,
+        10.5
+      ],
+      "to": [
+        12.9,
+        7.2,
+        11.15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.825
+        ],
+        "axis": "z",
+        "angle": -22.5
+      }
+    },
+    {
+      "name": "big_gear_disc6",
+      "from": [
+        7.75,
+        3.2,
+        10.5
+      ],
+      "to": [
+        9.25,
+        10.4,
+        11.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.95
+        ],
+        "axis": "z",
+        "angle": 22.5
+      }
+    },
+    {
+      "name": "big_gear_tooth6",
+      "from": [
+        8.1,
+        2.4,
+        10.5
+      ],
+      "to": [
+        8.9,
+        11.2,
+        11.15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.825
+        ],
+        "axis": "z",
+        "angle": 22.5
+      }
+    },
+    {
+      "name": "big_gear_disc7",
+      "from": [
+        7.75,
+        3.2,
+        10.5
+      ],
+      "to": [
+        9.25,
+        10.4,
+        11.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.95
+        ],
+        "axis": "z",
+        "angle": -22.5
+      }
+    },
+    {
+      "name": "big_gear_tooth7",
+      "from": [
+        8.1,
+        2.4,
+        10.5
+      ],
+      "to": [
+        8.9,
+        11.2,
+        11.15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          10.825
+        ],
+        "axis": "z",
+        "angle": -22.5
+      }
+    },
+    {
+      "name": "big_gear_hub_a",
+      "from": [
+        7.06,
+        5.36,
+        11.4
+      ],
+      "to": [
+        9.94,
+        8.24,
+        11.9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#andesite"
+        },
+        "east": {
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
+        },
+        "west": {
+          "texture": "#andesite"
+        },
+        "up": {
+          "texture": "#andesite"
+        },
+        "down": {
+          "texture": "#andesite"
+        }
+      }
+    },
+    {
+      "name": "big_gear_gem",
+      "from": [
+        7.492,
+        5.792,
+        11.9
+      ],
+      "to": [
+        9.508,
+        7.808,
+        12.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#crystal"
+        },
+        "east": {
+          "texture": "#crystal"
+        },
+        "south": {
+          "texture": "#crystal"
+        },
+        "west": {
+          "texture": "#crystal"
+        },
+        "up": {
+          "texture": "#crystal"
+        },
+        "down": {
+          "texture": "#crystal"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          6.8,
+          12.3
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "name": "small_gear_disc0",
+      "from": [
+        6.5,
+        11.95,
+        10.5
+      ],
+      "to": [
+        9.9,
+        13.25,
+        11.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "small_gear_tooth0",
+      "from": [
+        5.9,
+        12.25,
+        10.5
+      ],
+      "to": [
+        10.5,
+        12.95,
+        10.95
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "small_gear_disc1",
+      "from": [
+        7.55,
+        10.9,
+        10.5
+      ],
+      "to": [
+        8.85,
+        14.3,
+        11.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "small_gear_tooth1",
+      "from": [
+        7.85,
+        10.3,
+        10.5
+      ],
+      "to": [
+        8.55,
+        14.9,
+        10.95
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "small_gear_disc2",
+      "from": [
+        6.5,
+        11.95,
+        10.5
+      ],
+      "to": [
+        9.9,
+        13.25,
+        11.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.2,
+          12.6,
+          10.85
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "name": "small_gear_tooth2",
+      "from": [
+        5.9,
+        12.25,
+        10.5
+      ],
+      "to": [
+        10.5,
+        12.95,
+        10.95
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.2,
+          12.6,
+          10.725
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "name": "small_gear_disc3",
+      "from": [
+        7.55,
+        10.9,
+        10.5
+      ],
+      "to": [
+        8.85,
+        14.3,
+        11.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.2,
+          12.6,
+          10.85
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "name": "small_gear_tooth3",
+      "from": [
+        7.85,
+        10.3,
+        10.5
+      ],
+      "to": [
+        8.55,
+        14.9,
+        10.95
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.2,
+          12.6,
+          10.725
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "name": "small_gear_hub_a",
+      "from": [
+        7.52,
+        11.92,
+        11.2
+      ],
+      "to": [
+        8.88,
+        13.28,
+        11.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#andesite"
+        },
+        "east": {
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
+        },
+        "west": {
+          "texture": "#andesite"
+        },
+        "up": {
+          "texture": "#andesite"
+        },
+        "down": {
+          "texture": "#andesite"
+        }
+      }
+    },
+    {
+      "name": "spine_gear_disc0",
+      "from": [
+        1.6,
+        7.35,
+        6.3
+      ],
+      "to": [
+        2.5,
+        8.65,
+        9.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "spine_gear_tooth0",
+      "from": [
+        1.6,
+        7.65,
+        5.7
+      ],
+      "to": [
+        2.25,
+        8.35,
+        10.3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "spine_gear_disc1",
+      "from": [
+        1.6,
+        6.3,
+        7.35
+      ],
+      "to": [
+        2.5,
+        9.7,
+        8.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "spine_gear_tooth1",
+      "from": [
+        1.6,
+        5.7,
+        7.65
+      ],
+      "to": [
+        2.25,
+        10.3,
+        8.35
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "spine_gear_disc2",
+      "from": [
+        1.6,
+        7.35,
+        6.3
+      ],
+      "to": [
+        2.5,
+        8.65,
+        9.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          2.05,
+          8,
+          8
+        ],
+        "axis": "x",
+        "angle": 45
+      }
+    },
+    {
+      "name": "spine_gear_tooth2",
+      "from": [
+        1.6,
+        7.65,
+        5.7
+      ],
+      "to": [
+        2.25,
+        8.35,
+        10.3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          1.925,
+          8,
+          8
+        ],
+        "axis": "x",
+        "angle": 45
+      }
+    },
+    {
+      "name": "spine_gear_disc3",
+      "from": [
+        1.6,
+        6.3,
+        7.35
+      ],
+      "to": [
+        2.5,
+        9.7,
+        8.65
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          2.05,
+          8,
+          8
+        ],
+        "axis": "x",
+        "angle": 45
+      }
+    },
+    {
+      "name": "spine_gear_tooth3",
+      "from": [
+        1.6,
+        5.7,
+        7.65
+      ],
+      "to": [
+        2.25,
+        10.3,
+        8.35
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wood"
+        },
+        "east": {
+          "texture": "#wood"
+        },
+        "south": {
+          "texture": "#wood"
+        },
+        "west": {
+          "texture": "#wood"
+        },
+        "up": {
+          "texture": "#wood"
+        },
+        "down": {
+          "texture": "#wood"
+        }
+      },
+      "rotation": {
+        "origin": [
+          1.925,
+          8,
+          8
+        ],
+        "axis": "x",
+        "angle": 45
+      }
+    },
+    {
+      "name": "spine_axle",
+      "from": [
+        1.2,
+        7.4,
+        7.4
+      ],
+      "to": [
+        1.6,
+        8.6,
+        8.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#andesite"
+        },
+        "east": {
+          "texture": "#andesite"
+        },
+        "south": {
+          "texture": "#andesite"
+        },
+        "west": {
+          "texture": "#andesite"
+        },
+        "up": {
+          "texture": "#andesite"
+        },
+        "down": {
+          "texture": "#andesite"
+        }
+      }
+    }
+  ],
+  "gui_light": "side",
+  "display": {
+    "gui": {
+      "rotation": [
+        15,
+        -30,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.95,
+        0.95,
+        0.95
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        5
+      ],
+      "scale": [
+        0.65,
+        0.65,
+        0.65
+      ]
+    },
+    "head": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        13,
+        7
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        1
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        1
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -90,
+        25
+      ],
+      "translation": [
+        1.13,
+        3.2,
+        1.13
+      ],
+      "scale": [
+        0.68,
+        0.68,
+        0.68
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        90,
+        -25
+      ],
+      "translation": [
+        1.13,
+        3.2,
+        1.13
+      ],
+      "scale": [
+        0.68,
+        0.68,
+        0.68
+      ]
+    }
+  }
+}

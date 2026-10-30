@@ -1,0 +1,6 @@
+{
+  "type": "irons_spellbooks:alchemist_cauldron_fill",
+  "fluid": {"amount": 1000, "id": "irons_spellbooks:blood"},
+  "input": {"item": "create_spellbook:blood_bucket"},
+  "result": {"count": 1, "id": "minecraft:bucket"}
+}

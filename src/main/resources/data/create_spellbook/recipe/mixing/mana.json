@@ -1,0 +1,7 @@
+{
+  "type": "create:mixing",
+  "heat_requirement": "heated",
+  "ingredients": [{"item": "irons_spellbooks:arcane_essence"}],
+  "results": [{"id": "create_spellbook:mana", "amount": 250}],
+  "processing_time": 100
+}

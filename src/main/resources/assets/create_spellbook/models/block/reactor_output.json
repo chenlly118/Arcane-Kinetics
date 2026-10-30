@@ -1,0 +1,185 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "side": "create:block/railway_casing_side_spellbook_reactor",
+    "end": "create:block/railway_casing_spellbook_reactor",
+    "particle": "create:block/railway_casing_side_spellbook_reactor",
+    "panel": "create:block/funnel/brass_funnel_spellbook_reactor"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#end",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#end",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        4,
+        -0.01
+      ],
+      "to": [
+        12,
+        12,
+        -0.01
+      ],
+      "faces": {
+        "north": {
+          "texture": "#panel",
+          "uv": [
+            6,
+            0,
+            12,
+            6
+          ],
+          "cullface": "north"
+        }
+      },
+      "name": "funnel_back_plate_north"
+    },
+    {
+      "from": [
+        4,
+        4,
+        16.01
+      ],
+      "to": [
+        12,
+        12,
+        16.01
+      ],
+      "faces": {
+        "south": {
+          "texture": "#panel",
+          "uv": [
+            6,
+            0,
+            12,
+            6
+          ],
+          "cullface": "south"
+        }
+      },
+      "name": "funnel_back_plate_south"
+    },
+    {
+      "from": [
+        16.01,
+        4,
+        4
+      ],
+      "to": [
+        16.01,
+        12,
+        12
+      ],
+      "faces": {
+        "east": {
+          "texture": "#panel",
+          "uv": [
+            6,
+            0,
+            12,
+            6
+          ],
+          "cullface": "east"
+        }
+      },
+      "name": "funnel_back_plate_east"
+    },
+    {
+      "from": [
+        -0.01,
+        4,
+        4
+      ],
+      "to": [
+        -0.01,
+        12,
+        12
+      ],
+      "faces": {
+        "west": {
+          "texture": "#panel",
+          "uv": [
+            6,
+            0,
+            12,
+            6
+          ],
+          "cullface": "west"
+        }
+      },
+      "name": "funnel_back_plate_west"
+    }
+  ]
+}

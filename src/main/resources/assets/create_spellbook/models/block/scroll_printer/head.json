@@ -1,0 +1,432 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "ambientocclusion": true,
+  "textures": {
+    "tank": "create:block/spout_spellbook_printer",
+    "nozzle": "create:block/spout_nozzle_spellbook_printer",
+    "filter": "create:block/smart_pipe_2_spellbook_printer",
+    "head": "create:block/mechanical_press_head_spellbook_printer",
+    "casing": "create:block/brass_casing_spellbook_printer",
+    "pipe": "create:block/encased_pipe_spellbook_printer",
+    "hose": "create:block/hose",
+    "steel": "create:block/industrial_iron_block",
+    "particle": "create:block/spout_spellbook_printer"
+  },
+  "elements": [
+    {
+      "name": "extending_hose",
+      "from": [
+        6.25,
+        -3,
+        6.25
+      ],
+      "to": [
+        9.75,
+        10,
+        9.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#hose",
+          "uv": [
+            12,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "hose_ferrule",
+      "from": [
+        5.5,
+        -3.5,
+        5.5
+      ],
+      "to": [
+        10.5,
+        -1.5,
+        10.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#nozzle",
+          "uv": [
+            5,
+            12,
+            11,
+            14
+          ]
+        },
+        "south": {
+          "texture": "#nozzle",
+          "uv": [
+            5,
+            12,
+            11,
+            14
+          ]
+        },
+        "west": {
+          "texture": "#nozzle",
+          "uv": [
+            5,
+            12,
+            11,
+            14
+          ]
+        },
+        "east": {
+          "texture": "#nozzle",
+          "uv": [
+            5,
+            12,
+            11,
+            14
+          ]
+        },
+        "up": {
+          "texture": "#nozzle",
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ]
+        },
+        "down": {
+          "texture": "#nozzle",
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ]
+        }
+      }
+    },
+    {
+      "name": "stamp_crown",
+      "from": [
+        4.5,
+        -4.5,
+        4.5
+      ],
+      "to": [
+        11.5,
+        -3,
+        11.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "south": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "west": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "east": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ]
+        },
+        "up": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "stamp_platen",
+      "from": [
+        3.5,
+        -6.5,
+        3.5
+      ],
+      "to": [
+        12.5,
+        -4.5,
+        12.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#head",
+          "uv": [
+            1,
+            0,
+            11,
+            4
+          ]
+        },
+        "south": {
+          "texture": "#head",
+          "uv": [
+            1,
+            0,
+            11,
+            4
+          ]
+        },
+        "west": {
+          "texture": "#head",
+          "uv": [
+            1,
+            0,
+            11,
+            4
+          ]
+        },
+        "east": {
+          "texture": "#head",
+          "uv": [
+            1,
+            0,
+            11,
+            4
+          ]
+        },
+        "up": {
+          "texture": "#head",
+          "uv": [
+            1,
+            5,
+            11,
+            15
+          ]
+        },
+        "down": {
+          "texture": "#head",
+          "uv": [
+            1,
+            5,
+            11,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "name": "replaceable_printing_die",
+      "from": [
+        4.5,
+        -7,
+        4.5
+      ],
+      "to": [
+        11.5,
+        -6.5,
+        11.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            14,
+            2
+          ]
+        },
+        "south": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            14,
+            2
+          ]
+        },
+        "west": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            14,
+            2
+          ]
+        },
+        "east": {
+          "texture": "#steel",
+          "uv": [
+            0,
+            0,
+            14,
+            2
+          ]
+        },
+        "up": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            5,
+            11,
+            15
+          ]
+        },
+        "down": {
+          "texture": "#steel",
+          "uv": [
+            1,
+            5,
+            11,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "name": "focus_mount",
+      "from": [
+        6,
+        -5.8,
+        3
+      ],
+      "to": [
+        10,
+        -3.8,
+        3.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            8
+          ]
+        },
+        "south": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            8
+          ]
+        },
+        "west": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            8
+          ]
+        },
+        "east": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            8
+          ]
+        },
+        "up": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#casing",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

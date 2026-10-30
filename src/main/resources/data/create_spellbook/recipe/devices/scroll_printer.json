@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "APA",
+    "SFS",
+    " M "
+  ],
+  "key": {
+    "A": {
+      "item": "create_spellbook:arcane_plate"
+    },
+    "P": {
+      "item": "create:spout"
+    },
+    "S": {
+      "item": "create:shaft"
+    },
+    "F": {
+      "item": "irons_spellbooks:scroll_forge"
+    },
+    "M": {
+      "item": "create:precision_mechanism"
+    }
+  },
+  "result": {
+    "id": "create_spellbook:scroll_printer",
+    "count": 1
+  }
+}

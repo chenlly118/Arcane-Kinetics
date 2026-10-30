@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        if (providers.gradleProperty('localMaven').isPresent()) {
+            maven { url = uri(providers.gradleProperty('localMaven').get()) }
+        }
+        maven { url = 'https://maven.neoforged.net/releases' }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+rootProject.name = 'create-spellbook'

@@ -1,0 +1,14 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "create:wrench"
+    },
+    {
+      "type": "neoforge:single",
+      "fluid": "create_spellbook:mana",
+      "amount": 500
+    }
+  ],
+  "results": [{"id": "create_spellbook:enchanted_wrench"}]
+}

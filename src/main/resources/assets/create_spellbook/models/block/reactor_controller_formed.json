@@ -1,0 +1,109 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "side": "create:block/railway_casing_side_spellbook_reactor",
+    "end": "create:block/railway_casing_spellbook_reactor",
+    "particle": "create:block/railway_casing_side_spellbook_reactor",
+    "panel": "create:block/smart_observer_powered_spellbook_reactor"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#end",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#end",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        3,
+        -0.01
+      ],
+      "to": [
+        13,
+        13,
+        -0.01
+      ],
+      "faces": {
+        "north": {
+          "texture": "#panel",
+          "uv": [
+            1,
+            6,
+            15,
+            16
+          ],
+          "cullface": "north"
+        }
+      }
+    }
+  ]
+}

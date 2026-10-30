@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "create_spellbook:block/arcane_casting_arm",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "create_spellbook:block/arcane_casting_arm",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "create_spellbook:block/arcane_casting_arm",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "create_spellbook:block/arcane_casting_arm",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "create_spellbook:block/arcane_casting_arm",
+      "y": 0
+    },
+    "facing=down": {
+      "model": "create_spellbook:block/arcane_casting_arm",
+      "y": 0
+    }
+  }
+}

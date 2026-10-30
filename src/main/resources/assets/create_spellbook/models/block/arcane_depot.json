@@ -1,0 +1,6 @@
+{
+  "parent": "create:block/depot/block",
+  "textures": {
+    "2": "create:block/depot_top_spellbook_reference"
+  }
+}

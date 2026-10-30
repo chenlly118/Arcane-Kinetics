@@ -4,7 +4,7 @@
 
 Minecraft **1.21.1 / NeoForge** 的 Create × Iron's Spells 'n Spellbooks 联动 Mod。用机械法术驱动加工，以卷轴自动施法，并建造提供 Create 应力的黑洞反应器。
 
-首个计划公开版本为 **0.3.0 Beta**，保留内部开发版本号。发布及许可证确认状态见 [发布前审核](docs/PRE_RELEASE_REVIEW.md)。
+首个公开版本 **0.3.0 Beta** 已发布：[GitHub 下载](https://github.com/chenlly118/create-Spellbook/releases/tag/v0.3.0)。文件已上传至 [Modrinth](https://modrinth.com/project/create-spellbook)，新项目正在平台审核中。发布记录见 [审核报告](docs/PRE_RELEASE_REVIEW.md)。
 
 ## 已实现功能
 

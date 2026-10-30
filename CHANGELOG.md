@@ -1,10 +1,10 @@
 # Changelog / 更新日志
 
-## 0.3.0 — First public beta / 首个公开测试版（待发布）
+## 0.3.0 — First public beta / 首个公开测试版（2026-10-30）
 
-This is the first planned public release. Earlier 0.1.x–0.2.x versions were internal development builds; the public version remains **0.3.0**.
+This is the first public release. Earlier 0.1.x–0.2.x versions were internal development builds; the public version remains **0.3.0**.
 
-这是首个计划公开的版本。此前 0.1.x～0.2.x 为内部开发记录，首发保留 **0.3.0**。
+这是首个公开发布的版本。此前 0.1.x～0.2.x 为内部开发记录，首发保留 **0.3.0**。
 
 - 机械学派与 14 个机械法术、工程师手册、魔化扳手和奥术曲柄。
 - 聚魔盆、魔化置物台、法术感应器、自动施法设备和卷轴印刷机。

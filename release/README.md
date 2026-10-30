@@ -1,10 +1,10 @@
 # 维护者发布流程
 
-当前版本 **0.3.0 / Beta**。作者已明确确认 MIT、素材分发权和公开发布，`approvals.json` 三项均记录为 true；授权依据见 `docs/LICENSING_REVIEW.md`。是否实际发布以远程 Release 和 Modrinth 版本为准。
+当前版本 **0.3.0 / Beta**。作者已明确确认 MIT、素材分发权和公开发布，`approvals.json` 三项均记录为 true；授权依据见 `docs/LICENSING_REVIEW.md`。2026-10-30 已发布 [GitHub 0.3.0 Beta](https://github.com/chenlly118/create-Spellbook/releases/tag/v0.3.0)，Modrinth 文件已上传并提交审核（processing）。[构建记录](https://github.com/chenlly118/create-Spellbook/actions/runs/41017841524) · [发布与哈希校验](https://github.com/chenlly118/create-Spellbook/actions/runs/41017949710)。
 
 ## 首次账号准备
 
-1. 用户已创建 [chenlly118/create-Spellbook](https://github.com/chenlly118/create-Spellbook)，已核实为 **Private** 空仓库；不需要再创建或重命名。现有连接可以读取和写入该仓库，但不提供设置 Secrets 的接口。
+1. 用户已创建 [chenlly118/create-Spellbook](https://github.com/chenlly118/create-Spellbook)，现为 **Public** 开源仓库；不需要再创建或重命名。现有连接可以读取和写入该仓库，但不提供设置 Secrets 的接口。
 2. 本地 main 已有源码提交，origin 已指向该仓库。推送前用 `git status`、`git log` 与 `git ls-files` 审阅范围；不要使用 `git add -f` 把缓存／素材参考强行加入。
 3. 推送经过扫描的源码并运行只构建的 CI；这一步不上传正式 Release 或 Modrinth 文件。用户已批准将仓库公开。
 4. 用户已创建 [Modrinth 项目](https://modrinth.com/project/create-spellbook/settings)。使用已确认的 Slug `create-spellbook`；MC-Publish v3.3 支持 Slug，工作流会用 Secret 认证读取真实 ID。资料见 `project.json` 和 `modrinth-description.md`，许可证选择 MIT。
@@ -42,4 +42,4 @@ python scripts/package_public_release.py --jar build/libs/create-spellbook-1.21.
 
 后续版本修改 `gradle.properties`、`project.json`、审批版本、README 和对应 notes，重新将三项审批置 false。CI 自动按 Gradle 版本打包；本首发 workflow 固定依赖和 beta 类型，变更依赖或发布稳定版时同步修改工作流及验证器。
 
-此流程未经远程账号实跑；本地静态验证和正式构建结果见 `docs/PRE_RELEASE_REVIEW.md`。
+此流程已通过远程构建、双平台上传和哈希回读验证；平台审核状态与验证结果见 `docs/PRE_RELEASE_REVIEW.md`。

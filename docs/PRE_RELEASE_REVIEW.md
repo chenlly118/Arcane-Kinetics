@@ -1,10 +1,10 @@
 # 首发审核：Arcane Engineering 0.3.0 Beta
 
-审核日期：2026-10-30。作者已批准 MIT、资源分发和公开发布；以下区分本机验证与尚待完成的远程步骤。
+审核日期：2026-10-30。作者已批准 MIT、资源分发和公开发布。GitHub 0.3.0 Beta 已公开，Modrinth 文件已上传并提交审核。
 
 ## 项目与许可
 
-- GitHub：[`chenlly118/create-Spellbook`](https://github.com/chenlly118/create-Spellbook)，用户已创建，最后核实为 private；目标 public。GitHub 连接可写源码，不提供可见性管理接口。
+- GitHub：[`chenlly118/create-Spellbook`](https://github.com/chenlly118/create-Spellbook)，已由用户切换为 public，源码和工作流均已提交。
 - Modrinth：用户已创建 [`create-spellbook`](https://modrinth.com/project/create-spellbook/settings)，已通过 Secret 认证核实正式 ID 为 `HTyTLSgC`。使用 Slug 发布；空草稿在首次上传版本前被 API 标记为通用 `project` 类型。
 - 版本保留 **0.3.0**，标签 **v0.3.0**；GitHub prerelease、Modrinth beta。Mod ID 保持 `create_spellbook`，展示名为奥术工程 / Arcane Engineering。
 - 原创代码 MIT，署名 Sakura。作者确认提供素材原创或有分发权，并确认不存在 Create 美术资源二次分发；`release/approvals.json` 三项为 true。依据与上游例外见 [许可记录](LICENSING_REVIEW.md)及 [第三方声明](../THIRD_PARTY_NOTICES.md)。
@@ -20,14 +20,14 @@ Java 21、Minecraft 1.21.1、NeoForge 21.1.251+。首发核对 Create 6.0.9、Ir
 
 - 标准 Gradle 正式构建成功；粒子代码调整后编译成功，许可声明同步后归档构建也成功。未重跑历史大批量测试，`test` 无测试源码。
 - 412 个拟公开文件、235 个资源通过凭据扫描、JSON 和语言键校验。JAR 资源与源码一致，Java 21 字节码、Mixin 类及许可齐全，无 GameTest 类、缓存、存档或依赖 JAR。
-- 与上一份已安装包比较，仅 `FanAirflow.class` 和 `META-INF/THIRD_PARTY_NOTICES.md` 改变。
+- 粒子调整仅修改 `FanAirflow.class`，并同步第三方声明。远程产物与本机验证包的全部 class 和二进制素材相同，文本资源按 Git 配置统一 LF 换行。
 - 本地正式包：`dist/0.3.0/create-spellbook-1.21.1-neoforge-0.3.0.jar`。
-- SHA-256：`d649975405014c3971e2e6dafcabfd7d6bbe940565978b10b86d678fb92700c0`。
-- 公开授权检查通过；包装报告 `candidate_only=false`。这不代表已经上传或通过平台审核。
+- SHA-256：`0cabf25e53847b4e62a915ccb679a055ce3239152476e4df97fbf6a85b9fdb8b`。
+- 公开授权检查通过；包装报告 `candidate_only=false`。该 SHA-256 对应实际 GitHub / Modrinth 发布文件；Modrinth 项目审核尚未通过。
 - 已按项目约定使用安装脚本备份并安装到 mod test；安装结果见本机报告。仅替换本 Mod，保留一个生效版本。
 - 先前聚魔盆定向客户端验证已完成模型四朝向、内腔、法力同步、资源重载和原生物品截图；本次粒子小调整未重复该轮美术验收，未进行新的真人联机或大型工厂测试。
 
-## 发布流程与剩余步骤
+## 已执行的发布流程
 
 用户已确认 GitHub Actions Secret `MODRINTH_TOKEN` 配置完成。Token 不进入源码、命令参数或日志，也不需要读取它。
 
@@ -37,4 +37,14 @@ Java 21、Minecraft 1.21.1、NeoForge 21.1.251+。首发核对 Create 6.0.9、Ir
 4. 发布工作流校验批准、可信 CI 来源、commit、项目 ID 和哈希，使用固定版本 MC-Publish 将同一 JAR 发布到 GitHub 与 Modrinth，不在发布时重新构建。
 5. 下载 GitHub 文件逐字节核对，并核对 Modrinth SHA-512 / SHA-1。通过官方 API 固定审核过的依赖版本，再提交新项目公开审核。记录两平台和 Actions 的实际链接；部分成功时只补缺失平台，不盲目重跑双平台发布。
 
-当前远程 CI、版本上传与 Modrinth 审核尚未完成。浏览器控制因无法可靠识别当前网址而停止；仓库可见性与 Modrinth 私有设置需要所有者协助，源码提交仍可通过 GitHub 连接完成。
+## 远程结果
+
+- 发布源码 commit：`fa5d3a3361865b04165bbaec617aa0d1fcc40ea4`，版本标签 `v0.3.0`。
+- [正式构建](https://github.com/chenlly118/create-Spellbook/actions/runs/41017841524)：成功；412 个源码文件及 235 个资源通过校验。
+- [发布工作流](https://github.com/chenlly118/create-Spellbook/actions/runs/41017949710)：全部步骤成功，上传后回读 GitHub JAR 并逐字节比较，Modrinth SHA-512 / SHA-1 与版本依赖检查通过。
+- [GitHub Release](https://github.com/chenlly118/create-Spellbook/releases/tag/v0.3.0)：public、非草稿、prerelease；主 JAR 与 `SHA256SUMS.txt` 已附加。
+- [Modrinth 项目](https://modrinth.com/project/create-spellbook)：正式 ID `HTyTLSgC`，MIT、双语介绍、technology / magic 分类与源码链接已同步；0.3.0 Beta 已上传，1.21.1 / NeoForge、两端安装与精确依赖已核对。
+- Modrinth 当前状态为 **processing**，已提交公开审核；审核通过时间由平台决定，不把上传成功表述为平台已批准。
+- 已将同一份远程正式 JAR 安装到 mod test，旧包已备份，实例仅有一个本 Mod 版本。
+
+首次检查因空草稿被 API 标记为通用 `project` 类型而停止在上传前；依据 Modrinth 官方实现兼容空草稿后，重新构建并成功发布。未重复上传、覆盖现有正式版本或读取 Secret 明文。

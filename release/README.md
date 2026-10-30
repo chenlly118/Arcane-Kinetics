@@ -43,3 +43,7 @@ python scripts/package_public_release.py --jar build/libs/create-spellbook-1.21.
 后续版本修改 `gradle.properties`、`project.json`、审批版本、README 和对应 notes，重新将三项审批置 false。CI 自动按 Gradle 版本打包；本首发 workflow 固定依赖和 beta 类型，变更依赖或发布稳定版时同步修改工作流及验证器。
 
 此流程已通过远程构建、双平台上传和哈希回读验证；平台审核状态与验证结果见 `docs/PRE_RELEASE_REVIEW.md`。
+
+## CurseForge
+
+项目 ID **1773802**；上传用 Token 保存在 `CURSEFORGE_TOKEN` Actions Secret。0.3.0 已由 `curseforge-existing.yml` 从已有 GitHub Release 取同一 JAR 上传，文件 ID **9369987**；平台公开状态与检查结果见 [curseforge-review.md](curseforge-review.md)。后续常规发布工作流已加入 CurseForge，不要盲目重跑 0.3.0 的补发动作。

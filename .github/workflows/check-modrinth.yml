@@ -10,16 +10,30 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Read project identity without exposing credentials
+      - name: Apply and verify the requested project name and source links
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         run: |
           python3 - <<'PY'
           import json, os, urllib.request
           headers = {'User-Agent': 'ArcaneEngineering-release/0.3.0', 'Authorization': os.environ['MODRINTH_TOKEN']}
-          req = urllib.request.Request('https://api.modrinth.com/v2/project/create-spellbook', headers=headers)
-          with urllib.request.urlopen(req, timeout=45) as r:
-              project = json.load(r)
-          keys = ['id', 'slug', 'title', 'project_type', 'status', 'requested_status', 'license', 'loaders', 'game_versions', 'versions', 'source_url', 'client_side', 'server_side']
+          url = 'https://api.modrinth.com/v2/project/HTyTLSgC'
+          def read():
+              with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=45) as r:
+                  return json.load(r)
+          project = read()
+          assert project['id'] == 'HTyTLSgC' and project['slug'] == 'create-spellbook'
+          repository = 'https://github.com/chenlly118/Arcane-Engineering'
+          body = project['body'].replace('https://github.com/chenlly118/create-Spellbook', repository)
+          desired = {'title': 'Arcane Engineering', 'source_url': repository, 'issues_url': repository + '/issues', 'body': body}
+          changes = {k: v for k, v in desired.items() if project.get(k) != v}
+          if changes:
+              req = urllib.request.Request(url, method='PATCH', data=json.dumps(changes).encode(),
+                  headers=dict(headers, **{'Content-Type': 'application/json'}))
+              with urllib.request.urlopen(req, timeout=45) as r:
+                  r.read()
+          project = read()
+          assert all(project[k] == value for k, value in desired.items()), 'Project metadata was not saved'
+          keys = ['id', 'slug', 'title', 'project_type', 'status', 'versions', 'source_url', 'issues_url']
           print(json.dumps({k: project.get(k) for k in keys}))
           PY

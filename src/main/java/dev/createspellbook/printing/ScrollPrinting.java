@@ -4,6 +4,7 @@ import com.simibubi.create.content.logistics.filter.*;
 import dev.createspellbook.constructs.ScrollTemplate;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.config.ServerConfigs;
 import io.redspace.ironsspellbooks.registries.*;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -11,6 +12,7 @@ import java.util.*;
 
 /** Native scribing rules, shared by the machine and its read-only preview. */
 public final class ScrollPrinting {
+    static final int ANVIL_INK=250;
     public record Selection(ItemStack output,int nextIndex) {}
     public static Optional<SpellRarity> inkRarity(FluidStack stack) {
         if(stack.isEmpty())return Optional.empty();
@@ -40,6 +42,20 @@ public final class ScrollPrinting {
     }
     public static boolean validTemplate(ItemStack stack){return !templates(stack).isEmpty();}
     public static boolean validFocus(ItemStack stack){return !stack.isEmpty() && !SchoolRegistry.getSchoolsFromFocus(stack).isEmpty();}
+    static Optional<SpellData> upgradeTarget(ItemStack input) {
+        if(!ServerConfigs.SCROLL_MERGING.get())return Optional.empty();
+        return ScrollTemplate.read(input)
+                .filter(data->data.getLevel()<data.getSpell().getMaxLevel())
+                .map(data->new SpellData(data.getSpell(),data.getLevel()+1));
+    }
+    static Optional<Selection> upgrade(ItemStack input,FluidStack ink,int cursor) {
+        var rarity=inkRarity(ink);
+        return upgradeTarget(input).filter(next->rarity.orElse(null)==next.getRarity()).map(next->{
+            var output=input.copyWithCount(1);
+            ISpellContainer.createScrollContainer(next.getSpell(),next.getLevel(),output);
+            return new Selection(output,cursor);
+        });
+    }
     public static Optional<Selection> select(ItemStack template,ItemStack focus,FluidStack ink,int cursor) {
         var rarity=inkRarity(ink);if(rarity.isEmpty() || !validFocus(focus))return Optional.empty();
         var choices=templates(template);if(choices.isEmpty())return Optional.empty();

@@ -28,6 +28,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import java.util.List;
@@ -87,8 +88,19 @@ public class IndustrialSpell extends AbstractSpell {
                     && target.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.KNOCKBACK_RESISTANCE)<.99;
         }
         if(kind!=SpellKind.STRESS_DRIVE) return true;
+        if(!(level instanceof ServerLevel server))return false;
+        return stressVictim(server,caster)!=null || stressCrank(server,caster)!=null;
+    }
+    private LivingEntity stressVictim(ServerLevel level,LivingEntity caster) {
+        var hit=RaycastBuilder.begin(level,caster).range((float)range()).checkForBlocks(true).bbInflation(.3f)
+                .filter(entity->entity instanceof LivingEntity living && movableTarget(caster,living)).build();
+        return hit instanceof EntityHitResult contact && contact.getEntity() instanceof LivingEntity target?target:null;
+    }
+    private ArcaneCrankBlockEntity stressCrank(ServerLevel level,LivingEntity caster) {
         var hit=Targeting.block(caster,range());
-        return level instanceof ServerLevel server && Targeting.canInteract(server,caster,hit) && level.getBlockEntity(hit.getBlockPos()) instanceof ArcaneCrankBlockEntity;
+        var pos=hit.getBlockPos();
+        if(hit.getType()!=HitResult.Type.BLOCK || !level.hasChunkAt(pos))return null;
+        return level.getBlockEntity(pos) instanceof ArcaneCrankBlockEntity crank && Targeting.canInteract(level,caster,hit)?crank:null;
     }
     @Override public void onServerPreCast(Level level,int spellLevel,LivingEntity caster,MagicData data) {
         if(data!=null && kind.castType==CastType.CONTINUOUS) data.setAdditionalCastData(new ProcessingBudget(Balance.inputLimit(spellLevel,kind.maxLevel)));
@@ -102,11 +114,12 @@ public class IndustrialSpell extends AbstractSpell {
         int available=(int)Math.floor(budget.fanCredit+1e-9);
         budget.fanCredit-=available;
         budget.remaining=available;
-        if(available==0) return;
         Vec3 origin=caster.getEyePosition();
+        Vec3 forward=caster.getLookAngle();
         double distance=Math.min(range(),origin.distanceTo(Targeting.block(caster,range()).getLocation()));
+        FanAirflow.move(server,caster,origin,forward,distance);
         for(double d=1;d<=distance && budget.remaining>0;d+=1.5)
-            IndustrialProcessing.around(server,caster,origin.add(caster.getLookAngle().scale(d)),1.4,IndustrialProcessing.Mode.BLAST,budget);
+            IndustrialProcessing.around(server,caster,origin.add(forward.scale(d)),1.4,IndustrialProcessing.Mode.BLAST,budget);
         // Empty windows cannot accumulate credits for a later burst.
         budget.remaining=0;
     }
@@ -174,9 +187,14 @@ public class IndustrialSpell extends AbstractSpell {
                 case PRESS_BARRAGE -> barrage(server,caster,spellLevel,damage,budget);
                 case POWER_SAW -> MechanicalEntity.launch(caster,this,spellLevel,1,damage,Balance.SAW_SPEED.get()).processing(budget,range());
                 case STRESS_DRIVE -> {
-                    var hit=Targeting.block(caster,range());
-                    if(Targeting.canInteract(server,caster,hit) && level.getBlockEntity(hit.getBlockPos()) instanceof ArcaneCrankBlockEntity crank)
-                        crank.activate(spellLevel,getEntityPowerMultiplier(caster));
+                    var target=stressVictim(server,caster);
+                    if(target!=null) {
+                        var output=ArcaneCrankBlockEntity.output(spellLevel,getEntityPowerMultiplier(caster));
+                        ServerSpellTasks.spin(server,caster,target,output.rpm());
+                    } else {
+                        var crank=stressCrank(server,caster);
+                        if(crank!=null)crank.activate(spellLevel,getEntityPowerMultiplier(caster));
+                    }
                 }
                 case BLAZE_INFUSION -> {
                     var hit=Targeting.block(caster,range());
@@ -192,16 +210,16 @@ public class IndustrialSpell extends AbstractSpell {
                 }
                 case FAN_SMELTING -> {
                     Vec3 origin=caster.getEyePosition();
+                    Vec3 forward=caster.getLookAngle();
                     var hit=Targeting.block(caster,range());
                     double distance=Math.min(range(),origin.distanceTo(hit.getLocation()));
                     for(double d=1;d<=distance;d+=1.5) {
-                        Vec3 center=origin.add(caster.getLookAngle().scale(d));
-                        FanAirflow.spawnBlasting(server,center);
+                        FanAirflow.spawn(server,origin.add(forward.scale(d)));
                     }
-                    for(var target:level.getEntitiesOfClass(LivingEntity.class,caster.getBoundingBox().inflate(range()))) {
-                        Vec3 delta=target.getBoundingBox().getCenter().subtract(origin);
-                        if(validTarget(caster,target) && delta.length()<=range() && delta.normalize().dot(caster.getLookAngle())>.86 && caster.hasLineOfSight(target))
-                            DamageSources.applyDamage(target,damage,getDamageSource(caster));
+                    for(var target:level.getEntitiesOfClass(LivingEntity.class,FanAirflow.bounds(origin,forward,distance))) {
+                        if(!FanAirflow.reaches(server,caster,target,origin,forward,distance))continue;
+                        DamageSources.applyDamage(target,damage,getDamageSource(caster));
+                        FanAirflow.haunt(target);
                     }
                 }
                 case CRUSHING_WHEEL -> MechanicalEntity.launch(caster,this,spellLevel,2,damage,Balance.WHEEL_SPEED.get()).processing(budget,range());
@@ -223,6 +241,12 @@ public class IndustrialSpell extends AbstractSpell {
         super.onCast(level,spellLevel,caster,source,data);
     }
     public static boolean validTarget(LivingEntity caster,LivingEntity target) { return target!=caster && target.isAlive() && !DamageSources.isFriendlyFireBetween(caster,target) && caster.hasLineOfSight(target); }
+    static boolean movableTarget(LivingEntity caster,LivingEntity target) {
+        if(target.noPhysics || target.isSpectator())return false;
+        if(target instanceof Player player && (player.getAbilities().flying || player.getAbilities().invulnerable
+                || caster instanceof Player source && !source.canHarmPlayer(player)))return false;
+        return validTarget(caster,target);
+    }
     @Override public SpellDamageSource getDamageSource(Entity projectile,Entity attacker) {
         if(kind==SpellKind.BLAZE_INFUSION) return new ThermalDamage(projectile,attacker,this);
         if(kind==SpellKind.FAN_SMELTING) return new ThermalDamage(projectile,attacker,this).setFireTicks(60);

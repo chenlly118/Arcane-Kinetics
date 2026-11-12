@@ -2,6 +2,7 @@ package dev.createspellbook.printing;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
+import dev.createspellbook.constructs.ConstructInteraction;
 import dev.createspellbook.devices.DeviceContent;
 import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponents;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -46,7 +48,13 @@ public final class ScrollPrinterBlock extends Block implements IBE<ScrollPrinter
     @Override protected ItemInteractionResult useItemOn(ItemStack stack,BlockState state,Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit){return use(level,pos,player,hand,hit).consumesAction()?ItemInteractionResult.SUCCESS:ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;}
     private InteractionResult use(Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit){
         if(!(level.getBlockEntity(pos) instanceof ScrollPrinterBlockEntity printer))return InteractionResult.PASS;
+        if(ConstructInteraction.isWrench(player.getItemInHand(hand)))
+            return player.isShiftKeyDown()?InteractionResult.PASS:printer.switchMode(player);
         return printer.playerUse(player,hand,hit);
+    }
+    @Override public InteractionResult onWrenched(BlockState state,UseOnContext context){
+        return context.getPlayer()!=null && context.getLevel().getBlockEntity(context.getClickedPos()) instanceof ScrollPrinterBlockEntity printer
+                ?printer.switchMode(context.getPlayer()):InteractionResult.PASS;
     }
     @Override protected void onRemove(BlockState state,Level level,BlockPos pos,BlockState next,boolean moving){if(!state.is(next.getBlock()))IBE.onRemove(state,level,pos,next);super.onRemove(state,level,pos,next,moving);}
     @Override public void onPlace(BlockState state,Level level,BlockPos pos,BlockState old,boolean moving){super.onPlace(state,level,pos,old,moving);if(state.is(old.getBlock()) && state.getValue(FACING)!=old.getValue(FACING))level.invalidateCapabilities(pos);}

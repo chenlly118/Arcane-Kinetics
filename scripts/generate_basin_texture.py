@@ -6,6 +6,7 @@ neither the board nor dependency bitmaps/models are read by this generator.
 from pathlib import Path
 import hashlib
 import json
+import sys
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -109,12 +110,18 @@ def rim_tile():
 
 
 def main():
+    texture = ASSETS / 'textures/block/focusing_basin.png'
+    # The shipped atlas is the final hand-cleaned version. Re-running the old
+    # tile generator would reintroduce the noisy highlights, so keep it unless
+    # regeneration is explicitly requested.
+    if texture.exists() and '--force' not in sys.argv:
+        print('Keeping authored clean basin texture:', texture)
+        return
     ART.mkdir(parents=True, exist_ok=True)
     atlas = Image.new('RGBA', (128, 128), (0, 0, 0, 0))
     for name, (tx, ty) in TILES.items():
         tile = brass_tile(name) if name in ('brass', 'post', 'foot', 'clasp', 'trim') else rim_tile() if name == 'rim' else metal_tile(name)
         atlas.paste(tile, (tx * 32, ty * 32))
-    texture = ASSETS / 'textures/block/focusing_basin.png'
     atlas.save(texture)
     metal_tile('side').save(ASSETS / 'textures/block/focusing_basin_particle.png')
     atlas.resize((768, 768), Image.Resampling.NEAREST).save(ART / 'atlas-nearest.png')

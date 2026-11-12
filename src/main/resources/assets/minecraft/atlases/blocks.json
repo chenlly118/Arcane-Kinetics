@@ -37,7 +37,8 @@
     {
       "type": "minecraft:paletted_permutations",
       "textures": [
-        "create:item/precision_mechanism"
+        "create:item/precision_mechanism",
+        "create:item/incomplete_precision_mechanism"
       ],
       "palette_key": "create_spellbook:palettes/mechanism_key",
       "permutations": {
@@ -90,6 +91,22 @@
     {
       "type": "minecraft:single",
       "resource": "create_spellbook:fluid/liquid_divine_soul_flow"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "create_spellbook:fluid/arcane_fuel_still"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "create_spellbook:fluid/arcane_fuel_flow"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "create_spellbook:fluid/refined_arcane_fuel_still"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "create_spellbook:fluid/refined_arcane_fuel_flow"
     },
     {
       "type": "minecraft:paletted_permutations",
@@ -161,6 +178,9 @@
       "permutations": {
         "spellbook_cover": "create_spellbook:palettes/handbook_cover_arcane"
       }
+    },
+    {
+      "type": "create_spellbook:arcane_funnel"
     }
   ]
 }

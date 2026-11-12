@@ -2,9 +2,9 @@
   "name": "Arcane Kinetics",
   "name_zh": "奥术动力学",
   "icon": "src/main/resources/logo.png",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "version_type": "beta",
-  "tag": "v0.3.0",
+  "tag": "v0.5.0",
   "mod_id": "create_spellbook",
   "minecraft": "1.21.1",
   "loader": "neoforge",
@@ -72,6 +72,20 @@
       "version_id": "iv3KiVkE",
       "type": "optional",
       "curseforge_project_id": 238222
+    },
+    {
+      "project": "create-diesel-generators",
+      "project_id": "ZM3tt6p1",
+      "version_id": null,
+      "type": "optional",
+      "curseforge_project_id": 869316
+    },
+    {
+      "project": "create-wizardry",
+      "project_id": "OeGdeWEj",
+      "version_id": null,
+      "type": "optional",
+      "curseforge_project_id": 949995
     }
   ],
   "curseforge_project_id": 1773802,

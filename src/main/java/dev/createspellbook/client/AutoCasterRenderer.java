@@ -13,7 +13,7 @@ public final class AutoCasterRenderer implements BlockEntityRenderer<ArcaneAutoC
     public static final ResourceLocation CRYSTAL=CreateSpellbook.id("block/casting_construct/auto_crystal");
     public AutoCasterRenderer(BlockEntityRendererProvider.Context context){}
     @Override public void render(ArcaneAutoCasterBlockEntity caster,float partial,PoseStack pose,MultiBufferSource buffers,int light,int overlay){
-        double time=caster.getLevel().getGameTime()+partial;
+        double time=ConstructModels.renderTime(caster.getLevel(),partial);
         float pulse=ConstructModels.recoil(caster.getLevel().getGameTime(),caster.ledger.lastRelease,partial);
         pose.pushPose();pose.translate(.5,.9375+Math.sin(time*.06)*.018+pulse*.25,.5);
         pose.mulPose(Axis.YP.rotationDegrees((float)(time*.8)));pose.translate(-.5,-.9375,-.5);

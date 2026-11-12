@@ -1,0 +1,27 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {"item": "minecraft:stone_slab"},
+  "transitional_item": {"id": "create_spellbook:incomplete_blank_rune"},
+  "loops": 1,
+  "sequence": [
+    {
+      "type": "create:pressing",
+      "ingredients": [{"item": "create_spellbook:incomplete_blank_rune"}],
+      "results": [{"id": "create_spellbook:incomplete_blank_rune"}]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {"item": "create_spellbook:incomplete_blank_rune"},
+        {"type": "neoforge:single", "fluid": "create_spellbook:mana", "amount": 500}
+      ],
+      "results": [{"id": "create_spellbook:incomplete_blank_rune"}]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [{"item": "create_spellbook:incomplete_blank_rune"}, {"item": "create_spellbook:arcane_plate"}],
+      "results": [{"id": "create_spellbook:incomplete_blank_rune"}]
+    }
+  ],
+  "results": [{"id": "irons_spellbooks:blank_rune", "count": 1}]
+}

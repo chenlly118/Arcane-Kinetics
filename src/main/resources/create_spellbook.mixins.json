@@ -4,6 +4,12 @@
   "package": "dev.createspellbook.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "WizardryArcanePlateMixin",
+    "EnchantedWrenchRecognitionMixin",
+    "FluidStackMixin",
+    "SingleFluidIngredientMixin",
+    "DataComponentFluidIngredientMixin",
+    "FunnelBehaviourAccess",
     "BlazeBurnerMixin",
     "SpellDeviceProjectileMixin",
     "SpellDeviceSightMixin",
@@ -13,5 +19,6 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": []
 }

@@ -18,11 +18,11 @@
     },
     "facing=up": {
       "model": "create_spellbook:block/arcane_casting_arm",
-      "y": 0
+      "x": 270
     },
     "facing=down": {
       "model": "create_spellbook:block/arcane_casting_arm",
-      "y": 0
+      "x": 90
     }
   }
 }

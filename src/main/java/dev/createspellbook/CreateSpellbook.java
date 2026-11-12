@@ -16,11 +16,15 @@ public final class CreateSpellbook {
         Content.register(bus);
         dev.createspellbook.processing.SpellScrollIngredient.register(bus);
         dev.createspellbook.devices.DeviceContent.register(bus);
+        dev.createspellbook.utility.UtilityContent.init(bus);
         dev.createspellbook.reactor.ReactorContent.init(bus);
         bus.addListener(this::attributes);
         bus.addListener(this::capabilities);
-        bus.addListener((net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent event)->event.enqueueWork(()->
-                com.simibubi.create.api.stress.BlockStressValues.IMPACTS.register(dev.createspellbook.devices.DeviceContent.CASTING_ARM.get(),()->Balance.EMITTER_STRESS.get())));
+        bus.addListener((net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent event)->event.enqueueWork(()->{
+                com.simibubi.create.api.stress.BlockStressValues.IMPACTS.register(dev.createspellbook.devices.DeviceContent.CASTING_ARM.get(),()->Balance.EMITTER_STRESS.get());
+        }));
+        bus.addListener((net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent event) ->
+                event.enqueueWork(dev.createspellbook.compat.WizardryFluids::init));
         container.registerConfig(ModConfig.Type.SERVER, Balance.SPEC);
     }
 
@@ -31,6 +35,10 @@ public final class CreateSpellbook {
         }
     }
     private void capabilities(net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.BLOCK,
+                dev.createspellbook.utility.UtilityContent.FIREWORK_BE.get(),(be,side)->be.inputPort(side));
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
+                dev.createspellbook.utility.UtilityContent.PORTAL_BE.get(),(be,side)->be.itemPort());
         event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.BLOCK,
                 dev.createspellbook.reactor.ReactorContent.MANA_BE.get(),(be,side)->be.fluidPort(side));
         event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
@@ -57,5 +65,9 @@ public final class CreateSpellbook {
                 (stack,context)->new dev.createspellbook.item.BloodBucketItem.Handler(stack),Content.BLOOD_BUCKET.get());
         event.registerItem(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM,
                 (stack,context)->new net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper(stack),Content.DIVINE_SOUL_BUCKET.get());
+        for (var fuel : dev.createspellbook.fluid.DieselFuels.FUELS) {
+            event.registerItem(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM,
+                    (stack, context) -> new net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper(stack), fuel.bucket());
+        }
     }
 }

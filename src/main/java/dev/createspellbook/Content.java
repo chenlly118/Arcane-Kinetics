@@ -19,7 +19,7 @@ import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.SchoolType;
-import io.redspace.ironsspellbooks.item.weapons.StaffItem;
+import dev.createspellbook.item.EnchantedWrenchItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -76,15 +76,20 @@ public final class Content {
                 output.accept(Content.MANA_BUCKET.get()); output.accept(Content.MANA_BOTTLE.get());
                 output.accept(Content.BLOOD_BUCKET.get());
                 output.accept(Content.DIVINE_SOUL_BUCKET.get());
+                for (var fuel : dev.createspellbook.fluid.DieselFuels.FUELS) output.accept(fuel.bucket());
                 output.accept(dev.createspellbook.devices.DeviceContent.BASIN_ITEM.get());
                 output.accept(dev.createspellbook.devices.DeviceContent.DEPOT_ITEM.get());
                 output.accept(dev.createspellbook.devices.DeviceContent.SENSOR_ITEM.get());
                 output.accept(dev.createspellbook.devices.DeviceContent.CASTING_ARM_ITEM.get());
                 output.accept(dev.createspellbook.devices.DeviceContent.REACTOR_ITEM.get());
                 output.accept(dev.createspellbook.devices.DeviceContent.SCROLL_PRINTER_ITEM.get());
+                output.accept(dev.createspellbook.utility.UtilityContent.FIREWORK_ITEM.get());
+                output.accept(dev.createspellbook.utility.UtilityContent.PORTAL_ITEM.get());
                 for(var item:dev.createspellbook.reactor.ReactorContent.ITEMS)output.accept(item.get());
                 output.accept(dev.createspellbook.reactor.ReactorContent.STABILIZER.get());
                 output.accept(dev.createspellbook.reactor.ReactorContent.MATTER.get());
+                output.accept(dev.createspellbook.reactor.ReactorContent.SINGULARITY_INGOT.get());
+                output.accept(dev.createspellbook.reactor.ReactorContent.SINGULARITY_BLOCK_ITEM.get());
                 for(var spell:SPELLS.getEntries()) {
                     var scroll=new ItemStack(io.redspace.ironsspellbooks.registries.ItemRegistry.SCROLL.get());
                     ISpellContainer.createScrollContainer(spell.get(),1,scroll); output.accept(scroll);
@@ -103,15 +108,16 @@ public final class Content {
     public static final DeferredHolder<SchoolType, SchoolType> MECHANICAL = SCHOOLS.register("mechanical", () -> new SchoolType(
             CreateSpellbook.id("mechanical"), FOCUS, Component.translatable("school.create_spellbook.mechanical").withColor(0xcba562),
             MECHANICAL_POWER, MECHANICAL_RESIST, BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.AMETHYST_BLOCK_CHIME), DAMAGE));
-    public static final DeferredHolder<Item, StaffItem> ENCHANTED_WRENCH = ITEMS.register("enchanted_wrench", () -> new StaffItem(new Item.Properties().stacksTo(1)));
+    public static final DeferredHolder<Item, EnchantedWrenchItem> ENCHANTED_WRENCH = ITEMS.register("enchanted_wrench", () -> new EnchantedWrenchItem(new Item.Properties().stacksTo(1)));
     public static final DeferredHolder<Item, dev.createspellbook.item.EngineersHandbookItem> ENGINEERS_HANDBOOK = ITEMS.register("engineers_handbook", dev.createspellbook.item.EngineersHandbookItem::new);
-    public static final DeferredHolder<Item,Item> ARCANE_PLATE=HAS_WIZARDRY
-            ? DeferredHolder.create(Registries.ITEM,net.minecraft.resources.ResourceLocation.parse("create_wizardry:arcane_sheet"))
-            : ITEMS.register("arcane_plate",()->new Item(new Item.Properties()));
+    public static final DeferredHolder<Item,Item> ARCANE_PLATE=ITEMS.register("arcane_plate",()->new Item(new Item.Properties()));
     public static final DeferredHolder<Item,BloodBucketItem> BLOOD_BUCKET=ITEMS.register("blood_bucket",
             ()->new BloodBucketItem(new Item.Properties().stacksTo(1).craftRemainder(net.minecraft.world.item.Items.BUCKET)));
     public static final DeferredHolder<Item,Item> ARCANE_MECHANISM=ITEMS.register("arcane_mechanism",()->new Item(new Item.Properties()));
-    /** Pack-origin materials are registered here; their production recipes remain pack-local. */
+    public static final DeferredHolder<Item, Item> INCOMPLETE_BLANK_RUNE = ITEMS.register("incomplete_blank_rune",
+            () -> new com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> INCOMPLETE_ARCANE_MECHANISM = ITEMS.register("incomplete_arcane_mechanism",
+            () -> new com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem(new Item.Properties()));
     public static final DeferredHolder<FluidType,FluidType> DIVINE_SOUL_TYPE=FLUID_TYPES.register("liquid_divine_soul",
             ()->new FluidType(FluidType.Properties.create().descriptionId("fluid.create_spellbook.liquid_divine_soul").temperature(300).lightLevel(13)
                     .sound(net.neoforged.neoforge.common.SoundActions.BUCKET_FILL,SoundEvents.BUCKET_FILL)
@@ -164,6 +170,14 @@ public final class Content {
     private static DeferredHolder<AbstractSpell, IndustrialSpell> spell(SpellKind kind) { return SPELLS.register(kind.id,()->new IndustrialSpell(kind)); }
 
     public static void register(IEventBus bus) {
+        var ironBlood = net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("irons_spellbooks", "blood");
+        var wizardryBlood = dev.createspellbook.compat.WizardryFluids.BLOOD;
+        FLUIDS.addAlias(CreateSpellbook.id("blood"), HAS_WIZARDRY ? wizardryBlood : ironBlood);
+        if (!HAS_WIZARDRY) {
+            FLUIDS.addAlias(wizardryBlood, ironBlood);
+            FLUIDS.addAlias(dev.createspellbook.compat.WizardryFluids.FLOWING_BLOOD, ironBlood);
+        }
+        dev.createspellbook.fluid.DieselFuels.registerLegacyAliases();
         // Resolve existing items, tanks, recipes, tags and world block states to
         // the migrated materials. KubeJS no longer registers a second copy.
         FLUIDS.addAlias(net.minecraft.resources.ResourceLocation.parse("kubejs:liquid_divine_soul"),CreateSpellbook.id("liquid_divine_soul"));
@@ -177,9 +191,6 @@ public final class Content {
             // recipe holders to the canonical object, without scanning or draining tanks.
             FLUIDS.addAlias(CreateSpellbook.id("mana"),net.minecraft.resources.ResourceLocation.parse("create_wizardry:mana"));
             FLUID_TYPES.addAlias(CreateSpellbook.id("mana"),net.minecraft.resources.ResourceLocation.parse("create_wizardry:mana_type"));
-            // Keep existing Wizardry factories using their canonical sheet. Its
-            // appearance is supplied by our authored runtime parent model.
-            ITEMS.addAlias(CreateSpellbook.id("arcane_plate"),net.minecraft.resources.ResourceLocation.parse("create_wizardry:arcane_sheet"));
         } else {
             // Uninstalling the optional addon must not strand its saved mana,
             // bucket or sheet IDs. Aliases preserve counts and normalize on save.
@@ -187,8 +198,10 @@ public final class Content {
             FLUIDS.addAlias(net.minecraft.resources.ResourceLocation.parse("create_wizardry:mana_flowing"),CreateSpellbook.id("mana"));
             FLUID_TYPES.addAlias(net.minecraft.resources.ResourceLocation.parse("create_wizardry:mana_type"),CreateSpellbook.id("mana"));
             ITEMS.addAlias(net.minecraft.resources.ResourceLocation.parse("create_wizardry:mana_bucket"),CreateSpellbook.id("mana_bucket"));
-            ITEMS.addAlias(net.minecraft.resources.ResourceLocation.parse("create_wizardry:arcane_sheet"),CreateSpellbook.id("arcane_plate"));
         }
+        // Wizardry's optional registration adapter points its own item holder here.
+        // The alias preserves existing sheets, ingredient IDs and recipe outputs.
+        ITEMS.addAlias(net.minecraft.resources.ResourceLocation.parse("create_wizardry:arcane_sheet"),CreateSpellbook.id("arcane_plate"));
         ATTRIBUTES.register(bus); SCHOOLS.register(bus); SPELLS.register(bus);
         FLUID_TYPES.register(bus); FLUIDS.register(bus); ITEMS.register(bus); BLOCKS.register(bus); BLOCK_ENTITIES.register(bus); ENTITIES.register(bus); EFFECTS.register(bus); TABS.register(bus);
     }

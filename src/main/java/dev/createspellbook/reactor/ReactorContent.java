@@ -16,6 +16,11 @@ import java.util.*;
 public final class ReactorContent {
     public static final DeferredHolder<Item,BlackHoleStabilizerItem> STABILIZER=Content.ITEMS.register("black_hole_stabilizer",BlackHoleStabilizerItem::new);
     public static final DeferredHolder<Item,CollapsedMatterItem> MATTER=Content.ITEMS.register("collapsed_matter",CollapsedMatterItem::new);
+    public static final DeferredHolder<Item,Item> SINGULARITY_INGOT=Content.ITEMS.register("singularity_ingot",()->new Item(new Item.Properties()));
+    public static final DeferredHolder<Block,Block> SINGULARITY_BLOCK=Content.BLOCKS.register("singularity_block",()->new Block(
+            BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).mapColor(net.minecraft.world.level.material.MapColor.COLOR_BLACK)));
+    public static final DeferredHolder<Item,BlockItem> SINGULARITY_BLOCK_ITEM=Content.ITEMS.register("singularity_block",
+            ()->new BlockItem(SINGULARITY_BLOCK.get(),new Item.Properties()));
     public static final DeferredHolder<net.minecraft.world.entity.EntityType<?>,net.minecraft.world.entity.EntityType<net.minecraft.world.entity.item.ItemEntity>> MATTER_ENTITY=Content.ENTITIES.register("collapsed_matter_item",()->net.minecraft.world.entity.EntityType.Builder.<net.minecraft.world.entity.item.ItemEntity>of(CollapsedMatterEntity::new,net.minecraft.world.entity.MobCategory.MISC).sized(.25f,.25f).clientTrackingRange(6).updateInterval(20).fireImmune().build("collapsed_matter_item"));
     public static final DeferredRegister<net.minecraft.world.inventory.MenuType<?>> MENUS=DeferredRegister.create(Registries.MENU,CreateSpellbook.ID);
     public static final DeferredHolder<net.minecraft.world.inventory.MenuType<?>,net.minecraft.world.inventory.MenuType<ReactorMenu>> CONTROL_MENU=MENUS.register("reactor_control",()->new net.minecraft.world.inventory.MenuType<>(ReactorMenu::new,net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
@@ -32,7 +37,7 @@ public final class ReactorContent {
     public static final DeferredHolder<BlockEntityType<?>,BlockEntityType<ReactorControllerBlockEntity>> CONTROLLER_BE=Content.BLOCK_ENTITIES.register(ReactorRole.CONTROLLER.id,()->BlockEntityType.Builder.of(ReactorControllerBlockEntity::new,CONTROLLER.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>,BlockEntityType<ReactorShaftBlockEntity>> SHAFT_BE=Content.BLOCK_ENTITIES.register(ReactorRole.SHAFT.id,()->BlockEntityType.Builder.of(ReactorShaftBlockEntity::new,SHAFT.get()).build(null));
     public static final List<DeferredHolder<Item,BlockItem>> ITEMS=Arrays.stream(ReactorRole.values()).map(role->Content.ITEMS.<BlockItem>register(role.id,()->new BlockItem(block(role),new Item.Properties()){
-        @Override public void appendHoverText(ItemStack stack,TooltipContext context,List<Component> lines,TooltipFlag flag){super.appendHoverText(stack,context,lines,flag);lines.add(Component.translatable("tooltip.create_spellbook."+role.id).withStyle(net.minecraft.ChatFormatting.GRAY));}
+        
     })).toList();
     private static DeferredHolder<Block,ReactorPartBlock> part(ReactorRole role){return Content.BLOCKS.register(role.id,()->new ReactorPartBlock(role,properties()));}
     private static DeferredHolder<BlockEntityType<?>,BlockEntityType<ReactorPartBlockEntity>> partType(ReactorRole role,DeferredHolder<Block,ReactorPartBlock> block){return Content.BLOCK_ENTITIES.register(role.id,()->BlockEntityType.Builder.of((pos,state)->new ReactorPartBlockEntity(role,pos,state),block.get()).build(null));}

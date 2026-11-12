@@ -71,6 +71,72 @@ allowlist. No new image generation was used for this release preparation.
 Minecraft and NeoForge textures are referenced by resource identifier at
 runtime; the addon does not redistribute the Minecraft game or its JARs.
 
+The 0.4.0 utility-device sprites are hand-drawn 16-by-16 pixel assets made by
+`scripts/generate_utility_resources.py`. The firework reactor reuses the
+user-supplied auto-caster body geometry and atlas, with independently authored
+emerald launch details; it does not incorporate an upstream machine model.
+The healing station and portal funnel geometry and palettes are authored in
+the same script. The healing station references Create's shaft partial at
+runtime. Invisibility compatibility mixins are independently written against
+the installed Flywheel and optional Sodium 0.8.13 APIs; no dependency source,
+bytecode, or textures are bundled. No image generation was used for these assets.
+
+In 0.4.3 the healing station is replaced by an independently authored treatment
+lamp, visually referencing the tiers and sight chamber of Create 6.0.9's fluid
+tank, its bearing socket, and Minecraft's beacon. Neither upstream geometry nor
+texture pixels are incorporated. Its seven 16-by-16 sprites and the new handheld
+concealment-lens icon are hand-pixelled in
+`scripts/generate_utility_polish_resources.py`. The firework reactor now retains
+the supplied auto-caster's exact 12-element body and four-element crystal. Only
+the six amethyst palette shades of its supplied atlas are recolored to emerald;
+the brass and blue regions are preserved. No image generation is used.
+
+In 0.4.6 the healing station follows Minecraft 1.21.1's beacon silhouette,
+vertically fitted above Create's existing rotating shaft partial. Glass and
+obsidian are referenced by their vanilla resource identifiers. The original
+beacon pattern is recolored to gold at runtime using the existing vanilla
+paletted-permutations atlas system; only color-key samples and the target gold
+palette are included. Its violet base trim is an independently drawn 16-pixel
+sprite. No vanilla texture image, Create shaft image, dependency code or game
+JAR is redistributed. `scripts/generate_healing_beacon.py` records this process.
+
+Starting with 0.4.1, the portal funnel references Create 6.0.9's brass funnel
+block, item and flap models by resource identifier. Its atlas source reads the
+separately installed Create textures at resource reload and recolors brass
+pixels using the arcane-ingot palette in memory. The original PNGs and geometry
+are not redistributed. Create's native FilteringBehaviour, list/attribute
+filters, value settings, slot positioning and flap rendering APIs are reused.
+Create authors retain credit for the referenced models, textures and APIs under
+the Create license linked above.
+
+Starting with 0.4.4, portal funnels subclass the installed Create funnel blocks
+and FunnelBlockEntity. Native belt insertion, extraction, placement, wrenching,
+filtering and flap animation are reused. A narrowly scoped accessor binds only
+the addon's subclass to its own portal inventory, because Create 6.0.9 has no
+public factory for the three privately held inventory/filter behaviours. Native
+Create funnels retain their original behaviours. All 112 wall/belt state models
+reference the installed Create geometry and recolor sprites at runtime; no
+upstream Java classes, model geometry or texture images are bundled. The
+utility Ponder storyboards, layouts, captions and compatibility code are authored
+for this addon using the installed Ponder/Create APIs.
+
+The Invisibility Device is removed in 0.4.4, including its item, recipe, assets,
+positional-mask storage handler, synchronization payload and eight rendering
+mixins. Historical notices above describe earlier releases. No invisibility
+device functionality or compatibility hook is retained in the current addon.
+
+The Crimson Executioner housing, seven 16-by-16 sprites and cuboid model are
+independently hand-authored in `scripts/generate_crimson_executioner_resources.py`.
+The supplied crimson-spike design board was used only as a visual reference;
+its pixels and geometry are not incorporated. Shaft rendering and fluid-window
+tiling use the installed Create APIs. Blood Needles visuals are drawn by the
+installed Iron's Spells renderer using a client-only, unspawned visual proxy;
+no Iron's Spells texture or geometry is copied into this addon. Damage sources
+and the blood fluid reference that mod's existing registrations.
+
+The Healing Station and Crimson Executioner entries above describe historical
+releases. Both machines and their assets were removed in 0.4.12.
+
 ## Gradle wrapper
 
 Gradle Inc. / Gradle contributors, Apache License 2.0. License text is retained

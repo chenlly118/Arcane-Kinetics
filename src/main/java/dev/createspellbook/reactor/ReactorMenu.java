@@ -8,7 +8,7 @@ import net.neoforged.neoforge.items.*;
 /** Paged, fixed-identity slots and size-based telemetry. No manual SU override.
  * All settings go through vanilla's authenticated current-menu packets. */
 public final class ReactorMenu extends AbstractContainerMenu {
-    public static final int DATA=37,PAGE_SIZE=54;
+    public static final int DATA=39,PAGE_SIZE=54;
 
     private final ReactorControllerBlockEntity controller;
     private final net.minecraft.core.BlockPos access;
@@ -19,7 +19,8 @@ public final class ReactorMenu extends AbstractContainerMenu {
         private int selectedPage;
         @Override public int get(int index){var op=controller.operation;int rateM=(int)Math.round(op.manaRate()*1000),rateW=(int)Math.round(op.matterRate()*1000);return switch(index){
             case 0->op.target()&65535;case 1->op.target()>>>16;case 2->op.actual()&65535;case 3->op.actual()>>>16;case 4->op.state().ordinal();case 5->op.requested()?1:0;case 6->op.working();case 7->op.reserves();case 8->op.manaStored()&65535;case 9->op.manaStored()>>>16;case 10->op.storedMatter()&65535;case 11->op.storedMatter()>>>16;case 12->op.alarm().ordinal();
-            case 13->controller.isFormed()?1:0;case 14->controller.issue().ordinal();case 15->op.required();case 16->op.rpm();case 17->op.manaCapacity()&65535;case 18->op.manaCapacity()>>>16;case 19->rateM&65535;case 20->rateM>>>16;case 21->rateW&65535;case 22->rateW>>>16;case 23->op.legacyPending()&65535;case 24->op.legacyPending()>>>16;case 25->op.unstable()?1:0;case 26->op.accidentPhase();case 27->op.accidentSeconds();case 28->op.sizeUnits();case 29->controller.lastLayout()==null?0:controller.lastLayout().size();case 30->op.pairs();case 31->op.reactionCount();case 32->op.energyCount();case 33->op.stabilizers.activeSlots();case 34->selectedPage;case 35->op.reserves();case 36->(int)Math.round(op.accidentRadius()*10);default->0;};}
+            case 13->controller.isFormed()?1:0;case 14->controller.issue().ordinal();case 15->op.required();case 16->op.rpm();case 17->op.manaCapacity()&65535;case 18->op.manaCapacity()>>>16;case 19->rateM&65535;case 20->rateM>>>16;case 21->rateW&65535;case 22->rateW>>>16;case 23->op.legacyPending()&65535;case 24->op.legacyPending()>>>16;case 25->op.unstable()?1:0;case 26->op.accidentPhase();case 27->op.accidentSeconds();case 28->op.sizeUnits();case 29->controller.lastLayout()==null?0:controller.lastLayout().size();case 30->op.pairs();case 31->op.reactionCount();case 32->op.energyCount();case 33->op.stabilizers.activeSlots();case 34->selectedPage;case 35->op.reserves();case 36->(int)Math.round(op.accidentRadius()*10);
+            case 37->ReactorOperation.normalSizeUnits();case 38->op.accidentPeakRadius();default->0;};}
         @Override public void set(int index,int value){if(index==34)selectedPage=value;}
         @Override public int getCount(){return DATA;}
     });}
@@ -27,16 +28,18 @@ public final class ReactorMenu extends AbstractContainerMenu {
         super(ReactorContent.CONTROL_MENU.get(),id);this.controller=controller;this.access=access;this.data=data;
         for(int index=0;index<ReactorStabilizers.MAX_SLOTS;index++){
             final int slotIndex=index;int cell=index%PAGE_SIZE;
-            addSlot(new SlotItemHandler(inventory,index,10+(cell%9)*18,101+(cell/9)*18){
+            addSlot(new SlotItemHandler(inventory,index,8+(cell%9)*18,48+(cell/9)*18){
                 @Override public boolean isActive(){return page()==slotIndex/PAGE_SIZE;}
                 @Override public boolean mayPlace(ItemStack stack){return isActive() && slotIndex<capacity() && super.mayPlace(stack);}
                 @Override public boolean mayPickup(Player player){return isActive() && (controller==null || stillValid(player));}
             });
         }
-        for(int row=0;row<3;row++)for(int col=0;col<9;col++)addSlot(new Slot(player,9+row*9+col,10+col*18,243+row*18));
-        for(int col=0;col<9;col++)addSlot(new Slot(player,col,10+col*18,301));addDataSlots(data);
+        for(int row=0;row<3;row++)for(int col=0;col<9;col++)addSlot(new Slot(player,9+row*9+col,8+col*18,172+row*18));
+        for(int col=0;col<9;col++)addSlot(new Slot(player,col,8+col*18,230));addDataSlots(data);
     }
     public double accidentRadius(){return data.get(36)/10d;}
+    public double stableSizePercent(){return data.get(37)/10d;}
+    public double fieldProgress(){return accidentPhase()>=2?accidentRadius()/Math.max(1,data.get(38)):sizePercent()/100d;}
     public int page(){return data.get(34);}
     public int pages(){return Math.max(1,(Math.max(capacity(),lastOccupied())+PAGE_SIZE-1)/PAGE_SIZE);}
     private int lastOccupied(){int last=0;for(int i=0;i<ReactorStabilizers.MAX_SLOTS;i++)if(!slots.get(i).getItem().isEmpty())last=i+1;return last;}

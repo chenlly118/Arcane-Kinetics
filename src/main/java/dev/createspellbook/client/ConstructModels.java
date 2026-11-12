@@ -12,4 +12,7 @@ public final class ConstructModels {
         if(last==Long.MIN_VALUE)return 0;float age=now-last+partial;return age>=0 && age<10?(float)Math.sin(age/10*Math.PI)*.10f:0;
     }
     private ConstructModels() {}
+    public static double renderTime(net.minecraft.world.level.Level level,float partial){
+        return level instanceof net.createmod.ponder.api.level.PonderLevel?net.createmod.catnip.animation.AnimationTickHolder.getRenderTime(level):level.getGameTime()+partial;
+    }
 }

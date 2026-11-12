@@ -39,28 +39,22 @@ public final class DeviceContent {
     public static final DeferredHolder<BlockEntityType<?>,BlockEntityType<SpellSensorBlockEntity>> SENSOR_BE=Content.BLOCK_ENTITIES.register("spell_sensor",()->BlockEntityType.Builder.of(SpellSensorBlockEntity::new,SENSOR.get()).build(null));
     public static final DeferredHolder<EntityType<?>,EntityType<SpellDeviceProbe>> SPELL_PROBE=Content.ENTITIES.register("spell_device_probe",()->EntityType.Builder.<SpellDeviceProbe>of(SpellDeviceProbe::new,MobCategory.MISC).sized(1.08f,1.05f).clientTrackingRange(6).updateInterval(20).noSave().build("spell_device_probe"));
     public static final DeferredHolder<Block,ArcaneCastingArmBlock> CASTING_ARM=Content.BLOCKS.register("arcane_casting_arm",()->new ArcaneCastingArmBlock(BlockBehaviour.Properties.of().strength(3,12).noOcclusion()));
-    public static final DeferredHolder<Item,BlockItem> CASTING_ARM_ITEM=Content.ITEMS.register("arcane_casting_arm",()->new BlockItem(CASTING_ARM.get(),new Item.Properties()) {
-        @Override public void appendHoverText(ItemStack stack,TooltipContext context,List<Component> lines,TooltipFlag flag) {super.appendHoverText(stack,context,lines,flag);lines.add(Component.translatable("tooltip.create_spellbook.arcane_casting_arm").withStyle(net.minecraft.ChatFormatting.GRAY));}
-    });
+    public static final DeferredHolder<Item,BlockItem> CASTING_ARM_ITEM=Content.ITEMS.register("arcane_casting_arm",()->new DepotMountedMachineItem(CASTING_ARM.get(),new Item.Properties()));
     public static final DeferredHolder<BlockEntityType<?>,BlockEntityType<ArcaneCastingArmBlockEntity>> CASTING_ARM_BE=Content.BLOCK_ENTITIES.register("arcane_casting_arm",()->BlockEntityType.Builder.of(ArcaneCastingArmBlockEntity::new,CASTING_ARM.get()).build(null));
     public static final DeferredHolder<EntityType<?>,EntityType<ArcaneArmCaster>> ARM_CASTER=Content.ENTITIES.register("arm_caster",()->EntityType.Builder.<ArcaneArmCaster>of(ArcaneArmCaster::new,MobCategory.MISC).sized(.25f,.25f).eyeHeight(.125f).clientTrackingRange(6).updateInterval(20).noSave().build("arm_caster"));
     public static final DeferredHolder<Block,ArcaneAutoCasterBlock> AUTO_CASTER=Content.BLOCKS.register("arcane_reactor",()->new ArcaneAutoCasterBlock(BlockBehaviour.Properties.of().strength(3,12).noOcclusion()));
     public static final DeferredHolder<Item,BlockItem> REACTOR_ITEM=Content.ITEMS.register("arcane_reactor",()->new BlockItem(AUTO_CASTER.get(),new Item.Properties().stacksTo(1)) {
-        @Override public void appendHoverText(ItemStack stack,TooltipContext context,List<Component> lines,TooltipFlag flag){super.appendHoverText(stack,context,lines,flag);lines.add(Component.translatable("tooltip.create_spellbook.arcane_reactor").withStyle(net.minecraft.ChatFormatting.GRAY));}
+        
     });
     public static final DeferredHolder<BlockEntityType<?>,BlockEntityType<ArcaneAutoCasterBlockEntity>> AUTO_CASTER_BE=Content.BLOCK_ENTITIES.register("arcane_reactor",()->BlockEntityType.Builder.of(ArcaneAutoCasterBlockEntity::new,AUTO_CASTER.get()).build(null));
     public static final DeferredHolder<Block,ScrollPrinterBlock> SCROLL_PRINTER=Content.BLOCKS.register("scroll_printer",()->new ScrollPrinterBlock(BlockBehaviour.Properties.of().strength(3,12).noOcclusion()));
-    public static final DeferredHolder<Item,BlockItem> SCROLL_PRINTER_ITEM=Content.ITEMS.register("scroll_printer",()->new BlockItem(SCROLL_PRINTER.get(),new Item.Properties()) {
-        @Override public void appendHoverText(ItemStack stack,TooltipContext context,List<Component> lines,TooltipFlag flag){super.appendHoverText(stack,context,lines,flag);for(String part:List.of("placement","template","focus","ink"))lines.add(Component.translatable("tooltip.create_spellbook.scroll_printer."+part).withStyle(net.minecraft.ChatFormatting.GRAY));}
-    });
+    public static final DeferredHolder<Item,BlockItem> SCROLL_PRINTER_ITEM=Content.ITEMS.register("scroll_printer",()->new DepotMountedMachineItem(SCROLL_PRINTER.get(),new Item.Properties()));
     public static final DeferredHolder<BlockEntityType<?>,BlockEntityType<ScrollPrinterBlockEntity>> SCROLL_PRINTER_BE=Content.BLOCK_ENTITIES.register("scroll_printer",()->BlockEntityType.Builder.of(ScrollPrinterBlockEntity::new,SCROLL_PRINTER.get()).build(null));
     public static final DeferredHolder<EntityType<?>,EntityType<LegacyReactorMigration>> LEGACY_REACTOR=Content.ENTITIES.register("arcane_reactor",()->EntityType.Builder.<LegacyReactorMigration>of(LegacyReactorMigration::new,MobCategory.MISC).sized(1,1.5f).clientTrackingRange(4).updateInterval(20).build("arcane_reactor"));
     private static DeferredHolder<Block,SpellDeviceBlock> block(String id,SpellDeviceBlock.Kind kind) {return Content.BLOCKS.register(id,()->new SpellDeviceBlock(kind,BlockBehaviour.Properties.of().strength(3,12).noOcclusion()));}
     private static DeferredHolder<Item,BlockItem> item(String id,DeferredHolder<Block,? extends Block> block) {
         return Content.ITEMS.register(id,()->new BlockItem(block.get(),new Item.Properties()) {
-            @Override public void appendHoverText(ItemStack stack,TooltipContext context,List<Component> lines,TooltipFlag flag) {
-                super.appendHoverText(stack,context,lines,flag);lines.add(Component.translatable("tooltip.create_spellbook."+id).withStyle(net.minecraft.ChatFormatting.GRAY));
-            }
+            
         });
     }
     public static void register(IEventBus bus) {

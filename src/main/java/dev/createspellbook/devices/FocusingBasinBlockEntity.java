@@ -13,6 +13,7 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 public final class FocusingBasinBlockEntity extends SpellDeviceBlockEntity {
     private double fractionalMana;
+    private long lastAbsorption=Long.MIN_VALUE;
     public final FluidTank tank=new FluidTank(Balance.BASIN_CAPACITY.get(),fluid->fluid.is(Content.MANA.get())) {
         @Override protected void onContentsChanged() {
             // Lowering capacity never destroys already stored mana.
@@ -20,6 +21,12 @@ public final class FocusingBasinBlockEntity extends SpellDeviceBlockEntity {
         }
     };
     public FocusingBasinBlockEntity(BlockPos pos,BlockState state) {super(DeviceContent.BASIN_BE.get(),pos,state);}
+    @Override protected void serverDeviceTick(){
+        if(isRemoved() || isChunkUnloaded() || tank.getSpace()<=0 || lastAbsorption==level.getGameTime())return;
+        lastAbsorption=level.getGameTime();var source=level.getBlockEntity(worldPosition.above());
+        if(source instanceof dev.createspellbook.constructs.ArcaneAutoCasterBlockEntity caster)caster.supplyBasin(this);
+        else if(source instanceof dev.createspellbook.utility.FireworkReactorBlockEntity firework)firework.supplyBasin(this);
+    }
     @Override protected void handleSpell(SpellInteraction hit) {
         if(hit.damage()<=0)return;
         int space=tank.getSpace();

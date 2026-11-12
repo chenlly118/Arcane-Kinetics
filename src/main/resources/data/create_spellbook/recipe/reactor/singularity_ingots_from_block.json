@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [{"item": "create_spellbook:singularity_block"}],
+  "result": {"id": "create_spellbook:singularity_ingot", "count": 9}
+}

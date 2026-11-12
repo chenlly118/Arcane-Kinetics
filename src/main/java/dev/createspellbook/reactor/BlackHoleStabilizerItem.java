@@ -10,8 +10,8 @@ import java.util.List;
 /** Reactor fuel, not a tool: direct accounted wear cannot be avoided with Unbreaking. */
 @net.neoforged.fml.common.EventBusSubscriber(modid=dev.createspellbook.CreateSpellbook.ID)
 public final class BlackHoleStabilizerItem extends Item {
-    public BlackHoleStabilizerItem(){super(new Item.Properties().durability(10000).setNoRepair().rarity(Rarity.RARE));}
-    @Override public int getMaxDamage(ItemStack stack){return Balance.SPEC.isLoaded()?Balance.REACTOR_DURABILITY.get():10000;}
+    public BlackHoleStabilizerItem(){super(new Item.Properties().durability(1800).setNoRepair().rarity(Rarity.RARE));}
+    @Override public int getMaxDamage(ItemStack stack){return Balance.SPEC.isLoaded()?Balance.REACTOR_DURABILITY.get():1800;}
     @Override public boolean isEnchantable(ItemStack stack){return false;}
     @Override public boolean isBookEnchantable(ItemStack stack,ItemStack book){return false;}
     @Override public boolean isPrimaryItemFor(ItemStack stack,Holder<Enchantment> enchantment){return false;}
@@ -21,5 +21,4 @@ public final class BlackHoleStabilizerItem extends Item {
     @net.neoforged.bus.api.SubscribeEvent public static void anvil(net.neoforged.neoforge.event.AnvilUpdateEvent event){
         if(event.getLeft().is(ReactorContent.STABILIZER.get()) && !event.getRight().isEmpty())event.setCanceled(true);
     }
-    @Override public void appendHoverText(ItemStack stack,TooltipContext context,List<Component> lines,TooltipFlag flag){super.appendHoverText(stack,context,lines,flag);lines.add(Component.translatable("tooltip.create_spellbook.black_hole_stabilizer"));lines.add(Component.translatable("tooltip.create_spellbook.stabilizer_durability",Math.max(0,stack.getMaxDamage()-stack.getDamageValue()),stack.getMaxDamage()).withStyle(net.minecraft.ChatFormatting.AQUA));}
 }

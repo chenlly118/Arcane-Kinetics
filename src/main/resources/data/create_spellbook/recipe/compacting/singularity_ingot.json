@@ -1,0 +1,22 @@
+{
+  "type": "create:compacting",
+  "ingredients": [
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"},
+    {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}, {"item": "create_spellbook:collapsed_matter"}
+  ],
+  "results": [{"id": "create_spellbook:singularity_ingot", "count": 1}]
+}

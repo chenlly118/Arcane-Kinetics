@@ -10,7 +10,7 @@ import java.util.*;
  * Paired cores pay maintenance per tick; a shrinking field releases stored energy.
  * Waste is produced only by paid maintenance, never by residual shutdown power. */
 public final class ReactorOperation {
-    public static final int MIN_POWER=0,MAX_POWER=120000000,NORMAL_SIZE=500;
+    public static final int MIN_POWER=0,MAX_POWER=120000000;
     public enum State {IDLE,STARTING,RUNNING,STOPPING,NO_MANA,OUTPUT_BLOCKED,UNSTABLE,SUSPENDED}
     public enum Alarm {NONE,STRUCTURE,NO_MANA,STABILIZERS,WASTE_FULL,LEGACY_WASTE,RUNAWAY,TERMINAL}
     private final ReactorControllerBlockEntity owner;
@@ -28,9 +28,14 @@ public final class ReactorOperation {
     private long lastTick=Long.MIN_VALUE,produced,manaSpent,wearSpent,fieldEpoch;
     public long epoch(){return fieldEpoch;}
     public double accidentRadius(){var a=ReactorAccidents.forController(owner);return a==null?0:a.destructionRadius(owner.getLevel().getGameTime());}
+    public int accidentPeakRadius(){var a=ReactorAccidents.forController(owner);return a==null?0:a.radius;}
     public ReactorOperation(ReactorControllerBlockEntity owner){this.owner=owner;resources=new ReactorResources(this::resourcesChanged,owner::lastLayout);}
     public static int capacity(int pairs,int tenths){return (int)((long)Math.clamp(pairs,0,289)*Math.clamp(tenths,0,1001)*4096/10);}
-    public int target(){return capacity(pairs,NORMAL_SIZE);}
+    public static int normalSizeUnits(){
+        double percent=Balance.SPEC.isLoaded()?Balance.REACTOR_STABLE_SIZE.get():Balance.REACTOR_STABLE_SIZE.getDefault();
+        return (int)Math.round(percent*10);
+    }
+    public int target(){return capacity(pairs,normalSizeUnits());}
     public int actual(){return actual;}
     public int pairs(){return pairs;}
     public int reactionCount(){return reactionCount;}
@@ -107,10 +112,11 @@ public final class ReactorOperation {
         accident=ReactorAccidents.forController(owner);boolean fault=accident!=null;
         unstable=lacksFuel;
         boolean paid=pairs>0 && requested && resources.mana.getFluidAmount()>=pairs*5 && (sizeUnits()>0 || !blocked);
+        int normalSize=normalSizeUnits();
         paidMaintenance=paid;mutating=true;try{
             if(paid){int charge=pairs*5;resources.mana.drain(charge,FluidAction.EXECUTE);manaSpent+=charge;}
             if(fault)size=accident.containedSize(lastTick);
-            else {int goal=paid?NORMAL_SIZE:0;int step=Balance.REACTOR_SIZE_STEP.get();size+=Math.clamp(goal-size,-step,step);}
+            else {int goal=paid?normalSize:0;int step=Balance.REACTOR_SIZE_STEP.get();size+=Math.clamp(goal-size,-step,step);}
             if(size>0 && pairs>0){
                 wearCredit+=pairs;int points=wearCredit/20;wearCredit%=20;
                 if(points>0){var wear=stabilizers.planWear(points,Math.min(pairs,stabilizers.working()));if(wear!=null){stabilizers.apply(wear);wearSpent+=points;}}
@@ -124,7 +130,7 @@ public final class ReactorOperation {
         for(int i=0;i<reaction.size();i++)reaction.get(i).maintainReaction(i<pairs?actual/pairs+(i==pairs-1?actual%pairs:0):0);
         for(int i=0;i<energy.size();i++)if(i<pairs)energy.get(i).convertEnergy(reaction.get(i),actual/pairs+(i==pairs-1?actual%pairs:0));else energy.get(i).setEnergyCapacity(0);
         if(actual>0)shaft.supply(actual);else shaft.withdraw();
-        var next=fault?(blocked?State.OUTPUT_BLOCKED:State.UNSTABLE):requested && lacksFuel?State.UNSTABLE:requested && blocked?State.OUTPUT_BLOCKED:requested && !paid?State.NO_MANA:size==0?State.IDLE:!requested?State.STOPPING:!paid?State.NO_MANA:size==NORMAL_SIZE?State.RUNNING:State.STARTING;
+        var next=fault?(blocked?State.OUTPUT_BLOCKED:State.UNSTABLE):requested && lacksFuel?State.UNSTABLE:requested && blocked?State.OUTPUT_BLOCKED:requested && !paid?State.NO_MANA:size==0?State.IDLE:!requested?State.STOPPING:!paid?State.NO_MANA:size==normalSize?State.RUNNING:State.STARTING;
         boolean different=state!=next;state=next;changed(different || lastTick%10==0);
         damageChamber(lastTick);
     }

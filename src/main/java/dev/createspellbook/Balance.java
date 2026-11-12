@@ -35,13 +35,16 @@ public final class Balance {
             MASTER_LAVA_DAMAGE,MASTER_PISTON_DAMAGE,MASTER_SAW_DAMAGE;
     public static final ModConfigSpec.DoubleValue MASTER_OVERLEVEL_GROWTH,MAX_FAN_RATE,MAX_EJECTION_HEIGHT,MAX_PISTON_IMPULSE;
     public static final ModConfigSpec.IntValue MAX_INSTANT_INPUTS,MAX_PRESS_HEADS;
-    public static final ModConfigSpec.IntValue BASIN_CAPACITY,SENSOR_TICKS,SENSOR_STRENGTH;
+    public static final ModConfigSpec.IntValue BASIN_CAPACITY,BASIN_ABSORPTION,SENSOR_TICKS,SENSOR_STRENGTH;
     public static final ModConfigSpec.DoubleValue MANA_PER_DAMAGE;
     public static final ModConfigSpec.IntValue ARM_CAPACITY,ARM_INTERVAL,CONSTRUCT_MAX_LEVEL,AUTO_CAPACITY,AUTO_REGEN,AUTO_RANGE,AUTO_INTERVAL;
     public static final ModConfigSpec.DoubleValue ARM_MB_PER_MANA,EMITTER_STRESS;
     public static final ModConfigSpec.IntValue EMITTER_RANGE;
     public static final ModConfigSpec.IntValue PRINTER_CAPACITY,PRINTER_INK,PRINTER_TICKS;
+    public static final ModConfigSpec.IntValue FIREWORK_MANA,FIREWORK_INTERVAL,PORTAL_INTERVAL;
+    public static final ModConfigSpec.IntValue PORTAL_LOAD_LIMIT,PORTAL_LOAD_REQUESTS,PORTAL_RETRY;
     public static final ModConfigSpec.IntValue REACTOR_SIZE_STEP,REACTOR_DURABILITY,REACTOR_MATTER_RATE,REACTOR_RPM,REACTOR_TANK,REACTOR_MANA_PER_CELL;
+    public static final ModConfigSpec.DoubleValue REACTOR_STABLE_SIZE;
     public static final ModConfigSpec.IntValue REACTOR_BLOCK_BUDGET,REACTOR_PROBE_BUDGET,REACTOR_ENTITY_BUDGET,REACTOR_WORK_MILLIS;
     public static final ModConfigSpec.IntValue REACTOR_LOAD_WORKERS;
     public static final ModConfigSpec.DoubleValue REACTOR_VISUAL_FRACTION,REACTOR_GRAVITY_FACTOR,REACTOR_PULL_SPEED,REACTOR_ACCIDENT_DAMAGE,REACTOR_CHAMBER_DAMAGE;
@@ -160,6 +163,7 @@ public final class Balance {
         }
         b.push("spell_devices");
         BASIN_CAPACITY=b.comment("Focusing Basin fluid capacity in mB.").defineInRange("basinCapacity",2000,1,64000);
+        BASIN_ABSORPTION=b.comment("mB per tick absorbed from an auto-caster or firework reactor directly above the basin. Transfer debits the source; zero disables it.").defineInRange("basinAbsorptionPerTick",1,0,1000);
         MANA_PER_DAMAGE=b.defineInRange("manaPerDamage",10d,0,10000);
         SENSOR_TICKS=b.defineInRange("sensorPulseTicks",15,1,1200);
         SENSOR_STRENGTH=b.defineInRange("sensorSignalStrength",15,0,15);
@@ -183,10 +187,19 @@ public final class Balance {
         PRINTER_INK=b.comment("Ink consumed per printed scroll; one native ink bottle is 250 mB.").defineInRange("inkPerScroll",250,1,4000);
         PRINTER_TICKS=b.comment("Ticks per printing stroke; no kinetic power is required.").defineInRange("printingTicks",20,8,1200);
         b.pop();
+        b.push("utility_devices");
+        FIREWORK_MANA=b.defineInRange("fireworkManaPerLaunch",50,1,64000);
+        FIREWORK_INTERVAL=b.defineInRange("fireworkIntervalTicks",20,1,12000);
+        PORTAL_INTERVAL=b.comment("Ticks between portal transfer batches. Each batch can transfer up to four stacks.").defineInRange("portalTransferTicks",4,1,1200);
+        PORTAL_LOAD_LIMIT=b.comment("Maximum simultaneous temporary destination chunk tickets, shared by all portal funnels across all dimensions.").defineInRange("portalTemporaryLoadLimit",4,1,16);
+        PORTAL_LOAD_REQUESTS=b.comment("Maximum new NeoForge destination chunk load requests per server tick. Existing tickets are reused and expire 40 idle ticks after the last successful transfer.").defineInRange("portalLoadRequestsPerTick",1,1,4);
+        PORTAL_RETRY=b.comment("Retry delay for an unavailable destination or a failed transfer that released a chunk ticket. A loaded receiver with a full buffer retries on its next regular cycle.").defineInRange("portalFailureRetryTicks",40,4,1200);
+        b.pop();
         b.push("black_hole_reactor");
         REACTOR_CHAMBER_DAMAGE=b.comment("Base magic damage per 20 ticks to living entities inside a formed reactor's chamber while switched on and its field exists. Exterior entities, creative and spectator players are excluded. Zero disables this hazard.").defineInRange("activeChamberDamagePerSecond",10d,0,100);
+        REACTOR_STABLE_SIZE=b.comment("Black hole size in percent during healthy operation, rounded to the nearest 0.1%.").defineInRange("stableFieldSizePercent",80d,1d,100d);
         REACTOR_SIZE_STEP=b.comment("Healthy convergence and safe shutdown in tenths of a percent per tick. Fault growth is fixed at +0.1% every 5 ticks.").defineInRange("fieldConvergenceTenthsPerTick",5,1,100);
-        REACTOR_DURABILITY=b.comment("Maximum stabilizer durability; existing damage is retained. Restart after changing.").defineInRange("stabilizerDurability",10000,1,1000000);
+        REACTOR_DURABILITY=b.comment("Maximum stabilizer durability; existing damage is retained. Replaces the old 10000-durability setting. Restart after changing.").defineInRange("stabilizerMaxDurability",1800,1,1000000);
         REACTOR_MATTER_RATE=b.defineInRange("matterPerMillionPerSecond",4,1,64);
         REACTOR_RPM=b.comment("Native Create output RPM, also bounded by Create's maximum rotation speed.").defineInRange("outputRPM",256,1,256);
         REACTOR_TANK=b.comment("Legacy unformed-controller fallback only. Certified reactors now use interior volume times manaCapacityPerInteriorBlock.").defineInRange("manaCapacityPerInlet",16000,1000,1000000);

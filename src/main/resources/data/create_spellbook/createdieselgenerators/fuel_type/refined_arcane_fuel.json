@@ -1,0 +1,8 @@
+{
+  "fluid": "create_spellbook:refined_arcane_fuel",
+  "normal": {"speed": 96.0, "strength": 12288.0, "burn_rate": 0.05},
+  "modular": {"speed": 96.0, "strength": 16384.0, "burn_rate": 0.05},
+  "huge": {"speed": 224.0, "strength": 32768.0, "burn_rate": 0.05},
+  "sound_pitch": 0.9,
+  "burner_multiplier": 0.6
+}

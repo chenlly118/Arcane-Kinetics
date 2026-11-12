@@ -28,7 +28,7 @@ import java.util.*;
 /** A native belt/depot processor. No dropped-item scanning or private inventories. */
 public final class ScrollPrinterBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
     public final ItemStackHandler inventory=new ItemStackHandler(2){
-        @Override public int getSlotLimit(int slot){return slot==0?1:64;}
+        @Override public int getSlotLimit(int slot){return 1;}
         @Override public boolean isItemValid(int slot,ItemStack stack){return slot==0?ScrollPrinting.validTemplate(stack):ScrollPrinting.validFocus(stack);}
         @Override protected void onContentsChanged(int slot){changed();}
     };
@@ -36,24 +36,52 @@ public final class ScrollPrinterBlockEntity extends SmartBlockEntity implements 
         @Override protected void onContentsChanged(){setCapacity(Math.max(getFluidAmount(),Balance.PRINTER_CAPACITY.get()));changed();}
     };
     private final IItemHandler templatePort=new RangedWrapper(inventory,0,1),focusPort=new RangedWrapper(inventory,1,2);
-    private BeltProcessingBehaviour processing;
     private int remaining=-1,strokeTicks=20,cursor;
-    private boolean committed;
+    private boolean committed,upgradeMode;
     private TransportedItemStack workingItem;
     private long lastTick=Long.MIN_VALUE,lastCommit=Long.MIN_VALUE;
     public long printed;
     public ScrollPrinterBlockEntity(BlockPos pos,BlockState state){super(DeviceContent.SCROLL_PRINTER_BE.get(),pos,state);}
     @Override public void addBehaviours(List<BlockEntityBehaviour> behaviours){
-        processing=new BeltProcessingBehaviour(this).whenItemEnters(this::received).whileItemHeld(this::held);behaviours.add(processing);
+        behaviours.add(new BeltProcessingBehaviour(this).whenItemEnters(this::received).whileItemHeld(this::held));
+    }
+    @Override public void initialize(){
+        super.initialize();
+        if(level==null || level.isClientSide)return;
+        var focus=inventory.getStackInSlot(1);
+        if(focus.getCount()>1){
+            inventory.setStackInSlot(1,focus.copyWithCount(1));
+            Containers.dropItemStack(level,worldPosition.getX(),worldPosition.getY()+.5,worldPosition.getZ(),focus.copyWithCount(focus.getCount()-1));
+        }
     }
     public Direction facing(){return getBlockState().getValue(ScrollPrinterBlock.FACING);}
     public IFluidHandler fluidPort(Direction side){return side==null || side==Direction.UP?tank:null;}
     public IItemHandler itemPort(Direction side){return side==null?inventory:side==Direction.UP?null:side==facing() || side==facing().getClockWise()?templatePort:focusPort;}
     public int remainingTicks(){return remaining;}
     public int strokeTicks(){return strokeTicks;}
+    public boolean upgradeMode(){return upgradeMode;}
+    private Component modeName(){return Component.translatable(upgradeMode?"message.create_spellbook.printer_mode_upgrade":"message.create_spellbook.printer_mode_print");}
+    public InteractionResult switchMode(Player player){
+        if(!player.mayBuild())return InteractionResult.PASS;
+        if(!level.isClientSide){
+            upgradeMode=!upgradeMode;
+            remaining=-1;workingItem=null;committed=false;
+            changed();player.displayClientMessage(modeName(),true);
+        }
+        return InteractionResult.SUCCESS;
+    }
     private void changed(){setChanged();if(level!=null && !level.isClientSide)sendData();}
-    private boolean eligible(TransportedItemStack item){return item.stack.is(Items.PAPER) && ScrollPrinting.validTemplate(inventory.getStackInSlot(0));}
-    private Optional<ScrollPrinting.Selection> selection(){return tank.getFluidAmount()<Balance.PRINTER_INK.get()?Optional.empty():ScrollPrinting.select(inventory.getStackInSlot(0),inventory.getStackInSlot(1),tank.getFluid(),cursor);}
+    private int inkCost(){return upgradeMode?ScrollPrinting.ANVIL_INK:Balance.PRINTER_INK.get();}
+    private boolean eligible(TransportedItemStack item){
+        if(!upgradeMode)return item.stack.is(Items.PAPER) && ScrollPrinting.validTemplate(inventory.getStackInSlot(0));
+        return ScrollPrinting.upgradeTarget(item.stack)
+                .filter(next->tank.isEmpty() || ScrollPrinting.inkRarity(tank.getFluid()).orElse(null)==next.getRarity()).isPresent();
+    }
+    private Optional<ScrollPrinting.Selection> selection(ItemStack input){
+        if(tank.getFluidAmount()<inkCost())return Optional.empty();
+        return upgradeMode?ScrollPrinting.upgrade(input,tank.getFluid(),cursor)
+                :ScrollPrinting.select(inventory.getStackInSlot(0),inventory.getStackInSlot(1),tank.getFluid(),cursor);
+    }
     private ProcessingResult received(TransportedItemStack item,TransportedItemStackHandlerBehaviour handler){return eligible(item)?ProcessingResult.HOLD:ProcessingResult.PASS;}
     private ProcessingResult held(TransportedItemStack item,TransportedItemStackHandlerBehaviour handler){
         if(level==null || level.isClientSide || isRemoved() || isChunkUnloaded())return ProcessingResult.PASS;
@@ -62,7 +90,7 @@ public final class ScrollPrinterBlockEntity extends SmartBlockEntity implements 
         // must neither be printed through nor replaced by temporary head blocks.
         if(!level.getBlockState(worldPosition.below()).getCollisionShape(level,worldPosition.below()).isEmpty())return ProcessingResult.PASS;
         if(remaining>=0 && workingItem!=null && workingItem!=item && !committed)return ProcessingResult.HOLD;
-        var selected=selection();if(selected.isEmpty())return ProcessingResult.HOLD;
+        var selected=selection(item.stack);if(selected.isEmpty())return ProcessingResult.HOLD;
         if(!outputFits(item,selected.get().output()))return ProcessingResult.HOLD;
         if(remaining<0){
             workingItem=item;committed=false;strokeTicks=Balance.PRINTER_TICKS.get();remaining=strokeTicks;
@@ -75,7 +103,7 @@ public final class ScrollPrinterBlockEntity extends SmartBlockEntity implements 
         TransportedItemStack left=null;
         if(item.stack.getCount()>1){left=item.copy();left.stack.shrink(1);}
         handler.handleProcessingOnItem(item,TransportedResult.convertToAndLeaveHeld(List.of(output),left));
-        tank.drain(Balance.PRINTER_INK.get(),FluidAction.EXECUTE);inventory.extractItem(1,1,false);
+        tank.drain(inkCost(),FluidAction.EXECUTE);
         cursor=selected.get().nextIndex();committed=true;lastCommit=level.getGameTime();printed++;
         AllSoundEvents.MECHANICAL_PRESS_ACTIVATION.playOnServer(level,worldPosition,.45f,1.35f);changed();
         return ProcessingResult.HOLD;
@@ -107,8 +135,11 @@ public final class ScrollPrinterBlockEntity extends SmartBlockEntity implements 
     }
     private InteractionResult playerUse(Player player,InteractionHand hand,Direction face,boolean head){
         if(!player.mayBuild())return InteractionResult.PASS;
-        var held=player.getItemInHand(hand);int slot=head || ScrollPrinting.validFocus(held)?1:0;
-        if(face==Direction.UP && FluidUtil.getFluidHandler(held).isPresent()){
+        var held=player.getItemInHand(hand);
+        boolean focus=ScrollPrinting.validFocus(held);
+        boolean focusFace=face!=Direction.UP && face!=facing() && face!=facing().getClockWise();
+        int slot=focus || head || held.isEmpty() && focusFace?1:0;
+        if(!focus && face==Direction.UP && FluidUtil.getFluidHandler(held).isPresent()){
             if(!level.isClientSide)FluidUtil.interactWithFluidHandler(player,hand,tank);return InteractionResult.SUCCESS;
         }
         if(!held.isEmpty() && !inventory.isItemValid(slot,held)){
@@ -118,32 +149,33 @@ public final class ScrollPrinterBlockEntity extends SmartBlockEntity implements 
         if(level.isClientSide)return InteractionResult.SUCCESS;
         if(held.isEmpty()){
             var result=inventory.extractItem(slot,64,false);if(!result.isEmpty())ItemHandlerHelper.giveItemToPlayer(player,result);
-            else player.displayClientMessage(Component.translatable("message.create_spellbook.printer_contents",tank.getFluidAmount(),tank.getCapacity(),Balance.PRINTER_INK.get()),true);
-        }else if(slot==0){
-            var previous=inventory.getStackInSlot(0).copy();inventory.setStackInSlot(0,held.copyWithCount(1));
+            else player.displayClientMessage(Component.translatable("message.create_spellbook.printer_contents",tank.getFluidAmount(),tank.getCapacity(),inkCost()),true);
+        }else{
+            var previous=inventory.getStackInSlot(slot).copy();
+            if(slot==1 && ItemStack.isSameItemSameComponents(previous,held))return InteractionResult.SUCCESS;
+            inventory.setStackInSlot(slot,held.copyWithCount(1));
             if(!player.isCreative())held.shrink(1);
             if(!previous.isEmpty())ItemHandlerHelper.giveItemToPlayer(player,previous);
-        }else{
-            var remainder=inventory.insertItem(slot,held.copy(),false);if(!player.isCreative())player.setItemInHand(hand,remainder);
         }
         return InteractionResult.SUCCESS;
     }
     @Override public boolean addToGoggleTooltip(List<Component> lines,boolean sneaking){
         lines.add(Component.translatable("block.create_spellbook.scroll_printer"));
-        lines.add(Component.translatable("message.create_spellbook.printer_contents",tank.getFluidAmount(),tank.getCapacity(),Balance.PRINTER_INK.get()));
-        lines.add(Component.translatable("message.create_spellbook.printer_native_levels"));
-        var selected=selection();if(selected.isPresent())lines.add(selected.get().output().getHoverName());
+        lines.add(modeName());
+        lines.add(Component.translatable("message.create_spellbook.printer_contents",tank.getFluidAmount(),tank.getCapacity(),inkCost()));
+        lines.add(Component.translatable(upgradeMode?"message.create_spellbook.printer_upgrade_levels":"message.create_spellbook.printer_native_levels"));
+        if(!upgradeMode)selection(ItemStack.EMPTY).ifPresent(selected->lines.add(selected.output().getHoverName()));
         return true;
     }
     @Override protected void write(CompoundTag tag,HolderLookup.Provider lookup,boolean packet){
         super.write(tag,lookup,packet);tag.put("Inventory",inventory.serializeNBT(lookup));tag.put("Ink",tank.writeToNBT(lookup,new CompoundTag()));
-        tag.putInt("Cursor",cursor);tag.putLong("Printed",printed);
+        tag.putInt("Cursor",cursor);tag.putLong("Printed",printed);tag.putBoolean("UpgradeMode",upgradeMode);
         if(packet){tag.putInt("Remaining",remaining);tag.putInt("StrokeTicks",strokeTicks);}
     }
     @Override protected void read(CompoundTag tag,HolderLookup.Provider lookup,boolean packet){
         super.read(tag,lookup,packet);inventory.deserializeNBT(lookup,tag.getCompound("Inventory"));tank.readFromNBT(lookup,tag.getCompound("Ink"));
         tank.setCapacity(Math.max(tank.getFluidAmount(),Balance.PRINTER_CAPACITY.get()));cursor=Math.max(0,tag.getInt("Cursor"));printed=Math.max(0,tag.getLong("Printed"));
-        remaining=packet?tag.getInt("Remaining"):-1;strokeTicks=packet?Math.clamp(tag.getInt("StrokeTicks"),8,1200):20;
+        upgradeMode=tag.getBoolean("UpgradeMode");remaining=packet?tag.getInt("Remaining"):-1;strokeTicks=packet?Math.clamp(tag.getInt("StrokeTicks"),8,1200):20;
         workingItem=null;committed=false;lastTick=lastCommit=Long.MIN_VALUE;
     }
 }

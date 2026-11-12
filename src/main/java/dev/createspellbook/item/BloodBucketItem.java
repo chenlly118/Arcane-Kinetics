@@ -2,22 +2,15 @@ package dev.createspellbook.item;
 
 import dev.createspellbook.Content;
 import io.redspace.ironsspellbooks.registries.FluidRegistry;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
-import java.util.List;
 
-/** Container for Iron's existing no-world blood, without changing its fluid or vanilla buckets. */
+/** A non-pouring container for the active blood fluid. */
 public final class BloodBucketItem extends Item {
     public BloodBucketItem(Properties properties) { super(properties); }
 
-    @Override public void appendHoverText(ItemStack stack,TooltipContext context,List<Component> lines,TooltipFlag flag) {
-        super.appendHoverText(stack,context,lines,flag);
-        lines.add(Component.translatable("tooltip.create_spellbook.blood_bucket"));
-    }
-
-    /** Native full-bucket drain/simulation semantics; never manufactures a second blood fluid. */
+    /** Full-bucket drain and simulation semantics. */
     public static final class Handler extends FluidBucketWrapper {
         public Handler(ItemStack stack) { super(stack); }
         @Override public FluidStack getFluid() {

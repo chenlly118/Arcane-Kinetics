@@ -1,0 +1,6 @@
+{
+  "parent": "create:block/belt_funnel/flap",
+  "textures": {
+    "4": "create_spellbook:block/portal_funnel/base"
+  }
+}

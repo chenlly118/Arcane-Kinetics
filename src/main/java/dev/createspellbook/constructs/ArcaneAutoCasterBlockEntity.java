@@ -24,35 +24,16 @@ import java.util.*;
 public final class ArcaneAutoCasterBlockEntity extends SmartBlockEntity implements BlockConstructHost {
     private UUID owner,migrationId;
     private ArcaneArmCaster caster;
-    private int mana;
     private boolean syncQueued;
-    private long lastManaTick=Long.MIN_VALUE;
-    private long recoveredMana;
+    private final dev.createspellbook.utility.RegeneratingManaTank manaTank=new dev.createspellbook.utility.RegeneratingManaTank(()->Balance.AUTO_CAPACITY.get(),()->Balance.AUTO_REGEN.get(),this::setChanged,()->syncQueued=true);
     public final ScrollTemplate scroll=new ScrollTemplate(this::constructChanged);
     public final CastLedger ledger=new CastLedger();
-    private final IFluidHandler inlet=new IFluidHandler() {
-        @Override public int getTanks(){return 1;}
-        private void check(int tank){if(tank!=0)throw new IndexOutOfBoundsException(tank);}
-        @Override public FluidStack getFluidInTank(int tank){check(tank);return mana==0?FluidStack.EMPTY:new FluidStack(Content.MANA.get(),mana);}
-        @Override public int getTankCapacity(int tank){check(tank);return manaCapacity();}
-        @Override public boolean isFluidValid(int tank,FluidStack fluid){check(tank);return fluid.is(Content.MANA.get());}
-        @Override public int fill(FluidStack fluid,FluidAction action){
-            if(fluid.isEmpty() || !fluid.is(Content.MANA.get()))return 0;
-            int accepted=Math.min(fluid.getAmount(),Math.max(0,manaCapacity()-mana));
-            if(action.execute() && accepted>0){mana+=accepted;constructChanged();}return accepted;
-        }
-        @Override public FluidStack drain(int amount,FluidAction action){return FluidStack.EMPTY;}
-        @Override public FluidStack drain(FluidStack fluid,FluidAction action){return FluidStack.EMPTY;}
-    };
     public ArcaneAutoCasterBlockEntity(BlockPos pos,BlockState state){super(DeviceContent.AUTO_CASTER_BE.get(),pos,state);}
     @Override public void addBehaviours(List<BlockEntityBehaviour> behaviours){}
     @Override public void initialize(){super.initialize();ensureCaster();}
     @Override public void tick(){
         super.tick();if(level==null || level.isClientSide || isChunkUnloaded() || isRemoved())return;ensureCaster();long now=level.getGameTime();
-        if(now!=lastManaTick){
-            lastManaTick=now;int gain=Math.min(Balance.AUTO_REGEN.get(),Math.max(0,manaCapacity()-mana));
-            if(gain>0){mana+=gain;recoveredMana+=gain;setChanged();if(now%10==0 || mana==manaCapacity())syncQueued=true;}
-        }
+        manaTank.tick(now);
         if(caster!=null && !caster.isCasting() && now>=ledger.nextAttempt){
             ledger.nextAttempt=now+Balance.AUTO_INTERVAL.get();setChanged();
             var selected=ScrollTemplate.read(scroll.getStackInSlot(0));
@@ -101,13 +82,16 @@ public final class ArcaneAutoCasterBlockEntity extends SmartBlockEntity implemen
     @Override public UUID ownerId(){return owner;}
     public void setOwner(Player player){owner=player==null?null:player.getUUID();constructChanged();}
     @Override public boolean operating(){return level!=null && !isRemoved() && !isChunkUnloaded();}
-    @Override public int storedMana(){return mana;}
-    public long recoveredMana(){return recoveredMana;}
+    @Override public int storedMana(){return manaTank.amount();}
+    public int supplyBasin(dev.createspellbook.devices.FocusingBasinBlockEntity basin){
+        return level instanceof ServerLevel && !isRemoved() && !isChunkUnloaded() && basin.getLevel()==level && worldPosition.below().equals(basin.getBlockPos())
+                ?manaTank.transferToBasin(basin,Balance.BASIN_ABSORPTION.get()):0;
+    }
+    public long recoveredMana(){return manaTank.recovered();}
     @Override public int manaCapacity(){return Balance.AUTO_CAPACITY.get();}
-    public IFluidHandler inputPort(Direction side){return side==null || side==facing().getOpposite()?inlet:null;}
+    public IFluidHandler inputPort(Direction side){return side==null || side==facing().getOpposite()?manaTank:null;}
     @Override public boolean canPay(int cost,boolean execute){
-        if(cost<0)return false;int amount=liquidCost(cost);if(mana<amount)return false;
-        if(execute && amount>0){mana-=amount;constructChanged();}return true;
+        return cost>=0 && manaTank.consume(liquidCost(cost),execute);
     }
     @Override public int cooldownMultiplier(){return 1;}
     @Override public void constructChanged(){setChanged();if(level!=null && !level.isClientSide)syncQueued=true;}
@@ -120,17 +104,16 @@ public final class ArcaneAutoCasterBlockEntity extends SmartBlockEntity implemen
     }
     public void restoreLegacyEntity(CompoundTag tag,UUID legacyId){
         scroll.deserializeNBT(level.registryAccess(),tag.getCompound("ConstructScroll"));ledger.load(tag.getCompound("CastingLedger"));
-        owner=tag.hasUUID("ConstructOwner")?tag.getUUID("ConstructOwner"):null;migrationId=legacyId;mana=0;constructChanged();
+        owner=tag.hasUUID("ConstructOwner")?tag.getUUID("ConstructOwner"):null;migrationId=legacyId;manaTank.load(new CompoundTag(),false);constructChanged();
     }
     public boolean migratedFrom(UUID legacyId){return legacyId.equals(migrationId);}
     @Override protected void write(CompoundTag tag,HolderLookup.Provider lookup,boolean packet){
-        super.write(tag,lookup,packet);tag.put("Scroll",scroll.serializeNBT(lookup));tag.put("CastingLedger",ledger.save());tag.putInt("InternalMana",mana);tag.putLong("RecoveredMana",recoveredMana);
+        super.write(tag,lookup,packet);tag.put("Scroll",scroll.serializeNBT(lookup));tag.put("CastingLedger",ledger.save());manaTank.save(tag);
         if(owner!=null)tag.putUUID("Owner",owner);if(migrationId!=null)tag.putUUID("LegacyReactor",migrationId);
     }
     @Override protected void read(CompoundTag tag,HolderLookup.Provider lookup,boolean packet){
         super.read(tag,lookup,packet);scroll.deserializeNBT(lookup,tag.getCompound("Scroll"));ledger.load(tag.getCompound("CastingLedger"));
-        mana=Math.clamp(tag.getInt("InternalMana"),0,manaCapacity());owner=tag.hasUUID("Owner")?tag.getUUID("Owner"):null;
-        recoveredMana=Math.max(0,tag.getLong("RecoveredMana"));
-        migrationId=tag.hasUUID("LegacyReactor")?tag.getUUID("LegacyReactor"):null;if(!packet)lastManaTick=Long.MIN_VALUE;
+        manaTank.load(tag,packet);owner=tag.hasUUID("Owner")?tag.getUUID("Owner"):null;
+        migrationId=tag.hasUUID("LegacyReactor")?tag.getUUID("LegacyReactor"):null;
     }
 }

@@ -1,0 +1,11 @@
+{
+  "parent": "create:block/brass_funnel_horizontal_pull_powered",
+  "textures": {
+    "base": "create_spellbook:block/portal_funnel/base",
+    "block": "create_spellbook:block/portal_funnel/block",
+    "particle": "create_spellbook:block/portal_funnel/block",
+    "direction": "create_spellbook:block/portal_funnel/pull",
+    "redstone": "create_spellbook:block/portal_funnel/powered",
+    "frame": "create_spellbook:block/portal_funnel/frame"
+  }
+}

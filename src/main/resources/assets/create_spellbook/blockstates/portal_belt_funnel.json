@@ -1,0 +1,260 @@
+{
+  "variants": {
+    "facing=north,powered=false,shape=pulling,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_unpowered",
+      "y": 0
+    },
+    "facing=north,powered=false,shape=pulling,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_unpowered",
+      "y": 0
+    },
+    "facing=east,powered=false,shape=pulling,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_unpowered",
+      "y": 90
+    },
+    "facing=east,powered=false,shape=pulling,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_unpowered",
+      "y": 90
+    },
+    "facing=south,powered=false,shape=pulling,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_unpowered",
+      "y": 180
+    },
+    "facing=south,powered=false,shape=pulling,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_unpowered",
+      "y": 180
+    },
+    "facing=west,powered=false,shape=pulling,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_unpowered",
+      "y": 270
+    },
+    "facing=west,powered=false,shape=pulling,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_unpowered",
+      "y": 270
+    },
+    "facing=north,powered=true,shape=pulling,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_powered",
+      "y": 0
+    },
+    "facing=north,powered=true,shape=pulling,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_powered",
+      "y": 0
+    },
+    "facing=east,powered=true,shape=pulling,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_powered",
+      "y": 90
+    },
+    "facing=east,powered=true,shape=pulling,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_powered",
+      "y": 90
+    },
+    "facing=south,powered=true,shape=pulling,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_powered",
+      "y": 180
+    },
+    "facing=south,powered=true,shape=pulling,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_powered",
+      "y": 180
+    },
+    "facing=west,powered=true,shape=pulling,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_powered",
+      "y": 270
+    },
+    "facing=west,powered=true,shape=pulling,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pulling_powered",
+      "y": 270
+    },
+    "facing=north,powered=false,shape=pushing,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_unpowered",
+      "y": 0
+    },
+    "facing=north,powered=false,shape=pushing,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_unpowered",
+      "y": 0
+    },
+    "facing=east,powered=false,shape=pushing,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_unpowered",
+      "y": 90
+    },
+    "facing=east,powered=false,shape=pushing,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_unpowered",
+      "y": 90
+    },
+    "facing=south,powered=false,shape=pushing,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_unpowered",
+      "y": 180
+    },
+    "facing=south,powered=false,shape=pushing,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_unpowered",
+      "y": 180
+    },
+    "facing=west,powered=false,shape=pushing,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_unpowered",
+      "y": 270
+    },
+    "facing=west,powered=false,shape=pushing,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_unpowered",
+      "y": 270
+    },
+    "facing=north,powered=true,shape=pushing,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_powered",
+      "y": 0
+    },
+    "facing=north,powered=true,shape=pushing,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_powered",
+      "y": 0
+    },
+    "facing=east,powered=true,shape=pushing,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_powered",
+      "y": 90
+    },
+    "facing=east,powered=true,shape=pushing,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_powered",
+      "y": 90
+    },
+    "facing=south,powered=true,shape=pushing,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_powered",
+      "y": 180
+    },
+    "facing=south,powered=true,shape=pushing,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_powered",
+      "y": 180
+    },
+    "facing=west,powered=true,shape=pushing,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_powered",
+      "y": 270
+    },
+    "facing=west,powered=true,shape=pushing,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_pushing_powered",
+      "y": 270
+    },
+    "facing=north,powered=false,shape=retracted,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_unpowered",
+      "y": 0
+    },
+    "facing=north,powered=false,shape=retracted,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_unpowered",
+      "y": 0
+    },
+    "facing=east,powered=false,shape=retracted,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_unpowered",
+      "y": 90
+    },
+    "facing=east,powered=false,shape=retracted,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_unpowered",
+      "y": 90
+    },
+    "facing=south,powered=false,shape=retracted,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_unpowered",
+      "y": 180
+    },
+    "facing=south,powered=false,shape=retracted,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_unpowered",
+      "y": 180
+    },
+    "facing=west,powered=false,shape=retracted,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_unpowered",
+      "y": 270
+    },
+    "facing=west,powered=false,shape=retracted,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_unpowered",
+      "y": 270
+    },
+    "facing=north,powered=true,shape=retracted,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_powered",
+      "y": 0
+    },
+    "facing=north,powered=true,shape=retracted,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_powered",
+      "y": 0
+    },
+    "facing=east,powered=true,shape=retracted,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_powered",
+      "y": 90
+    },
+    "facing=east,powered=true,shape=retracted,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_powered",
+      "y": 90
+    },
+    "facing=south,powered=true,shape=retracted,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_powered",
+      "y": 180
+    },
+    "facing=south,powered=true,shape=retracted,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_powered",
+      "y": 180
+    },
+    "facing=west,powered=true,shape=retracted,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_powered",
+      "y": 270
+    },
+    "facing=west,powered=true,shape=retracted,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_retracted_powered",
+      "y": 270
+    },
+    "facing=north,powered=false,shape=extended,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_unpowered",
+      "y": 0
+    },
+    "facing=north,powered=false,shape=extended,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_unpowered",
+      "y": 0
+    },
+    "facing=east,powered=false,shape=extended,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_unpowered",
+      "y": 90
+    },
+    "facing=east,powered=false,shape=extended,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_unpowered",
+      "y": 90
+    },
+    "facing=south,powered=false,shape=extended,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_unpowered",
+      "y": 180
+    },
+    "facing=south,powered=false,shape=extended,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_unpowered",
+      "y": 180
+    },
+    "facing=west,powered=false,shape=extended,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_unpowered",
+      "y": 270
+    },
+    "facing=west,powered=false,shape=extended,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_unpowered",
+      "y": 270
+    },
+    "facing=north,powered=true,shape=extended,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_powered",
+      "y": 0
+    },
+    "facing=north,powered=true,shape=extended,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_powered",
+      "y": 0
+    },
+    "facing=east,powered=true,shape=extended,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_powered",
+      "y": 90
+    },
+    "facing=east,powered=true,shape=extended,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_powered",
+      "y": 90
+    },
+    "facing=south,powered=true,shape=extended,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_powered",
+      "y": 180
+    },
+    "facing=south,powered=true,shape=extended,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_powered",
+      "y": 180
+    },
+    "facing=west,powered=true,shape=extended,waterlogged=false": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_powered",
+      "y": 270
+    },
+    "facing=west,powered=true,shape=extended,waterlogged=true": {
+      "model": "create_spellbook:block/portal_funnel/belt_extended_powered",
+      "y": 270
+    }
+  }
+}

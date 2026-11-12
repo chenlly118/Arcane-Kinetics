@@ -16,6 +16,10 @@
     "create_spellbook:reactor_port",
     "create_spellbook:black_hole_reaction_core",
     "create_spellbook:black_hole_energy_core",
-    "create_spellbook:black_hole_reaction_shaft"
+    "create_spellbook:black_hole_reaction_shaft",
+    "create_spellbook:firework_reactor",
+    "create_spellbook:portal_funnel",
+    "create_spellbook:portal_belt_funnel",
+    "create_spellbook:singularity_block"
   ]
 }

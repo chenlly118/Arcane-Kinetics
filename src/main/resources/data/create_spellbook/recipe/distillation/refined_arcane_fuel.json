@@ -1,0 +1,10 @@
+{
+  "neoforge:conditions": [{"type": "neoforge:mod_loaded", "modid": "createdieselgenerators"}],
+  "type": "createdieselgenerators:distillation",
+  "ingredients": [{"type": "fluid_stack", "fluid": "create_spellbook:arcane_fuel", "amount": 100}],
+  "results": [
+    {"id": "create_spellbook:refined_arcane_fuel", "amount": 50},
+    {"id": "irons_spellbooks:common_ink", "amount": 50}
+  ],
+  "processing_time": 60
+}

@@ -22,17 +22,20 @@ public final class BlackHoleRenderer implements BlockEntityRenderer<ReactorContr
     @Override public void render(ReactorControllerBlockEntity controller,float partial,PoseStack pose,MultiBufferSource buffers,int light,int overlay){
         if(!controller.isFormed() || controller.lastLayout()==null)return;
         var center=controller.lastLayout().position();var mc=Minecraft.getInstance();
-        if(mc.gameRenderer.getMainCamera().getPosition().distanceToSqr(center)>VIEW_DISTANCE*VIEW_DISTANCE)return;
+        boolean preview=controller.isVirtual();
+        if(!preview && mc.gameRenderer.getMainCamera().getPosition().distanceToSqr(center)>VIEW_DISTANCE*VIEW_DISTANCE)return;
         ReactorFluidRenderer.render(controller,pose,buffers);
         // Contained growth stays on the normal renderer. Only an escaped field
         // transfers ownership to the independent world pass.
-        if(controller.operation.accidentPhase()>=2 || ReactorAccidentVisual.escapedAt(controller.lastLayout().center()))return;
+        if(!preview && (controller.operation.accidentPhase()>=2 || ReactorAccidentVisual.escapedAt(controller.lastLayout().center())))return;
         float radius=containedRadius(controller.lastLayout(),controller.operation.sizeUnits());
         if(radius<=0)return;
-        ReactorAccidentVisual.containedRendered(controller.lastLayout().center());
+        if(!preview)ReactorAccidentVisual.containedRendered(controller.lastLayout().center());
         var pos=controller.getBlockPos();float time=controller.getLevel().getGameTime()+partial;
         pose.pushPose();pose.translate(center.x-pos.getX(),center.y-pos.getY(),center.z-pos.getZ());
-        draw(pose,buffers,time,radius,controller.operation.accidentPhase()==1,4,mc.gameRenderer.getMainCamera().getPosition().subtract(center));pose.popPose();
+        var eye=mc.gameRenderer.getMainCamera().getPosition().subtract(center);
+        if(preview){var direction=new org.joml.Matrix4f(pose.last().pose()).invert().transformDirection(new org.joml.Vector3f(0,0,1)).normalize();eye=new net.minecraft.world.phys.Vec3(direction.x,direction.y,direction.z).scale(radius*8);time=net.createmod.catnip.animation.AnimationTickHolder.getRenderTime(controller.getLevel());}
+        draw(pose,buffers,time,radius,controller.operation.accidentPhase()==1,4,eye);pose.popPose();
     }
     public static float containedRadius(ReactorLayout layout,int units){return (float)(layout.inner()*.5*Math.clamp(units,0,1000)/1000d);}
     /** Shared mesh for normal, growing, escaped and shrinking fields. */

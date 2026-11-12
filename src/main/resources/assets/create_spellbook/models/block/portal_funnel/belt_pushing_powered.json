@@ -1,0 +1,10 @@
+{
+  "parent": "create:block/brass_belt_funnel_pushing_powered",
+  "textures": {
+    "base": "create_spellbook:block/portal_funnel/base",
+    "block": "create_spellbook:block/portal_funnel/block",
+    "particle": "create_spellbook:block/portal_funnel/block",
+    "direction": "create_spellbook:block/portal_funnel/direction",
+    "redstone": "create_spellbook:block/portal_funnel/powered"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "create:deploying",
+  "ingredients": [
+    {"item": "create_spellbook:arcane_plate"},
+    {"type": "create_spellbook:spell_scroll", "spell": "irons_spellbooks:counterspell", "minimum_level": 1}
+  ],
+  "results": [{"id": "create_spellbook:black_hole_stabilizer", "count": 1}]
+}

@@ -6,7 +6,6 @@ on:
       tag:
         description: Approved release tag (created at the CI commit)
         required: true
-        default: v0.3.0
       run_id:
         description: Successful main push run of Build candidate
         required: true
@@ -14,7 +13,7 @@ on:
         description: Reviewed main JAR SHA-256 from that run
         required: true
       confirmation:
-        description: Type publish-v0.3.0 (matching the tag)
+        description: Type publish- followed by the approved tag
         required: true
 permissions:
   contents: read
@@ -105,9 +104,11 @@ jobs:
         shell: bash
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
         run: |
           set -euo pipefail
           test -n "$MODRINTH_TOKEN" || { echo 'Missing MODRINTH_TOKEN secret'; exit 1; }
+          test -n "$CURSEFORGE_TOKEN" || { echo 'Missing CURSEFORGE_TOKEN secret'; exit 1; }
           VERSION="${RELEASE_TAG#v}"
           JAR="build/release-candidate/$VERSION/create-spellbook-1.21.1-neoforge-$VERSION.jar"
           python scripts/release_check.py --jar "$JAR" --publish
@@ -129,7 +130,8 @@ jobs:
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         run: python scripts/prepare_modrinth.py --project "$MODRINTH_PROJECT" --sync
-      - name: Publish the same JAR to GitHub and Modrinth
+      - name: Publish the same JAR to GitHub, Modrinth and CurseForge
+        id: publish
         uses: Kira-NT/mc-publish@c23376546a97f5ba7984e94445da359459b14419 # v3.3
         with:
           curseforge-id: '1773802'
@@ -142,6 +144,8 @@ jobs:
             1492763(required)
             658587(required)
             238222(optional)
+            869316(optional)
+            949995(optional)
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-tag: ${{ env.RELEASE_TAG }}
           github-commitish: ${{ steps.request.outputs.source_sha }}
@@ -170,7 +174,16 @@ jobs:
             9nfaJPtX@1.21.1-2.2.0(required)
             gedNE4y2@2.0.4+1.21.1-forge(required)
             u6dRKJwZ@19.64.0.455(optional)
+            ZM3tt6p1(optional)
+            OeGdeWEj(optional)
           fail-mode: fail
+          retry-attempts: 1
+      - name: Record CurseForge file ID
+        env:
+          FILE_ID: ${{ steps.publish.outputs.curseforge-version }}
+        run: |
+          [[ "$FILE_ID" =~ ^[0-9]+$ ]]
+          echo "CurseForge upload accepted: https://www.curseforge.com/minecraft/mc-mods/arcane-kinetics/files/$FILE_ID" | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Verify uploaded GitHub and Modrinth file hashes
         shell: bash
         env:

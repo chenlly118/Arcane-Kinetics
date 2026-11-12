@@ -18,7 +18,9 @@ public final class CreateSpellbookPonderPlugin implements PonderPlugin {
 
     @Override
     public void registerScenes(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        // Every reactor block entry opens the same four-scene chapter.
+        helper.forComponents(id("portal_funnel")).addStoryBoard("utility_portal_belts",UtilityPonderScenes::belts);
+        helper.forComponents(id("firework_reactor")).addStoryBoard("utility_firework",UtilityPonderScenes::fireworks);
+        // Every reactor block entry opens the same three-scene chapter.
         for (String component : new String[]{
                 "arcane_casing", "arcane_reinforced_glass", "reactor_controller", "reactor_output",
                 "reactor_mana_interface", "reactor_port", "black_hole_reaction_core",
@@ -27,13 +29,11 @@ public final class CreateSpellbookPonderPlugin implements PonderPlugin {
             helper.forComponents(id(component))
                     .addStoryBoard("black_hole_reactor", PonderScenes::reactorAssembly)
                     .addStoryBoard("black_hole_reactor", PonderScenes::reactorOperation)
-                    .addStoryBoard("black_hole_reactor", PonderScenes::reactorSafety)
-                    .addStoryBoard("black_hole_reactor", PonderScenes::reactorAccident);
+                    .addStoryBoard("black_hole_reactor", PonderScenes::reactorSafety);
         }
 
         helper.forComponents(id("arcane_casting_arm"))
-                .addStoryBoard("arcane_casting_arm", PonderScenes::castingArmSetup)
-                .addStoryBoard("arcane_casting_arm", PonderScenes::castingArmModes);
+                .addStoryBoard("arcane_casting_arm", PonderScenes::castingArmSetup);
 
         helper.forComponents(id("focusing_basin"))
                 .addStoryBoard("focusing_basin", PonderScenes::focusingBasin);
@@ -62,7 +62,7 @@ public final class CreateSpellbookPonderPlugin implements PonderPlugin {
                 "focusing_basin", "arcane_depot", "arcane_casting_arm", "scroll_printer", "arcane_reactor",
                 "reactor_controller", "arcane_casing", "arcane_reinforced_glass", "reactor_mana_interface", "reactor_port",
                 "reactor_output", "black_hole_reaction_core", "black_hole_energy_core", "black_hole_reaction_shaft",
-                "black_hole_stabilizer", "collapsed_matter"
+                "black_hole_stabilizer", "collapsed_matter", "portal_funnel", "firework_reactor"
         }) {
             helper.addToComponent(id(component)).add(tag);
         }
@@ -71,6 +71,8 @@ public final class CreateSpellbookPonderPlugin implements PonderPlugin {
     @Override
     public void registerSharedText(SharedTextRegistrationHelper helper) {
         PonderTexts.register(helper);
+        UtilityPonderTexts.register(helper);
+        BriefPonderTexts.register(helper);
     }
 
     private static ResourceLocation id(String path) {

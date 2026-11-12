@@ -14,6 +14,9 @@ backups/
 logs/
 tmp/
 art/
+/prototypes/
+# Root screenshots and design comparisons are local; the mod icon lives in resources.
+/*.png
 integrations/
 environment.lock.json
 revolution-environment.lock.json

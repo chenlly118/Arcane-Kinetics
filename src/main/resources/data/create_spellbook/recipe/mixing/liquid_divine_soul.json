@@ -1,0 +1,7 @@
+{
+  "type": "create:mixing",
+  "ingredients": [{"item": "irons_spellbooks:divine_soulshard"}],
+  "results": [{"id": "create_spellbook:liquid_divine_soul", "amount": 500}],
+  "heat_requirement": "superheated",
+  "processing_time": 100
+}

@@ -3,14 +3,20 @@ package dev.createspellbook.processing;
 import dev.createspellbook.*;
 import dev.createspellbook.spell.IndustrialSpell;
 import io.redspace.ironsspellbooks.damage.DamageSources;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.protocol.game.ClientboundBundlePacket;
+import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
+import net.minecraft.network.protocol.game.ClientboundRotateHeadPacket;
 import net.minecraft.server.level.*;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.level.LevelEvent;
@@ -91,6 +97,49 @@ public final class ServerSpellTasks {
                 level.sendParticles(ParticleTypes.FLAME,victim.getX(),victim.getY()+victim.getBbHeight()*.5,victim.getZ(),6,.2,.3,.2,.01);
             }
             next+=Balance.BLAZE_DOT_INTERVAL.get(); return ++pulses>=3;
+        }
+    }
+
+    public static void spin(ServerLevel level,LivingEntity caster,LivingEntity target,float rpm) {
+        // The channel renews one spin per target every ten ticks.
+        for(var map:List.of(TASKS,PENDING)) {
+            var list=map.get(level);
+            if(list==null)continue;
+            for(var work:list)if(work instanceof Spinning spin && spin.target==target) {
+                spin.refresh(caster,rpm,level.getGameTime());
+                return;
+            }
+        }
+        add(level,new Spinning(caster,target,rpm,level.getGameTime()));
+    }
+
+    private static final class Spinning implements Work {
+        final LivingEntity target;
+        private LivingEntity caster;
+        private float yaw,rpm;
+        private long expires;
+        Spinning(LivingEntity caster,LivingEntity target,float rpm,long now) {
+            this.target=target;
+            yaw=target.getYRot();
+            refresh(caster,rpm,now);
+        }
+        void refresh(LivingEntity caster,float rpm,long now) {this.caster=caster;this.rpm=rpm;expires=now+12;}
+        @Override public boolean tick(ServerLevel level) {
+            if(level.getGameTime()>=expires || !caster.isAlive() || caster.level()!=level || target.level()!=level
+                    || !target.isAlive() || target.isSpectator() || !level.hasChunkAt(target.blockPosition()))return true;
+            yaw=Mth.wrapDegrees(yaw+rpm*(360f/1200f));
+            float pitch=target.getXRot();
+            if(target instanceof ServerPlayer player)
+                player.lookAt(EntityAnchorArgument.Anchor.EYES,player.getEyePosition().add(Vec3.directionFromRotation(pitch,yaw)));
+            target.setYRot(yaw);
+            target.setYHeadRot(yaw);
+            target.setYBodyRot(yaw);
+            byte packedYaw=(byte)Mth.floor(yaw*256f/360f);
+            byte packedPitch=(byte)Mth.floor(pitch*256f/360f);
+            level.getChunkSource().broadcast(target,new ClientboundBundlePacket(List.of(
+                    new ClientboundMoveEntityPacket.Rot(target.getId(),packedYaw,packedPitch,target.onGround()),
+                    new ClientboundRotateHeadPacket(target,packedYaw))));
+            return false;
         }
     }
 

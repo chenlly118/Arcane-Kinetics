@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "A",
+    "B",
+    "C"
+  ],
+  "key": {
+    "A": {
+      "item": "create_spellbook:arcane_reactor"
+    },
+    "B": {
+      "type": "create_spellbook:spell_scroll",
+      "spell": "irons_spellbooks:firecracker",
+      "minimum_level": 1
+    },
+    "C": {
+      "item": "minecraft:emerald"
+    }
+  },
+  "result": {
+    "id": "create_spellbook:firework_reactor",
+    "count": 1
+  }
+}

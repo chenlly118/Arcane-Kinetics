@@ -1,6 +1,7 @@
 package dev.createspellbook.constructs;
 
 import dev.createspellbook.devices.DeviceContent;
+import com.simibubi.create.content.processing.AssemblyOperatorUseContext;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponents;
@@ -25,10 +26,20 @@ public final class ArcaneCastingArmBlock extends com.simibubi.create.content.kin
     public static final DirectionProperty FACING=BlockStateProperties.FACING;
     public ArcaneCastingArmBlock(Properties properties) {super(properties);registerDefaultState(stateDefinition.any().setValue(FACING,Direction.NORTH));}
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {builder.add(FACING);}
-    @Override public BlockState getStateForPlacement(BlockPlaceContext context) {return defaultBlockState().setValue(FACING,context.getHorizontalDirection());}
+    @Override public BlockState getStateForPlacement(BlockPlaceContext context) {
+        var facing=context instanceof AssemblyOperatorUseContext?Direction.DOWN
+                :context.getPlayer()==null?context.getClickedFace().getOpposite():context.getNearestLookingDirection();
+        return defaultBlockState().setValue(FACING,facing);
+    }
     @Override public void setPlacedBy(Level level,BlockPos pos,BlockState state,LivingEntity placer,ItemStack stack) {super.setPlacedBy(level,pos,state,placer,stack);if(placer instanceof Player player && level.getBlockEntity(pos) instanceof ArcaneCastingArmBlockEntity arm)arm.setOwner(player);}
-    @Override public Direction.Axis getRotationAxis(BlockState state) {return Direction.Axis.Y;}
-    @Override public boolean hasShaftTowards(LevelReader level,BlockPos pos,BlockState state,Direction face) {return face==Direction.DOWN;}
+    static Direction ringSide(Direction facing) {
+        return switch(facing){case DOWN->Direction.NORTH;case UP->Direction.SOUTH;default->Direction.UP;};
+    }
+    @Override public Direction.Axis getRotationAxis(BlockState state) {return ringSide(state.getValue(FACING)).getAxis();}
+    @Override public boolean hasShaftTowards(LevelReader level,BlockPos pos,BlockState state,Direction face) {return face==ringSide(state.getValue(FACING)).getOpposite();}
+    @Override protected boolean areStatesKineticallyEquivalent(BlockState old,BlockState next) {
+        return super.areStatesKineticallyEquivalent(old,next) && ringSide(old.getValue(FACING))==ringSide(next.getValue(FACING));
+    }
     @Override public Class<ArcaneCastingArmBlockEntity> getBlockEntityClass() {return ArcaneCastingArmBlockEntity.class;}
     @Override public BlockEntityType<? extends ArcaneCastingArmBlockEntity> getBlockEntityType() {return DeviceContent.CASTING_ARM_BE.get();}
     private InteractionResult use(Level level,BlockPos pos,Player player,InteractionHand hand,Direction face) {

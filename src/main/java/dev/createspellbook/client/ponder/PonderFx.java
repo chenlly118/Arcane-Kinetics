@@ -32,11 +32,52 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import net.createmod.ponder.foundation.PonderScene;
+import net.createmod.ponder.foundation.instruction.TickingInstruction;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.content.logistics.depot.DepotBlockEntity;
 
 /** Client-side helpers shared by the Ponder storyboards. */
 public final class PonderFx {
     private PonderFx() {}
-
+    /** Scene-timeline animation. Reset/seek resets the native ticking instruction. */
+    public static void animate(SceneBuilder scene,int ticks,BiConsumer<PonderScene,Integer> frame){
+        scene.addInstruction(new TickingInstruction(false,ticks){
+            @Override public void tick(PonderScene current){frame.accept(current,totalTicks-remainingTicks);super.tick(current);}
+        });
+    }
+    private static void packet(SmartBlockEntity be,Consumer<net.minecraft.nbt.CompoundTag> edit){
+        if(!(be.getLevel() instanceof net.createmod.ponder.api.level.PonderLevel))return;
+        be.markVirtual();var lookup=be.getLevel().registryAccess();var tag=be.saveWithFullMetadata(lookup);edit.accept(tag);be.readClient(tag,lookup);
+    }
+    public static void printCycles(SceneBuilder scene,BlockPos pos,BlockPos depot,int ticks){
+        animate(scene,ticks,(current,frame)->{
+            if(!(current.getWorld().getBlockEntity(pos) instanceof ScrollPrinterBlockEntity printer))return;
+            int phase=frame%32;
+            if(phase==0 && current.getWorld().getBlockEntity(depot) instanceof DepotBlockEntity held)held.setHeldItem(new ItemStack(net.minecraft.world.item.Items.PAPER));
+            packet(printer,tag->{tag.putInt("Remaining",phase<20?20-phase:-1);tag.putInt("StrokeTicks",20);});
+            if(phase==15){
+                if(current.getWorld().getBlockEntity(depot) instanceof DepotBlockEntity held)held.setHeldItem(scroll("firebolt",1));
+                printer.tank.drain(250,IFluidHandler.FluidAction.EXECUTE);
+            }
+        });
+    }
+    public static void reactorField(SceneBuilder scene,BlockPos controller,int units){
+        scene.world().modifyBlockEntity(controller,dev.createspellbook.reactor.ReactorControllerBlockEntity.class,be->packet(be,tag->{
+            tag.putLong("ReactorOrigin",new BlockPos(10,1,8).asLong());tag.putString("ReactorFacing","south");tag.putInt("ReactorSize",9);tag.putString("ReactorIssue","NONE");
+            var operation=tag.getCompound("Operation");operation.putInt("FieldSize",units);operation.putBoolean("Requested",units>0);operation.putInt("CorePairs",1);operation.putInt("ReactionCount",1);operation.putInt("EnergyCount",1);
+            operation.putInt("ActualSU",(int)(4096L*units/10));operation.putInt("RPM",256);operation.putInt("Working",1);operation.putInt("StoredMana",16000);operation.putInt("ManaCapacity",1372000);operation.putString("RunState",units>0?"RUNNING":"IDLE");operation.putString("Alarm","NONE");operation.putInt("AccidentPhase",0);tag.put("Operation",operation);
+        }));
+    }
+    public static void casts(SceneBuilder scene,BlockPos pos,int ticks){
+        animate(scene,ticks,(current,frame)->{
+            var be=current.getWorld().getBlockEntity(pos);long now=current.getWorld().getGameTime();int age=frame%24;
+            if(be instanceof ArcaneCastingArmBlockEntity arm){arm.ledger.lastRelease=now-age;}
+            if(be instanceof dev.createspellbook.constructs.ArcaneAutoCasterBlockEntity caster){caster.ledger.lastRelease=now-age;}
+        });
+    }
     public static ItemStack stack(ItemLike item) {
         return new ItemStack(item);
     }
@@ -52,20 +93,20 @@ public final class PonderFx {
     }
 
     public static void text(SceneBuilder scene, String key, Vec3 point, int ticks) {
-        int duration = Math.min(ticks, 50);
+        int duration = Math.max(40, Math.min(ticks, 110));
         TextElementBuilder text = scene.overlay().showText(duration).sharedText(key).pointAt(point).placeNearTarget();
         text.attachKeyFrame();
         // Ponder has no "replace current caption" call. Waiting for the element
         // to expire keeps long Chinese lines from being drawn on top of each other.
-        scene.idle(duration + 5);
+        scene.idle(duration + 10);
     }
 
     public static void outlineText(SceneBuilder scene, Selection selection, PonderPalette color, String key, Vec3 point, int ticks) {
-        int duration = Math.min(ticks, 50);
+        int duration = Math.max(40, Math.min(ticks, 110));
         TextElementBuilder text = scene.overlay().showOutlineWithText(selection, duration)
                 .colored(color).sharedText(key).pointAt(point).placeNearTarget();
         text.attachKeyFrame();
-        scene.idle(duration + 5);
+        scene.idle(duration + 10);
     }
 
     public static void outline(SceneBuilder scene, Selection selection, PonderPalette color, Object key, int ticks) {

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": ["III", "III", "III"],
+  "key": {"I": {"item": "create_spellbook:singularity_ingot"}},
+  "result": {"id": "create_spellbook:singularity_block", "count": 1}
+}

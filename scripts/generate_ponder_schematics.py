@@ -167,9 +167,11 @@ def reactor_schematic():
     s.set(at(4, 0, 4), ENERGY_CORE)
     s.set(at(8, 4, 4), REACTOR_SHAFT, {'facing': 'west'})
 
-    # Create shaft and cogwheel on the reactor's west face.
-    s.set((1, 5, 4), SHAFT, {'waterlogged': 'false', 'axis': 'x'}, kinetic('create:simple_kinetic'))
-    s.set((0, 5, 4), COGWHEEL, {'waterlogged': 'false', 'axis': 'x'}, kinetic('create:simple_kinetic'))
+    # A visible creative motor drives the west-facing reactor shaft. Create's
+    # shaft/cogwheel renderers are Flywheel visuals and do not draw in a
+    # PonderLevel, so using them here made the external power connection look
+    # missing in the tutorial.
+    s.set((1, 5, 4), MOTOR, {'facing': 'east'}, {'id': 'create:motor', 'Speed': 256.0, 'NeedsSpeedUpdate': 1})
 
     # External mana supply on the east face: tank -> vertical run -> pump -> interface.
     s.set((12, 1, 4), TANK, {'shape': 'window', 'top': 'true', 'bottom': 'true'}, tank_nbt())

@@ -3,6 +3,11 @@ package dev.createspellbook.constructs;
 import dev.createspellbook.*;
 import dev.createspellbook.devices.*;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.simibubi.create.content.kinetics.belt.behaviour.BeltProcessingBehaviour;
+import com.simibubi.create.content.kinetics.belt.behaviour.BeltProcessingBehaviour.ProcessingResult;
+import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackHandlerBehaviour;
+import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
@@ -28,29 +33,34 @@ public final class ArcaneCastingArmBlockEntity extends KineticBlockEntity implem
     private int interval=Balance.ARM_INTERVAL.get();
     private boolean inverted;
     private EmitterMode mode=EmitterMode.PULSE;
-    private float syncedYaw=180,syncedPitch;
+    private float syncedYaw,syncedPitch;
     public final ScrollTemplate scroll=new ScrollTemplate(this::constructChanged);
     public final CastLedger ledger=new CastLedger();
     public final FluidTank tank=new FluidTank(Balance.ARM_CAPACITY.get(),fluid->fluid.is(Content.MANA.get())) {
         @Override protected void onContentsChanged() {setCapacity(Math.max(getFluidAmount(),Balance.ARM_CAPACITY.get()));constructChanged();}
     };
-    public ArcaneCastingArmBlockEntity(BlockPos pos,BlockState state) {super(DeviceContent.CASTING_ARM_BE.get(),pos,state);}
+    public ArcaneCastingArmBlockEntity(BlockPos pos,BlockState state) {
+        super(DeviceContent.CASTING_ARM_BE.get(),pos,state);
+        syncedYaw=facing().toYRot();syncedPitch=-90f*facing().getStepY();
+    }
+    @Override public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        super.addBehaviours(behaviours);
+        behaviours.add(new BeltProcessingBehaviour(this).whenItemEnters(this::holdForSpell).whileItemHeld(this::holdForSpell));
+    }
     @Override public void initialize() {
         super.initialize();
         if(level!=null && !level.isClientSide) {
-            // Keep the six-value property so legacy UP/DOWN block states still load.
-            if(getBlockState().getValue(ArcaneCastingArmBlock.FACING).getAxis()==Direction.Axis.Y)
-                level.setBlockAndUpdate(worldPosition,getBlockState().setValue(ArcaneCastingArmBlock.FACING,Direction.NORTH));
             if(loadedFromDisk){lastPulseHigh=pulseSignal();loadedFromDisk=false;}
             ensureCaster();
         }
     }
-    public Direction facing() {var value=getBlockState().getValue(ArcaneCastingArmBlock.FACING);return value.getAxis()==Direction.Axis.Y?Direction.NORTH:value;}
-    public Direction fluidSide() {return facing().getClockWise();}
-    public IFluidHandler fluidPort(Direction side) {return side==null || side==fluidSide()?tank:null;}
+    public Direction facing() {return getBlockState().getValue(ArcaneCastingArmBlock.FACING);}
+    public Direction ringSide() {return ArcaneCastingArmBlock.ringSide(facing());}
+    public Direction fluidSide() {return facing().getAxis().isVertical()?Direction.EAST:facing().getClockWise();}
+    public IFluidHandler fluidPort(Direction side) {return side==null || side==fluidSide() || side==ringSide()?tank:null;}
     public IItemHandler scrollPort(Direction side) {return side==null || side==facing().getOpposite()?scroll:null;}
     /** The supplied nozzle ends 9/16 blocks beyond the front of its housing. */
-    private Vec3 pivot() {return Vec3.atCenterOf(worldPosition).add(0,3d/16,0);}
+    private Vec3 pivot() {return Vec3.atCenterOf(worldPosition).add(Vec3.atLowerCornerOf(ringSide().getNormal()).scale(3d/16));}
     private Vec3 muzzleFor(Vec3 target) {return pivot().add((mode==EmitterMode.TURRET?target.subtract(pivot()).normalize():Vec3.atLowerCornerOf(facing().getNormal())).scale(1.08));}
     public Vec3 muzzle() {var target=caster==null?null:caster.session.target();return muzzleFor(target==null?pivot().add(Vec3.atLowerCornerOf(facing().getNormal())):target.getBoundingBox().getCenter());}
     public float aimYaw() {return level!=null && !level.isClientSide && caster!=null?caster.getYRot():syncedYaw;}
@@ -119,21 +129,47 @@ public final class ArcaneCastingArmBlockEntity extends KineticBlockEntity implem
     private LivingEntity findEnemy() {
         return ConstructTargeting.nearest(caster,constructPosition(),Balance.EMITTER_RANGE.get(),this::validEnemy);
     }
+    private ProcessingResult holdForSpell(TransportedItemStack item,TransportedItemStackHandlerBehaviour handler) {
+        var target=handler.getPos();
+        if(!(level instanceof ServerLevel) || isChunkUnloaded() || facing()!=Direction.DOWN || mode!=EmitterMode.PROCESSING
+                || !target.equals(worldPosition.below(2)) || !operating() || caster()==null
+                || BeltProcessingBehaviour.isBlocked(level,target)
+                || !(SpellTarget.at(level,target) instanceof SpellProcessingBehaviour processing))return ProcessingResult.PASS;
+        var selected=ScrollTemplate.read(scroll.getStackInSlot(0));
+        if(selected.isEmpty())return ProcessingResult.PASS;
+        var data=selected.get();var spell=data.getSpell();
+        if(!spell.isEnabled() || !ScrollTemplate.supported(spell,data.getLevel()))return ProcessingResult.PASS;
+        int effective=spell.getLevelFor(data.getLevel(),caster);
+        if(!ScrollTemplate.supported(spell,effective))return ProcessingResult.PASS;
+        int cost=spell.getManaCost(effective);
+        return cost>=0 && liquidCost(cost)<=manaCapacity()
+                && processing.matchingRecipe(item.stack,spell.getSpellResource(),spell.getSchoolType().getId(),effective).isPresent()
+                && visible(Vec3.atCenterOf(target).add(0,.15,0),target)?ProcessingResult.HOLD:ProcessingResult.PASS;
+    }
     private boolean eligible(SpellProcessingBehaviour depot,AbstractSpell spell,int spellLevel) {
-        BlockPos delta=depot.getPos().subtract(worldPosition);var forward=facing().getNormal();int distance=delta.getX()*forward.getX()+delta.getZ()*forward.getZ();
-        return distance>=2 && distance<=Balance.EMITTER_RANGE.get() && (delta.getY()==0 || delta.getY()==-1)
-                && delta.getX()==forward.getX()*distance && delta.getZ()==forward.getZ()*distance
-                && depot.matchingRecipe(spell.getSpellResource(),spell.getSchoolType().getId(),spellLevel).isPresent()
-                && visible(Vec3.atCenterOf(depot.getPos()).add(0,.15,0),depot.getPos());
+        var pos=depot.getPos();
+        if(facing().getAxis().isVertical()) {
+            if(facing()!=Direction.DOWN || !pos.equals(worldPosition.below(2)) || BeltProcessingBehaviour.isBlocked(level,pos))return false;
+        } else {
+            var delta=pos.subtract(worldPosition);var forward=facing().getNormal();
+            int distance=delta.getX()*forward.getX()+delta.getZ()*forward.getZ();
+            if(distance<2 || distance>Balance.EMITTER_RANGE.get() || delta.getY()>0 || delta.getY()<-1
+                    || delta.getX()!=forward.getX()*distance || delta.getZ()!=forward.getZ()*distance)return false;
+        }
+        return depot.matchingRecipe(spell.getSpellResource(),spell.getSchoolType().getId(),spellLevel).isPresent()
+                && visible(Vec3.atCenterOf(pos).add(0,.15,0),pos);
     }
     private LivingEntity findDepot(AbstractSpell spell,int spellLevel) {
+        if(facing().getAxis().isVertical())return facing()==Direction.DOWN?processingProbe(worldPosition.below(2),spell,spellLevel):null;
         for(int distance=2;distance<=Balance.EMITTER_RANGE.get();distance++)for(int dy=0;dy>=-1;dy--) {
             var pos=worldPosition.relative(facing(),distance).offset(0,dy,0);
-            if(level.hasChunkAt(pos) && SpellTarget.at(level,pos) instanceof SpellProcessingBehaviour depot && eligible(depot,spell,spellLevel)) {
-                if(depot.probe()==null)depot.initialize();return depot.probe();
-            }
+            var probe=processingProbe(pos,spell,spellLevel);if(probe!=null)return probe;
         }
         return null;
+    }
+    private SpellDeviceProbe processingProbe(BlockPos pos,AbstractSpell spell,int spellLevel) {
+        if(!(SpellTarget.at(level,pos) instanceof SpellProcessingBehaviour depot) || !eligible(depot,spell,spellLevel))return null;
+        if(depot.probe()==null)depot.initialize();return depot.probe();
     }
     @Override public boolean validCastTarget(LivingEntity target,AbstractSpell spell,int spellLevel) {
         if(mode==EmitterMode.PULSE)return target==null && visible(muzzle(),null);
@@ -178,6 +214,7 @@ public final class ArcaneCastingArmBlockEntity extends KineticBlockEntity implem
         tank.setCapacity(Math.max(tank.getFluidAmount(),Balance.ARM_CAPACITY.get()));ledger.load(tag.getCompound("CastingLedger"));
         interval=tag.contains("Interval")?Math.clamp(tag.getInt("Interval"),1,12000):Balance.ARM_INTERVAL.get();inverted=tag.getBoolean("Inverted");owner=tag.hasUUID("Owner")?tag.getUUID("Owner"):null;
         mode=EmitterMode.fromId(tag.getInt("EmitterMode"));lastPulseHigh=tag.getBoolean("LastPulseHigh");if(!packet)loadedFromDisk=true;
-        syncedYaw=tag.contains("AimYaw")?tag.getFloat("AimYaw"):facing().toYRot();syncedPitch=tag.getFloat("AimPitch");
+        syncedYaw=tag.contains("AimYaw")?tag.getFloat("AimYaw"):facing().toYRot();
+        syncedPitch=tag.contains("AimPitch")?tag.getFloat("AimPitch"):-90f*facing().getStepY();
     }
 }

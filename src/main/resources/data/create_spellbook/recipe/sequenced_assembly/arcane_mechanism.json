@@ -1,0 +1,24 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {"item": "create_spellbook:arcane_plate"},
+  "transitional_item": {"id": "create_spellbook:incomplete_arcane_mechanism"},
+  "loops": 3,
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [{"item": "create_spellbook:incomplete_arcane_mechanism"}, {"item": "create:cogwheel"}],
+      "results": [{"id": "create_spellbook:incomplete_arcane_mechanism"}]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [{"item": "create_spellbook:incomplete_arcane_mechanism"}, {"item": "irons_spellbooks:blank_rune"}],
+      "results": [{"id": "create_spellbook:incomplete_arcane_mechanism"}]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [{"item": "create_spellbook:incomplete_arcane_mechanism"}, {"item": "irons_spellbooks:arcane_essence"}],
+      "results": [{"id": "create_spellbook:incomplete_arcane_mechanism"}]
+    }
+  ],
+  "results": [{"id": "create_spellbook:arcane_mechanism", "count": 1}]
+}

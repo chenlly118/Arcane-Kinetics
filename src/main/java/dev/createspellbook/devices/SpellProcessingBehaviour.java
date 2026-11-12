@@ -61,11 +61,11 @@ public final class SpellProcessingBehaviour extends BlockEntityBehaviour impleme
         var handler=transport();if(handler==null)return Optional.empty();
         var found=new ArrayList<dev.createspellbook.processing.SpellProcessing.Plan>(1);
         handler.handleCenteredProcessingOnAllItems(.5f,item->{
-            if(found.isEmpty())matching(item.stack,spell,school,level).ifPresent(found::add);
+            if(found.isEmpty())matchingRecipe(item.stack,spell,school,level).ifPresent(found::add);
             return TransportedResult.doNothing();
         });return found.stream().findFirst();
     }
-    private Optional<dev.createspellbook.processing.SpellProcessing.Plan> matching(ItemStack input,net.minecraft.resources.ResourceLocation spell,net.minecraft.resources.ResourceLocation school,int level){
+    public Optional<dev.createspellbook.processing.SpellProcessing.Plan> matchingRecipe(ItemStack input,net.minecraft.resources.ResourceLocation spell,net.minecraft.resources.ResourceLocation school,int level){
         return dev.createspellbook.processing.SpellProcessing.find(getWorld(),input,spell,school,level)
                 .filter(plan->outputFitsPlan(input,plan));
     }
@@ -100,7 +100,7 @@ public final class SpellProcessingBehaviour extends BlockEntityBehaviour impleme
         boolean[] processed={false};
         handler.handleCenteredProcessingOnAllItems(.5f,item->{
             if(processed[0] || ((dev.createspellbook.processing.SpellTransportHistory)item).createSpellbook$seen(hit.castId()))return TransportedResult.doNothing();
-            var match=matching(item.stack,hit.spellId(),hit.schoolId(),hit.level());if(match.isEmpty())return TransportedResult.doNothing();
+            var match=matchingRecipe(item.stack,hit.spellId(),hit.schoolId(),hit.level());if(match.isEmpty())return TransportedResult.doNothing();
             var recipe=match.get();var result=recipe.craft(getWorld(),item.stack);if(!outputFits(item.stack,recipe.inputCount(),result))return TransportedResult.doNothing();
             ((dev.createspellbook.processing.SpellTransportHistory)item).createSpellbook$mark(hit.castId());
             if(hit.castId()!=null)repeated(casts,hit.castId());

@@ -50,8 +50,4 @@ public final class CollapsedMatterItem extends Item {
         // Same deferred replacement lifecycle used by NeoForge's custom item API.
         level.getServer().tell(new TickTask(0,()->level.addFreshEntity(replacement)));
     }
-    @Override public boolean onDroppedByPlayer(ItemStack stack,Player player){
-        if(!player.level().isClientSide)player.displayClientMessage(Component.translatable("message.create_spellbook.waste_drop").withStyle(net.minecraft.ChatFormatting.GOLD),true);return true;
-    }
-    @Override public void appendHoverText(ItemStack stack,TooltipContext context,List<Component> lines,TooltipFlag flag){super.appendHoverText(stack,context,lines,flag);lines.add(Component.translatable("tooltip.create_spellbook.collapsed_matter").withStyle(net.minecraft.ChatFormatting.GOLD));}
 }

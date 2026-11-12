@@ -15,7 +15,7 @@ SECRET_RULES = {
     'private key': re.compile(r'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----'),
     'literal credential': re.compile(r'(?i)\b(?:modrinth_token|github_token|access_token|password)\s*[:=]\s*[\"\']?[A-Za-z0-9_.-]{24,}'),
 }
-PRIVATE_PARTS = {'.cache', '.g', '.gradle', 'backups', 'build', 'dist', 'run', 'logs', 'tmp', 'art', 'integrations', 'saves', 'world', '__pycache__'}
+PRIVATE_PARTS = {'.cache', '.g', '.gradle', 'backups', 'build', 'dist', 'run', 'logs', 'tmp', 'art', 'prototypes', 'integrations', 'saves', 'world', '__pycache__'}
 
 
 def check(jar=None, publish=False):

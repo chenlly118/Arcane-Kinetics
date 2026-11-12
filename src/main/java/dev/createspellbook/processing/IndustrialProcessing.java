@@ -39,28 +39,28 @@ public final class IndustrialProcessing {
         int amount=Math.min(snapshot.getCount(), budget.remaining);
         List<ItemStack> products=new ArrayList<>();
         SingleRecipeInput recipeInput=new SingleRecipeInput(snapshot.copyWithCount(1));
+        Recipe<?> selected;
         if(mode==Mode.BLAST) {
-            var recipe=blastRecipe(level,recipeInput);
-            if(recipe==null) return 0;
-            ItemStack result=recipe.assemble(recipeInput,level.registryAccess());
-            if(result.isEmpty()) return 0;
-            for(int n=0;n<amount;n++) products.add(result.copy());
+            selected=fanRecipe(level,recipeInput);
         } else {
             AllRecipeTypes type=switch(mode) { case PRESS->AllRecipeTypes.PRESSING; case SAW->AllRecipeTypes.CUTTING; case CRUSH->AllRecipeTypes.CRUSHING; default->throw new IllegalStateException(); };
-            // CuttingRecipe in Create 6.0.9 accepts RecipeWrapper, unlike pressing/crushing.
-            // AllRecipeTypes.find is generic but does not enforce each enum entry's input type.
+            // CuttingRecipe uses RecipeWrapper in Create 6.0.9.
             Optional<? extends RecipeHolder<?>> optional;
             if(mode==Mode.SAW) {
                 var handler=new ItemStackHandler(1);
-                handler.setStackInSlot(0,snapshot.copyWithCount(1));
-                optional=AllRecipeTypes.CUTTING.find(new RecipeWrapper(handler),level).filter(AllRecipeTypes.CAN_BE_AUTOMATED);
+                handler.setStackInSlot(0,recipeInput.item());
+                optional=type.find(new RecipeWrapper(handler),level).filter(AllRecipeTypes.CAN_BE_AUTOMATED);
             } else optional=type.find(recipeInput,level).filter(AllRecipeTypes.CAN_BE_AUTOMATED);
             if(optional.isEmpty() && mode==Mode.CRUSH) optional=AllRecipeTypes.MILLING.find(recipeInput,level).filter(AllRecipeTypes.CAN_BE_AUTOMATED);
-            if(optional.isEmpty()) return 0;
-            if(!(optional.get().value() instanceof ProcessingRecipe<?,?> recipe)) return 0;
-            if(recipe.getIngredients().size()!=1 || !recipe.getFluidIngredients().isEmpty() || !recipe.getFluidResults().isEmpty()) return 0;
-            for(int n=0;n<amount;n++) products.addAll(recipe.rollResults(level.random));
+            selected=optional.isPresent()?optional.get().value():null;
         }
+        if(selected instanceof AbstractCookingRecipe cooking) {
+            ItemStack result=cooking.assemble(recipeInput,level.registryAccess());
+            if(result.isEmpty()) return 0;
+            for(int n=0;n<amount;n++) products.add(result.copy());
+        } else if(selected instanceof ProcessingRecipe<?,?> recipe && itemOnly(recipe)) {
+            for(int n=0;n<amount;n++) products.addAll(recipe.rollResults(level.random));
+        } else return 0;
         ItemStack single=snapshot.copyWithCount(1);
         if(single.hasCraftingRemainingItem()) for(int n=0;n<amount;n++) products.add(single.getCraftingRemainingItem());
         if(!ItemStack.matches(snapshot,input.getItem())) return 0;
@@ -89,13 +89,17 @@ public final class IndustrialProcessing {
         return amount;
     }
 
-    private static AbstractCookingRecipe blastRecipe(ServerLevel level, SingleRecipeInput input) {
+    private static boolean itemOnly(ProcessingRecipe<?,?> recipe) {
+        return recipe.getIngredients().size()==1 && recipe.getFluidIngredients().isEmpty() && recipe.getFluidResults().isEmpty();
+    }
+
+    private static Recipe<?> fanRecipe(ServerLevel level, SingleRecipeInput input) {
         Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> selected=level.getRecipeManager().getRecipeFor(RecipeType.SMELTING,input,level).filter(AllRecipeTypes.CAN_BE_AUTOMATED);
         if(selected.isEmpty()) selected=level.getRecipeManager().getRecipeFor(RecipeType.BLASTING,input,level).filter(AllRecipeTypes.CAN_BE_AUTOMATED);
-        if(selected.isEmpty()) return null;
-        var smoking=level.getRecipeManager().getRecipeFor(RecipeType.SMOKING,input,level).filter(AllRecipeTypes.CAN_BE_AUTOMATED);
-        if(smoking.isPresent() && ItemStack.isSameItem(smoking.get().value().getResultItem(level.registryAccess()),selected.get().value().getResultItem(level.registryAccess()))) return null;
-        return selected.get().value();
+        if(selected.isPresent()) return selected.get().value();
+        var haunting=AllRecipeTypes.HAUNTING.find(input,level).filter(AllRecipeTypes.CAN_BE_AUTOMATED);
+        if(haunting.isPresent() && haunting.get().value() instanceof ProcessingRecipe<?,?> recipe && itemOnly(recipe)) return recipe;
+        return level.getRecipeManager().getRecipeFor(RecipeType.SMOKING,input,level).filter(AllRecipeTypes.CAN_BE_AUTOMATED).map(RecipeHolder::value).orElse(null);
     }
     private IndustrialProcessing() {}
 }
